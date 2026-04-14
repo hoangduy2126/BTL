@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | VRTX Studio</title>
+    <meta name="description" content="VRTX Studio is a creative design studio crafting meaningful brand experiences through strategy, identity, and digital craft.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --green: #4ade80;
+            --cyan:  #00ffff;
+            --magenta: #ff00cc;
+        }
+
+        body {
+            background: #000;
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ── Canvas BG ───────────────────────────────────────── */
+        #bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── Page Shell ──────────────────────────────────────── */
+        #page {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ── Header ──────────────────────────────────────────── */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 3rem;
+        }
+
+        .header-logo {
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.95;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.25s;
+        }
+        .nav-link:hover { color: #fff; }
+        .nav-link.active { color: #fff; }
+
+        .pill-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.42rem 1.1rem;
+            border-radius: 999px;
+            background: rgba(74, 222, 128, 0.18);
+            border: 1px solid rgba(74, 222, 128, 0.55);
+            color: var(--green);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.25s, border-color 0.25s;
+        }
+        .pill-btn::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 6px var(--green);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%,100% { opacity: 1; transform: scale(1); }
+            50%      { opacity: 0.5; transform: scale(0.7); }
+        }
+        .pill-btn:hover {
+            background: rgba(74, 222, 128, 0.28);
+            border-color: rgba(74, 222, 128, 0.9);
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.42rem 1.3rem;
+            border-radius: 999px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.35);
+            color: rgba(255,255,255,0.85);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.25s, border-color 0.25s, color 0.25s;
+        }
+        .cta-btn:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.7);
+            color: #fff;
+        }
+
+        /* ── Main Content ─────────────────────────────────────── */
+        main {
+            flex: 1;
+            padding: 4rem 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Page label */
+        .page-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .page-label::before {
+            content: '';
+            display: inline-block;
+            width: 28px;
+            height: 1px;
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* Hero headline */
+        .hero-headline {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            font-weight: 400;
+            line-height: 1.15;
+            max-width: 720px;
+            margin-bottom: 4rem;
+        }
+        .hero-headline em {
+            font-style: normal;
+            background: linear-gradient(90deg, var(--cyan), var(--magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Two-column layout */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 6rem;
+        }
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+        }
+
+        .about-col p {
+            font-size: 0.92rem;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.62);
+            margin-bottom: 1.2rem;
+        }
+        .about-col p:last-child { margin-bottom: 0; }
+
+        /* Stats row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            padding: 3rem 0;
+            margin-bottom: 6rem;
+        }
+        @media (max-width: 768px) {
+            .stats-row { grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; }
+        }
+
+        .stat-item { display: flex; flex-direction: column; gap: 0.4rem; }
+        .stat-number {
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff 40%, rgba(255,255,255,0.45));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* Team section */
+        .section-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .section-label::before {
+            content: '';
+            display: inline-block;
+            width: 28px;
+            height: 1px;
+            background: rgba(255,255,255,0.25);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 6rem;
+        }
+        @media (max-width: 768px) {
+            .team-grid { grid-template-columns: 1fr; }
+        }
+
+        .team-card {
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 2px;
+            padding: 2rem 1.8rem;
+            background: rgba(255,255,255,0.02);
+            backdrop-filter: blur(6px);
+            transition: border-color 0.3s, background 0.3s, transform 0.3s;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,255,255,0.5), transparent);
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+        .team-card:hover {
+            border-color: rgba(255,255,255,0.14);
+            background: rgba(255,255,255,0.04);
+            transform: translateY(-4px);
+        }
+        .team-card:hover::before { opacity: 1; }
+
+        .team-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .avatar-cyan  { background: rgba(0,255,255,0.12); color: var(--cyan); border: 1px solid rgba(0,255,255,0.3); }
+        .avatar-mg    { background: rgba(255,0,204,0.12); color: var(--magenta); border: 1px solid rgba(255,0,204,0.3); }
+        .avatar-green { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.3); }
+
+        .team-name {
+            font-size: 0.88rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.3rem;
+        }
+        .team-role {
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 1rem;
+        }
+        .team-bio {
+            font-size: 0.82rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,0.55);
+        }
+
+        /* Values section */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            border: 1px solid rgba(255,255,255,0.07);
+            margin-bottom: 6rem;
+        }
+        @media (max-width: 640px) {
+            .values-grid { grid-template-columns: 1fr; }
+        }
+
+        .value-item {
+            padding: 2.2rem 2rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.01);
+            transition: background 0.3s;
+        }
+        .value-item:hover { background: rgba(255,255,255,0.03); }
+
+        .value-index {
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            margin-bottom: 0.9rem;
+        }
+        .value-title {
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.02em;
+        }
+        .value-desc {
+            font-size: 0.82rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ── Footer ──────────────────────────────────────────── */
+        footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 3rem 3.5rem;
+            gap: 2.5rem;
+        }
+
+        .tagline {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-size: clamp(0.95rem, 1.5vw, 1.25rem);
+            font-weight: 400;
+            color: rgba(255,255,255,0.65);
+            letter-spacing: 0.02em;
+            text-align: center;
+            max-width: 540px;
+            line-height: 1.6;
+        }
+
+        .footer-meta {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: space-between;
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ── Loading screen ──────────────────────────────────── */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            z-index: 999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        #loading-screen.hidden { opacity: 0; visibility: hidden; }
+        .loading-logo {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.9);
+        }
+        .loading-bar-wrap {
+            width: 160px; height: 1px;
+            background: rgba(255,255,255,0.12);
+            overflow: hidden;
+        }
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffff, #ff00cc);
+            animation: load-bar 1.2s cubic-bezier(.4,0,.2,1) forwards;
+        }
+        @keyframes load-bar { from { width: 0; } to { width: 100%; } }
+        .loading-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ── Fade-in animation ───────────────────────────────── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(18px);
+            animation: fadeUp 0.75s cubic-bezier(.4,0,.2,1) forwards;
+        }
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.22s; }
+        .delay-3 { animation-delay: 0.36s; }
+        .delay-4 { animation-delay: 0.52s; }
+        .delay-5 { animation-delay: 0.68s; }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-logo">VRTX</div>
+        <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+        <div class="loading-label">About Us</div>
+    </div>
+
+    <!-- Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Page -->
+    <div id="page">
+        <header>
+            <a href="./index.html" class="header-logo">VRTX Studio</a>
+            <nav class="header-nav">
+                <a href="./index.html" class="nav-link">Home</a>
+                <a href="./about.html" class="nav-link active">About</a>
+                <a href="./works.html" class="nav-link">Work</a>
+                <a href="./contact.html" class="nav-link">Contact</a>
+                <a href="./contact.html" class="pill-btn">New Creative Lab</a>
+                <a href="./contact.html" class="cta-btn">Let's Talk</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="page-label fade-in delay-1">01 — About Us</div>
+
+            <h1 class="hero-headline fade-in delay-2">
+                We craft identities that <em>outlast</em> the moment they're made.
+            </h1>
+
+            <div class="about-grid fade-in delay-3">
+                <div class="about-col">
+                    <p>VRTX Studio is an independent design studio operating at the intersection of strategy and craft. We believe a brand is more than a visual system — it's a living argument for why something should exist in the world.</p>
+                    <p>Founded in 2019, we've partnered with founders, cultural institutions, and global companies to define the visual languages that shape how people perceive the things they love.</p>
+                </div>
+                <div class="about-col">
+                    <p>Our process is deliberate and unhurried. We don't arrive at a logo on day one. We arrive at understanding first — of your audience, your competitors, your ambition — and let the form follow from there.</p>
+                    <p>The result is work that holds. Work that looks right in five years. Work with a reason behind every decision.</p>
+                </div>
+            </div>
+
+            <div class="stats-row fade-in delay-4">
+                <div class="stat-item">
+                    <span class="stat-number">7+</span>
+                    <span class="stat-label">Years of practice</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">120</span>
+                    <span class="stat-label">Projects delivered</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">34</span>
+                    <span class="stat-label">Countries reached</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">18</span>
+                    <span class="stat-label">Awards received</span>
+                </div>
+            </div>
+
+            <div class="section-label fade-in delay-2">The team</div>
+            <div class="team-grid fade-in delay-3">
+                <div class="team-card">
+                    <div class="team-avatar avatar-cyan">NK</div>
+                    <div class="team-name">Nguyen Khoa</div>
+                    <div class="team-role">Creative Director</div>
+                    <div class="team-bio">Shapes the strategic and visual direction of every engagement. Obsessed with the invisible logic that makes great brands click.</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar avatar-mg">LH</div>
+                    <div class="team-name">Le Hoang</div>
+                    <div class="team-role">Lead Designer</div>
+                    <div class="team-bio">Turns abstract briefs into refined visual systems. Works at the edge of print tradition and digital materiality.</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar avatar-green">TM</div>
+                    <div class="team-name">Tran Minh</div>
+                    <div class="team-role">Motion & 3D</div>
+                    <div class="team-bio">Brings brands to life across time and space. Specialises in title sequences, interactive experiences, and immersive environments.</div>
+                </div>
+            </div>
+
+            <div class="section-label fade-in delay-2">What we stand for</div>
+            <div class="values-grid fade-in delay-3">
+                <div class="value-item">
+                    <div class="value-index">01</div>
+                    <div class="value-title">Intention over impulse</div>
+                    <div class="value-desc">Every decision has a reason. We don't reach for a typeface because it looks good — we reach for it because it says the right thing.</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-index">02</div>
+                    <div class="value-title">Depth over decoration</div>
+                    <div class="value-desc">Surface beauty fades. We design systems that carry meaning at every level — from the mark to the motion to the copy voice.</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-index">03</div>
+                    <div class="value-title">Collaboration as craft</div>
+                    <div class="value-desc">The best work happens when client and studio think together. We treat every project as a partnership, not a transaction.</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-index">04</div>
+                    <div class="value-title">Longevity by design</div>
+                    <div class="value-desc">We design for the long arc. A VRTX identity should feel as contemporary in a decade as it does the day it launches.</div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p class="tagline">Creating memorable brand experiences not for attention but for impact.</p>
+            <div class="footer-meta">
+                <span>[ VRTX Studio — About ]</span>
+                <span>&copy; 2026 VRTX Inc.</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ── Particle canvas background (no Three.js needed here) ──────────
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let W, H, particles = [];
+
+        const PALETTE = [
+            [0,255,255], [255,0,204], [255,204,0], [74,222,128], [170,0,255]
+        ];
+
+        function resize() {
+            W = canvas.width  = innerWidth;
+            H = canvas.height = innerHeight;
+        }
+
+        function initParticles(count = 280) {
+            particles = [];
+            for (let i = 0; i < count; i++) {
+                const c = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+                particles.push({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 1.2 + 0.3,
+                    dx: (Math.random() - 0.5) * 0.18,
+                    dy: (Math.random() - 0.5) * 0.18,
+                    color: `rgba(${c[0]},${c[1]},${c[2]},`,
+                    alpha: Math.random() * 0.45 + 0.1,
+                });
+            }
+        }
+
+        function drawFrame() {
+            ctx.clearRect(0, 0, W, H);
+            for (const p of particles) {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.color + p.alpha + ')';
+                ctx.fill();
+                p.x += p.dx;
+                p.y += p.dy;
+                if (p.x < 0) p.x = W;
+                if (p.x > W) p.x = 0;
+                if (p.y < 0) p.y = H;
+                if (p.y > H) p.y = 0;
+            }
+            requestAnimationFrame(drawFrame);
+        }
+
+        resize();
+        initParticles();
+        drawFrame();
+        window.addEventListener('resize', () => { resize(); initParticles(); });
+
+        // Hide loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('hidden');
+            }, 1300);
+        });
+    </script>
+</body>
+</html>
