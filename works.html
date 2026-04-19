@@ -7,130 +7,8 @@
     <meta name="description" content="Selected projects from VRTX Studio — brand identity, motion design, and digital experiences crafted for impact.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-            --green: #4ade80;
-            --cyan: #00ffff;
-            --magenta: #ff00cc;
-        }
-
-        body {
-            background: #000;
-            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-            color: #fff;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        #bg-canvas {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        #page {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* ── Header ──────────────────────────────────────────── */
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 2rem 3rem;
-        }
-
-        .header-logo {
-            font-size: 0.82rem;
-            font-weight: 600;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: #fff;
-            text-decoration: none;
-            opacity: 0.95;
-        }
-
-        .header-nav {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            font-size: 0.78rem;
-            font-weight: 500;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: color 0.25s;
-        }
-        .nav-link:hover { color: #fff; }
-        .nav-link.active { color: #fff; }
-
-        .pill-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            padding: 0.42rem 1.1rem;
-            border-radius: 999px;
-            background: rgba(74, 222, 128, 0.18);
-            border: 1px solid rgba(74, 222, 128, 0.55);
-            color: var(--green);
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.25s, border-color 0.25s;
-        }
-        .pill-btn::before {
-            content: '';
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--green);
-            box-shadow: 0 0 6px var(--green);
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
-        @keyframes pulse-dot {
-            0%,100% { opacity: 1; transform: scale(1); }
-            50%      { opacity: 0.5; transform: scale(0.7); }
-        }
-        .pill-btn:hover {
-            background: rgba(74, 222, 128, 0.28);
-            border-color: rgba(74, 222, 128, 0.9);
-        }
-
-        .cta-btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.42rem 1.3rem;
-            border-radius: 999px;
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.35);
-            color: rgba(255,255,255,0.85);
-            font-size: 0.78rem;
-            font-weight: 500;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.25s, border-color 0.25s, color 0.25s;
-        }
-        .cta-btn:hover {
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.7);
-            color: #fff;
-        }
-
         /* ── Main ─────────────────────────────────────────────── */
         main {
             flex: 1;
@@ -139,104 +17,71 @@
             margin: 0 auto;
             width: 100%;
         }
-
-        .page-label {
-            font-size: 0.65rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.3);
-            margin-bottom: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        .page-label::before {
-            content: '';
-            display: inline-block;
-            width: 28px; height: 1px;
-            background: rgba(255,255,255,0.25);
-        }
-
-        .hero-headline {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-style: italic;
-            font-size: clamp(2.4rem, 5vw, 4.2rem);
-            font-weight: 400;
-            line-height: 1.15;
-            max-width: 720px;
-            margin-bottom: 1.5rem;
-        }
-        .hero-headline em {
-            font-style: normal;
-            background: linear-gradient(90deg, var(--cyan), var(--magenta));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+        @media (max-width: 768px) { main { padding: 3rem 1.5rem 2rem; } }
 
         .hero-sub {
             font-size: 0.88rem;
-            color: rgba(255,255,255,0.45);
+            color: rgba(255,255,255,0.42);
             max-width: 480px;
-            line-height: 1.75;
+            line-height: 1.78;
             margin-bottom: 4rem;
+            margin-top: -2.5rem;
         }
 
-        /* ── Filter tabs ─────────────────────────────────────── */
+        /* ── Filter tabs ──────────────────────────────────────── */
         .filter-bar {
             display: flex;
             gap: 0.5rem;
             margin-bottom: 3.5rem;
             flex-wrap: wrap;
         }
-
         .filter-tab {
             padding: 0.35rem 1rem;
             border-radius: 999px;
-            border: 1px solid rgba(255,255,255,0.12);
-            color: rgba(255,255,255,0.5);
-            font-size: 0.72rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.45);
+            font-size: 0.7rem;
             font-weight: 500;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            cursor: pointer;
             background: transparent;
-            transition: all 0.2s;
+            transition: all 0.22s;
         }
         .filter-tab:hover {
-            border-color: rgba(255,255,255,0.3);
-            color: rgba(255,255,255,0.85);
+            border-color: rgba(255,255,255,0.28);
+            color: rgba(255,255,255,0.8);
         }
         .filter-tab.active {
             background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.4);
+            border-color: rgba(255,255,255,0.38);
             color: #fff;
         }
 
-        /* ── Works grid ──────────────────────────────────────── */
+        /* ── Works grid ───────────────────────────────────────── */
         .works-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 1.5rem;
             margin-bottom: 6rem;
+            transition: all 0.3s;
         }
 
         .work-card {
             border: 1px solid rgba(255,255,255,0.07);
             background: rgba(255,255,255,0.02);
             overflow: hidden;
-            cursor: pointer;
             position: relative;
-            transition: border-color 0.35s, transform 0.35s;
+            transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s, opacity 0.3s;
         }
         .work-card:hover {
             border-color: rgba(255,255,255,0.18);
             transform: translateY(-6px);
+            box-shadow: 0 28px 56px rgba(0,0,0,0.5);
         }
         .work-card:hover .card-overlay { opacity: 1; }
-        .work-card:hover .card-thumb-inner { transform: scale(1.04); }
+        .work-card:hover .card-thumb-inner { transform: scale(1.05); }
 
-        /* Spanning classes */
+        /* Spanning — all reset to span-6 when filtering */
         .span-7  { grid-column: span 7; }
         .span-5  { grid-column: span 5; }
         .span-4  { grid-column: span 4; }
@@ -245,7 +90,30 @@
         .span-12 { grid-column: span 12; }
 
         @media (max-width: 900px) {
-            .span-7, .span-5, .span-4, .span-8, .span-6 { grid-column: span 12; }
+            .span-7,.span-5,.span-4,.span-8,.span-6 { grid-column: span 12; }
+        }
+
+        /* When filter active, grid goes 2-col */
+        .works-grid.filtered .span-7,
+        .works-grid.filtered .span-5,
+        .works-grid.filtered .span-4,
+        .works-grid.filtered .span-8,
+        .works-grid.filtered .span-6 {
+            grid-column: span 6;
+        }
+        @media (max-width: 700px) {
+            .works-grid.filtered .span-7,
+            .works-grid.filtered .span-5,
+            .works-grid.filtered .span-4,
+            .works-grid.filtered .span-8,
+            .works-grid.filtered .span-6 {
+                grid-column: span 12;
+            }
+        }
+
+        /* Hidden cards vanish without leaving a gap */
+        .work-card.card-hidden {
+            display: none;
         }
 
         .card-thumb {
@@ -256,40 +124,42 @@
         }
         .card-thumb-inner {
             width: 100%; height: 100%;
-            transition: transform 0.5s cubic-bezier(.4,0,.2,1);
+            transition: transform 0.55s cubic-bezier(.4,0,.2,1);
         }
 
-        /* Gradient backgrounds as art-direction placeholders */
-        .thumb-1 { background: linear-gradient(135deg, #0a0a1a 0%, #0d1a2e 40%, #001a2a 100%);
+        /* Distinct gradient art-direction per card */
+        .thumb-1 { background: linear-gradient(135deg, #040d1a 0%, #061830 50%, #001422 100%);
                    display: flex; align-items: center; justify-content: center; }
-        .thumb-2 { background: linear-gradient(135deg, #1a0a1a 0%, #2e0d20 50%, #1a0028 100%);
+        .thumb-2 { background: linear-gradient(135deg, #17021a 0%, #2a0a22 55%, #160020 100%);
                    display: flex; align-items: center; justify-content: center; }
-        .thumb-3 { background: linear-gradient(135deg, #0a1a0a 0%, #0d280d 50%, #002810 100%);
+        .thumb-3 { background: linear-gradient(135deg, #041408 0%, #082210 55%, #001c08 100%);
                    display: flex; align-items: center; justify-content: center; }
-        .thumb-4 { background: linear-gradient(135deg, #1a1a0a 0%, #2a2200 60%, #1a1000 100%);
+        .thumb-4 { background: linear-gradient(135deg, #191200 0%, #2a1e00 60%, #161000 100%);
                    display: flex; align-items: center; justify-content: center; }
-        .thumb-5 { background: linear-gradient(135deg, #0d0d0d 0%, #1a0530 50%, #05001a 100%);
+        .thumb-5 { background: linear-gradient(135deg, #0a0614 0%, #180320 55%, #060018 100%);
                    display: flex; align-items: center; justify-content: center; }
-        .thumb-6 { background: linear-gradient(135deg, #001a1a 0%, #003333 50%, #001a2a 100%);
+        .thumb-6 { background: linear-gradient(135deg, #001818 0%, #003030 55%, #001a24 100%);
                    display: flex; align-items: center; justify-content: center; }
 
         .thumb-glyph {
             font-size: clamp(2.5rem, 5vw, 5rem);
             font-weight: 700;
-            letter-spacing: 0.05em;
-            opacity: 0.18;
+            letter-spacing: 0.06em;
+            opacity: 0.16;
+            user-select: none;
         }
         .glyph-cyan    { color: var(--cyan); }
         .glyph-magenta { color: var(--magenta); }
         .glyph-green   { color: var(--green); }
-        .glyph-gold    { color: #ffcc00; }
-        .glyph-violet  { color: #aa00ff; }
+        .glyph-gold    { color: var(--gold); }
+        .glyph-violet  { color: var(--violet); }
 
         /* Hover overlay */
         .card-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(2px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -297,132 +167,232 @@
             transition: opacity 0.3s;
         }
         .overlay-cta {
-            padding: 0.6rem 1.4rem;
-            border: 1px solid rgba(255,255,255,0.6);
+            padding: 0.65rem 1.5rem;
+            border: 1px solid rgba(255,255,255,0.7);
             border-radius: 999px;
-            font-size: 0.72rem;
-            font-weight: 500;
+            font-size: 0.7rem;
+            font-weight: 600;
             letter-spacing: 0.14em;
             text-transform: uppercase;
             color: #fff;
+            transition: background 0.2s;
         }
+        .overlay-cta:hover { background: rgba(255,255,255,0.12); }
 
-        .card-info {
-            padding: 1.4rem 1.6rem 1.6rem;
-        }
+        .card-info { padding: 1.4rem 1.6rem 1.6rem; }
         .card-cat {
             font-size: 0.62rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.28);
             margin-bottom: 0.45rem;
         }
         .card-title {
-            font-size: 1rem;
+            font-size: 0.98rem;
             font-weight: 500;
             margin-bottom: 0.35rem;
             letter-spacing: 0.01em;
         }
         .card-year {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             letter-spacing: 0.12em;
-            color: rgba(255,255,255,0.28);
+            color: rgba(255,255,255,0.25);
         }
 
-        /* ── Clients strip ───────────────────────────────────── */
+        /* ── Clients marquee ──────────────────────────────────── */
         .clients-section {
             border-top: 1px solid rgba(255,255,255,0.07);
-            padding: 3rem 0;
-            margin-bottom: 4rem;
+            padding: 3rem 0 4rem;
         }
         .clients-label {
             font-size: 0.62rem;
             letter-spacing: 0.28em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.25);
+            color: rgba(255,255,255,0.22);
             text-align: center;
             margin-bottom: 2rem;
-        }
-        .clients-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
         }
         .client-name {
             font-size: 0.78rem;
             font-weight: 600;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.18);
+            color: rgba(255,255,255,0.16);
+            white-space: nowrap;
             transition: color 0.25s;
-            cursor: default;
         }
         .client-name:hover { color: rgba(255,255,255,0.5); }
 
-        /* ── Footer ──────────────────────────────────────────── */
-        footer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 3rem 3.5rem;
-            gap: 2.5rem;
+        /* Marquee separator */
+        .client-sep {
+            color: rgba(255,255,255,0.08);
+            font-size: 0.5rem;
+            flex-shrink: 0;
         }
 
-        .tagline {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-style: italic;
-            font-size: clamp(0.95rem, 1.5vw, 1.25rem);
-            font-weight: 400;
-            color: rgba(255,255,255,0.65);
-            letter-spacing: 0.02em;
-            text-align: center;
-            max-width: 540px;
-            line-height: 1.6;
-        }
-
-        .footer-meta {
-            display: flex;
-            width: 100%;
-            max-width: 1200px;
-            justify-content: space-between;
-            font-size: 0.68rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.3);
-        }
-
-        /* ── Loading ─────────────────────────────────────────── */
-        #loading-screen {
+        /* ── Lightbox ─────────────────────────────────────────── */
+        #lightbox {
             position: fixed;
             inset: 0;
-            background: #000;
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+        #lightbox.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lb-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(6px);
+        }
+
+        .lb-panel {
+            position: relative;
+            z-index: 1;
+            width: min(600px, 92vw);
+            height: 100vh;
+            background: #0a0a0a;
+            border-left: 1px solid rgba(255,255,255,0.07);
             display: flex;
             flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+            overflow-y: auto;
+        }
+        #lightbox.open .lb-panel {
+            transform: translateX(0);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 1.8rem;
+            right: 1.8rem;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 50%;
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1.5rem;
-            z-index: 999;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            background: transparent;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+            z-index: 2;
+            flex-shrink: 0;
         }
-        #loading-screen.hidden { opacity: 0; visibility: hidden; }
-        .loading-logo { font-size: 1rem; font-weight: 700; letter-spacing: 0.5em; text-transform: uppercase; color: rgba(255,255,255,0.9); }
-        .loading-bar-wrap { width: 160px; height: 1px; background: rgba(255,255,255,0.12); overflow: hidden; }
-        .loading-bar { height: 100%; background: linear-gradient(90deg, #00ffff, #ff00cc); animation: load-bar 1.2s cubic-bezier(.4,0,.2,1) forwards; }
-        @keyframes load-bar { from { width: 0; } to { width: 100%; } }
-        .loading-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+        .lb-close:hover {
+            border-color: rgba(255,255,255,0.5);
+            color: #fff;
+            background: rgba(255,255,255,0.06);
+        }
 
-        /* ── Fade-in ─────────────────────────────────────────── */
-        .fade-in { opacity: 0; transform: translateY(18px); animation: fadeUp 0.75s cubic-bezier(.4,0,.2,1) forwards; }
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.22s; }
-        .delay-3 { animation-delay: 0.36s; }
-        .delay-4 { animation-delay: 0.52s; }
+        .lb-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .lb-thumb-glyph {
+            font-size: 6rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            opacity: 0.18;
+        }
+
+        .lb-body {
+            padding: 2.5rem;
+            flex: 1;
+        }
+        .lb-cat {
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.28);
+            margin-bottom: 0.6rem;
+        }
+        .lb-title {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        .lb-desc {
+            font-size: 0.88rem;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.52);
+            margin-bottom: 2rem;
+        }
+
+        .lb-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            padding-top: 1.8rem;
+            margin-bottom: 2rem;
+        }
+        .lb-meta-item {}
+        .lb-meta-label {
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            margin-bottom: 0.3rem;
+        }
+        .lb-meta-value {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .lb-nav {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: auto;
+        }
+        .lb-nav-btn {
+            flex: 1;
+            padding: 0.7rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 2px;
+            background: transparent;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+        }
+        .lb-nav-btn:hover:not(:disabled) {
+            border-color: rgba(255,255,255,0.35);
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+        .lb-nav-btn:disabled {
+            opacity: 0.25;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Page Transition -->
+    <div id="page-transition"></div>
 
     <!-- Loading Screen -->
     <div id="loading-screen">
@@ -431,8 +401,58 @@
         <div class="loading-label">Selected Works</div>
     </div>
 
+    <!-- Background Canvas -->
     <canvas id="bg-canvas"></canvas>
 
+    <!-- Mobile Nav -->
+    <nav id="mobile-nav" class="mobile-nav">
+        <a href="./index.html" class="nav-link">Home</a>
+        <a href="./about.html" class="nav-link">About</a>
+        <a href="./works.html" class="nav-link active">Work</a>
+        <a href="./contact.html" class="nav-link">Contact</a>
+        <a href="./contact.html" class="pill-btn">New Creative Lab</a>
+        <a href="./contact.html" class="cta-btn">Let's Talk</a>
+    </nav>
+
+    <!-- Lightbox -->
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Project details">
+        <div class="lb-backdrop" id="lb-backdrop"></div>
+        <div class="lb-panel">
+            <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+            <div class="lb-thumb" id="lb-thumb">
+                <div class="lb-thumb-glyph" id="lb-glyph"></div>
+            </div>
+            <div class="lb-body">
+                <div class="lb-cat" id="lb-cat"></div>
+                <div class="lb-title" id="lb-title"></div>
+                <div class="lb-desc" id="lb-desc"></div>
+                <div class="lb-meta">
+                    <div class="lb-meta-item">
+                        <div class="lb-meta-label">Year</div>
+                        <div class="lb-meta-value" id="lb-year"></div>
+                    </div>
+                    <div class="lb-meta-item">
+                        <div class="lb-meta-label">Services</div>
+                        <div class="lb-meta-value" id="lb-services"></div>
+                    </div>
+                    <div class="lb-meta-item">
+                        <div class="lb-meta-label">Client</div>
+                        <div class="lb-meta-value" id="lb-client"></div>
+                    </div>
+                    <div class="lb-meta-item">
+                        <div class="lb-meta-label">Scope</div>
+                        <div class="lb-meta-value" id="lb-scope"></div>
+                    </div>
+                </div>
+                <div class="lb-nav">
+                    <button class="lb-nav-btn" id="lb-prev">← Prev</button>
+                    <button class="lb-nav-btn" id="lb-next">Next →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page -->
     <div id="page">
         <header>
             <a href="./index.html" class="header-logo">VRTX Studio</a>
@@ -443,21 +463,24 @@
                 <a href="./contact.html" class="nav-link">Contact</a>
                 <a href="./contact.html" class="pill-btn">New Creative Lab</a>
                 <a href="./contact.html" class="cta-btn">Let's Talk</a>
+                <button class="hamburger" id="hamburger" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
             </nav>
         </header>
 
         <main>
-            <div class="page-label fade-in delay-1">02 — Selected Works</div>
+            <div class="page-label reveal reveal-d1">02 — Selected Works</div>
 
-            <h1 class="hero-headline fade-in delay-2">
+            <h1 class="hero-headline reveal reveal-d2">
                 Work built to <em>endure</em>, not just impress.
             </h1>
 
-            <p class="hero-sub fade-in delay-3">
+            <p class="hero-sub reveal reveal-d3">
                 A selection of projects spanning brand identity, motion design, and digital experience — each shaped by a distinct idea.
             </p>
 
-            <div class="filter-bar fade-in delay-3">
+            <div class="filter-bar reveal reveal-d3">
                 <button class="filter-tab active" data-filter="all">All</button>
                 <button class="filter-tab" data-filter="identity">Identity</button>
                 <button class="filter-tab" data-filter="motion">Motion</button>
@@ -465,9 +488,9 @@
                 <button class="filter-tab" data-filter="print">Print</button>
             </div>
 
-            <div class="works-grid fade-in delay-4">
+            <div class="works-grid reveal reveal-d4" id="works-grid">
                 <!-- Row 1 -->
-                <div class="work-card span-7" data-category="identity">
+                <div class="work-card span-7" data-category="identity" data-index="0">
                     <div class="card-thumb">
                         <div class="card-thumb-inner thumb-1">
                             <div class="thumb-glyph glyph-cyan">HELIX</div>
@@ -481,7 +504,7 @@
                     </div>
                 </div>
 
-                <div class="work-card span-5" data-category="motion">
+                <div class="work-card span-5" data-category="motion" data-index="1">
                     <div class="card-thumb">
                         <div class="card-thumb-inner thumb-2">
                             <div class="thumb-glyph glyph-magenta">MV</div>
@@ -496,7 +519,7 @@
                 </div>
 
                 <!-- Row 2 -->
-                <div class="work-card span-4" data-category="digital">
+                <div class="work-card span-4" data-category="digital" data-index="2">
                     <div class="card-thumb">
                         <div class="card-thumb-inner thumb-3">
                             <div class="thumb-glyph glyph-green">FOLD</div>
@@ -510,7 +533,7 @@
                     </div>
                 </div>
 
-                <div class="work-card span-8" data-category="identity">
+                <div class="work-card span-8" data-category="identity" data-index="3">
                     <div class="card-thumb">
                         <div class="card-thumb-inner thumb-4">
                             <div class="thumb-glyph glyph-gold">AURA</div>
@@ -525,7 +548,7 @@
                 </div>
 
                 <!-- Row 3 -->
-                <div class="work-card span-6" data-category="motion">
+                <div class="work-card span-6" data-category="motion" data-index="4">
                     <div class="card-thumb">
                         <div class="card-thumb-inner thumb-5">
                             <div class="thumb-glyph glyph-violet">VX</div>
@@ -539,7 +562,7 @@
                     </div>
                 </div>
 
-                <div class="work-card span-6" data-category="print">
+                <div class="work-card span-6" data-category="print" data-index="5">
                     <div class="card-thumb">
                         <div class="card-thumb-inner thumb-6">
                             <div class="thumb-glyph glyph-cyan">NR</div>
@@ -554,17 +577,30 @@
                 </div>
             </div>
 
-            <!-- Clients -->
-            <div class="clients-section">
+            <!-- Marquee client strip -->
+            <div class="clients-section reveal">
                 <div class="clients-label">Trusted by</div>
-                <div class="clients-row">
-                    <span class="client-name">Helix Bio</span>
-                    <span class="client-name">Maeve Films</span>
-                    <span class="client-name">Fold.io</span>
-                    <span class="client-name">Aura</span>
-                    <span class="client-name">VX Labs</span>
-                    <span class="client-name">Noir Mag</span>
-                    <span class="client-name">Stellar Co</span>
+                <div class="marquee-wrap">
+                    <div class="marquee-track">
+                        <span class="client-name">Helix Bio</span>
+                        <span class="client-sep">◆</span>
+                        <span class="client-name">Maeve Films</span>
+                        <span class="client-sep">◆</span>
+                        <span class="client-name">Fold.io</span>
+                        <span class="client-sep">◆</span>
+                        <span class="client-name">Aura</span>
+                        <span class="client-sep">◆</span>
+                        <span class="client-name">VX Labs</span>
+                        <span class="client-sep">◆</span>
+                        <span class="client-name">Noir Mag</span>
+                        <span class="client-sep">◆</span>
+                        <span class="client-name">Stellar Co</span>
+                        <span class="client-sep">◆</span>
+                        <span class="client-name">Orbis Group</span>
+                        <span class="client-sep">◆</span>
+                        <span class="client-name">Kova Spirits</span>
+                        <span class="client-sep">◆</span>
+                    </div>
                 </div>
             </div>
         </main>
@@ -578,59 +614,236 @@
         </footer>
     </div>
 
+    <script src="./cursor.js"></script>
+    <script src="./transitions.js"></script>
     <script>
-        // Particle canvas
+        // ── Project Data ──────────────────────────────────────────
+        const PROJECTS = [
+            {
+                title: 'Helix Biotech — Full Brand System',
+                cat: 'Brand Identity',
+                glyph: 'HELIX',
+                glyphColor: 'var(--cyan)',
+                bg: 'linear-gradient(135deg,#040d1a,#061830,#001422)',
+                desc: 'A comprehensive visual identity built for a biotech pioneer entering public markets. We developed the mark, colour system, typography, and a full design language for print, digital, and environmental applications.',
+                year: '2025',
+                services: 'Identity, Strategy, Print',
+                client: 'Helix Biotech',
+                scope: 'Full rebrand',
+            },
+            {
+                title: 'Maeve — Title Sequence',
+                cat: 'Motion Design',
+                glyph: 'MV',
+                glyphColor: 'var(--magenta)',
+                bg: 'linear-gradient(135deg,#17021a,#2a0a22,#160020)',
+                desc: 'Kinetic title sequence for an independent film production. Working closely with the director, we created a 90-second opening that establishes mood, tone, and character through typography-led motion design.',
+                year: '2025',
+                services: 'Motion Design, After Effects',
+                client: 'Maeve Films',
+                scope: 'Title sequence + end cards',
+            },
+            {
+                title: 'Fold — Interactive Microsite',
+                cat: 'Digital Experience',
+                glyph: 'FOLD',
+                glyphColor: 'var(--green)',
+                bg: 'linear-gradient(135deg,#041408,#082210,#001c08)',
+                desc: 'An interactive product launch microsite built around layered parallax and scroll-triggered animation. Fold.io saw a 3× increase in demo sign-ups during the campaign window.',
+                year: '2024',
+                services: 'Web Design, Motion, Dev Direction',
+                client: 'Fold.io',
+                scope: 'Campaign microsite',
+            },
+            {
+                title: 'Aura Jewellery — Visual Identity & Packaging',
+                cat: 'Brand Identity · Print',
+                glyph: 'AURA',
+                glyphColor: 'var(--gold)',
+                bg: 'linear-gradient(135deg,#191200,#2a1e00,#161000)',
+                desc: 'End-to-end identity for a fine jewellery brand entering the European market. Covered wordmark, secondary marks, colour, type, photography direction, and a full suite of packaging spanning boxes, tissue, ribbons, and carrier bags.',
+                year: '2024',
+                services: 'Identity, Packaging, Art Direction',
+                client: 'Aura Jewellery',
+                scope: 'Identity + packaging system',
+            },
+            {
+                title: 'VX Labs — Product Launch Film',
+                cat: '3D · Motion',
+                glyph: 'VX',
+                glyphColor: 'var(--violet)',
+                bg: 'linear-gradient(135deg,#0a0614,#180320,#060018)',
+                desc: 'A 60-second 3D product reveal film for VX Labs\u2019 flagship hardware launch. Rendered in Cinema 4D with custom shaders, and finished in DaVinci Resolve for broadcast and social delivery.',
+                year: '2024',
+                services: '3D, Motion, Colour Grade',
+                client: 'VX Labs',
+                scope: 'Product film + social cuts',
+            },
+            {
+                title: 'Noir — Annual Art Magazine',
+                cat: 'Publication · Print',
+                glyph: 'NR',
+                glyphColor: 'var(--cyan)',
+                bg: 'linear-gradient(135deg,#001818,#003030,#001a24)',
+                desc: 'Art direction and editorial design for Noir\u2019s annual print edition. 140 pages across two volumes \u2014 spanning long-form interviews, photographic essays, and conceptual spreads for an international readership.',
+                year: '2023',
+                services: 'Editorial Design, Print, Art Direction',
+                client: 'Noir Mag',
+                scope: 'Annual edition (2 vols)',
+            },
+        ];
+
+        // ── Lightbox Logic ────────────────────────────────────────
+        const lb         = document.getElementById('lightbox');
+        const lbClose    = document.getElementById('lb-close');
+        const lbBackdrop = document.getElementById('lb-backdrop');
+        const lbThumb    = document.getElementById('lb-thumb');
+        const lbGlyph    = document.getElementById('lb-glyph');
+        const lbCat      = document.getElementById('lb-cat');
+        const lbTitle    = document.getElementById('lb-title');
+        const lbDesc     = document.getElementById('lb-desc');
+        const lbYear     = document.getElementById('lb-year');
+        const lbServices = document.getElementById('lb-services');
+        const lbClient   = document.getElementById('lb-client');
+        const lbScope    = document.getElementById('lb-scope');
+        const lbPrev     = document.getElementById('lb-prev');
+        const lbNext     = document.getElementById('lb-next');
+
+        let currentIndex = 0;
+        let visibleIndices = PROJECTS.map((_, i) => i);
+
+        function openLightbox(index) {
+            currentIndex = index;
+            const p = PROJECTS[index];
+            lbThumb.style.background = p.bg;
+            lbGlyph.textContent      = p.glyph;
+            lbGlyph.style.color      = p.glyphColor;
+            lbCat.textContent        = p.cat;
+            lbTitle.textContent      = p.title;
+            lbDesc.textContent       = p.desc;
+            lbYear.textContent       = p.year;
+            lbServices.textContent   = p.services;
+            lbClient.textContent     = p.client;
+            lbScope.textContent      = p.scope;
+
+            const posInVisible = visibleIndices.indexOf(index);
+            lbPrev.disabled = posInVisible <= 0;
+            lbNext.disabled = posInVisible >= visibleIndices.length - 1;
+
+            lb.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lb.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        lbClose.addEventListener('click', closeLightbox);
+        lbBackdrop.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+        lbPrev.addEventListener('click', () => {
+            const pos = visibleIndices.indexOf(currentIndex);
+            if (pos > 0) openLightbox(visibleIndices[pos - 1]);
+        });
+        lbNext.addEventListener('click', () => {
+            const pos = visibleIndices.indexOf(currentIndex);
+            if (pos < visibleIndices.length - 1) openLightbox(visibleIndices[pos + 1]);
+        });
+
+        // Open lightbox on card click
+        document.querySelectorAll('.work-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const idx = parseInt(card.dataset.index);
+                openLightbox(idx);
+            });
+        });
+
+        // ── Filter Tabs ───────────────────────────────────────────
+        const tabs   = document.querySelectorAll('.filter-tab');
+        const cards  = document.querySelectorAll('.work-card');
+        const grid   = document.getElementById('works-grid');
+
+        // Store original span classes
+        cards.forEach(card => {
+            const spanCls = [...card.classList].find(c => c.startsWith('span-'));
+            card.dataset.originalSpan = spanCls || 'span-6';
+        });
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const filter = tab.dataset.filter;
+
+                visibleIndices = [];
+
+                cards.forEach(card => {
+                    const cat   = card.dataset.category;
+                    const show  = filter === 'all' || cat === filter;
+                    const idx   = parseInt(card.dataset.index);
+                    const origSpan = card.dataset.originalSpan;
+
+                    // Remove previously added span
+                    card.classList.remove('span-4','span-5','span-6','span-7','span-8','span-12');
+
+                    if (show) {
+                        visibleIndices.push(idx);
+                        card.classList.remove('card-hidden');
+                        card.classList.add(filter === 'all' ? origSpan : 'span-6');
+                    } else {
+                        card.classList.add('card-hidden');
+                        card.classList.add('span-6'); // doesn't matter, hidden
+                    }
+                });
+
+                grid.classList.toggle('filtered', filter !== 'all');
+            });
+        });
+
+        // ── Particle Canvas ───────────────────────────────────────
         const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
+        const ctx    = canvas.getContext('2d');
         let W, H, particles = [];
         const PALETTE = [[0,255,255],[255,0,204],[255,204,0],[74,222,128],[170,0,255]];
 
         function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
-        function initParticles(n = 280) {
+        function initParticles(n = 300) {
             particles = [];
             for (let i = 0; i < n; i++) {
                 const c = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-                particles.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.2+0.3,
-                    dx:(Math.random()-0.5)*0.18, dy:(Math.random()-0.5)*0.18,
-                    color:`rgba(${c[0]},${c[1]},${c[2]},`, alpha: Math.random()*0.45+0.1 });
+                particles.push({ x: Math.random()*W, y: Math.random()*H,
+                    r: Math.random()*1.2+0.2, dx:(Math.random()-0.5)*0.17, dy:(Math.random()-0.5)*0.17,
+                    color:`rgba(${c[0]},${c[1]},${c[2]},`, alpha: Math.random()*0.4+0.07 });
             }
         }
         function drawFrame() {
             ctx.clearRect(0,0,W,H);
             for (const p of particles) {
                 ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-                ctx.fillStyle = p.color + p.alpha + ')'; ctx.fill();
-                p.x += p.dx; p.y += p.dy;
-                if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-                if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+                ctx.fillStyle = p.color+p.alpha+')'; ctx.fill();
+                p.x+=p.dx; p.y+=p.dy;
+                if(p.x<0)p.x=W; if(p.x>W)p.x=0;
+                if(p.y<0)p.y=H; if(p.y>H)p.y=0;
             }
             requestAnimationFrame(drawFrame);
         }
         resize(); initParticles(); drawFrame();
         window.addEventListener('resize', () => { resize(); initParticles(); });
 
-        // Loading screen
-        window.addEventListener('load', () => {
-            setTimeout(() => document.getElementById('loading-screen').classList.add('hidden'), 1300);
+        // Dismiss loading screen as soon as DOM is ready (no external resources to wait for)
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const ls = document.getElementById('loading-screen');
+                if (ls) ls.classList.add('hidden');
+            }, 1000);
         });
-
-        // Filter tabs
-        const tabs = document.querySelectorAll('.filter-tab');
-        const cards = document.querySelectorAll('.work-card');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                const filter = tab.dataset.filter;
-                cards.forEach(card => {
-                    const cat = card.dataset.category;
-                    const show = filter === 'all' || cat === filter;
-                    card.style.opacity = show ? '1' : '0.2';
-                    card.style.pointerEvents = show ? 'auto' : 'none';
-                    card.style.transition = 'opacity 0.35s';
-                });
-            });
-        });
+        // Fallback: ensure it's gone after 2.5s regardless
+        setTimeout(() => {
+            const ls = document.getElementById('loading-screen');
+            if (ls) ls.classList.add('hidden');
+        }, 2500);
     </script>
 </body>
 </html>
