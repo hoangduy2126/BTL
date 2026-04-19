@@ -7,11 +7,11 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { RGBShiftShader } from 'three/addons/shaders/RGBShiftShader.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+// OrbitControls removed – text rotates with mouse directly
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 // ── State ──────────────────────────────────────────────────────────────────
-let camera, scene, renderer, composer, controls;
+let camera, scene, renderer, composer;
 let textGroup;
 let iridLights = [];   // coloured spot lights that orbit to fake anisotropy
 
@@ -60,19 +60,7 @@ function init() {
     // Post-processing
     setupPostProcessing();
 
-    // Controls (orbit for mouse-viewsight, NO positional follow)
-    controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping    = true;
-    controls.dampingFactor    = 0.06;
-    controls.enableZoom       = false;
-    controls.enablePan        = false;
-    controls.autoRotate       = true;
-    controls.autoRotateSpeed  = 0.35;
-    // Constrain rotation so it always feels like a "viewsight", not a full spin
-    controls.minPolarAngle = Math.PI / 2 - 0.55;
-    controls.maxPolarAngle = Math.PI / 2 + 0.55;
-    controls.minAzimuthAngle = -0.6;
-    controls.maxAzimuthAngle =  0.6;
+    // Text rotation follows mouse – no OrbitControls needed
 
     // Events
     document.addEventListener('mousemove', onMouseMove);
@@ -281,12 +269,18 @@ function animate() {
     mouse.x += (targetMouse.x - mouse.x) * 0.07;
     mouse.y += (targetMouse.y - mouse.y) * 0.07;
 
-    // Gentle float on the text group (position stays centred)
+    // Text follows mouse: Y-axis for left/right, X-axis for up/down
     if (textGroup) {
         textGroup.position.x = 0;
         textGroup.position.y = Math.sin(t * 0.45) * 0.35;
 
-        // Tiny idle Z-roll so reflections are always shifting
+        // Rotate toward mouse with smooth damping
+        const targetRotX = -mouse.y * 0.55;  // tilt up/down
+        const targetRotY =  mouse.x * 0.85;  // turn left/right
+        textGroup.rotation.x += (targetRotX - textGroup.rotation.x) * 0.08;
+        textGroup.rotation.y += (targetRotY - textGroup.rotation.y) * 0.08;
+
+        // Idle Z-roll so reflections keep shifting even at the center
         textGroup.rotation.z = Math.sin(t * 0.12) * 0.018;
     }
 
@@ -303,6 +297,5 @@ function animate() {
         );
     });
 
-    controls.update();
     composer.render();
 }
