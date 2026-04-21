@@ -71,15 +71,23 @@
             background: rgba(255,255,255,0.02);
             overflow: hidden;
             position: relative;
-            transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s, opacity 0.3s;
+            transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s, background 0.4s, opacity 0.3s;
         }
         .work-card:hover {
-            border-color: rgba(255,255,255,0.18);
-            transform: translateY(-6px);
-            box-shadow: 0 28px 56px rgba(0,0,0,0.5);
+            border-color: rgba(255,255,255,0.30);
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.055);
+            box-shadow:
+                0 32px 64px rgba(0,0,0,0.55),
+                0 0 0 1px rgba(255,255,255,0.10),
+                inset 0 0 40px rgba(255,255,255,0.03);
         }
         .work-card:hover .card-overlay { opacity: 1; }
-        .work-card:hover .card-thumb-inner { transform: scale(1.05); }
+        .work-card:hover .card-thumb-inner { transform: scale(1.06); }
+        .work-card:hover .thumb-glyph { opacity: 0.38; transition: opacity 0.4s; }
+        .work-card:hover .card-title { color: #fff; }
+        .work-card:hover .card-cat { color: rgba(255,255,255,0.55); }
+        .work-card:hover .card-year { color: rgba(255,255,255,0.45); }
 
         /* Spanning — all reset to span-6 when filtering */
         .span-7  { grid-column: span 7; }
