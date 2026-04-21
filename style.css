@@ -72,7 +72,6 @@ body {
     border-color: rgba(255,255,255,0.65);
     background: rgba(255,255,255,0.06);
     color: rgba(255,255,255,0.85);
-    backdrop-filter: blur(4px);
 }
 
 /* ── Page Transition Overlay ───────────────────────────────── */
@@ -151,21 +150,26 @@ header.scrolled {
     color: rgba(255,255,255,0.75);
     text-decoration: none;
     position: relative;
-    transition: color 0.25s;
+    transition: color 0.25s, transform 0.25s cubic-bezier(.4,0,.2,1);
+    display: inline-block;
 }
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -2px;
-    left: 0;
+    bottom: -7px;
+    left: 50%;
     width: 0;
     height: 1px;
     background: linear-gradient(90deg, var(--cyan), var(--magenta));
-    transition: width 0.3s cubic-bezier(.4,0,.2,1);
+    transform: translateX(-50%);
+    transition: width 0.35s cubic-bezier(.4,0,.2,1);
 }
-.nav-link:hover { color: #fff; }
-.nav-link:hover::after { width: 100%; }
-.nav-link.active { color: #fff; }
+.nav-link:hover {
+    color: #fff;
+    filter: brightness(1.25) drop-shadow(0 0 8px rgba(255,255,255,0.18));
+}
+.nav-link:hover::after  { width: 100%; }
+.nav-link.active        { color: #fff; }
 .nav-link.active::after { width: 100%; }
 
 /* Green pill button */
@@ -468,6 +472,112 @@ footer {
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.28);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL HOVER HIGHLIGHT SYSTEM
+   All interactive content lights up subtly on cursor entry.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Generic content-block glow ──────────────────────────── */
+/* Any element with a thin border (stat cards, team cards,
+   service rows, about sections, etc.) lifts and glows. */
+[class*="card"],
+[class*="stat-"],
+[class*="team-"],
+[class*="service-"],
+[class*="value-"],
+[class*="offer-"],
+[class*="approach-"] {
+    transition:
+        border-color 0.35s,
+        box-shadow   0.35s,
+        background   0.35s,
+        transform    0.35s,
+        color        0.3s;
+}
+
+/* Elements that have a visible border get a spotlight on hover */
+[style*="border"],
+.lb-meta-item,
+.stat-item,
+.team-card,
+.service-row,
+.offer-item,
+.approach-item,
+.value-item,
+.process-step {
+    transition: border-color 0.35s, box-shadow 0.35s, background 0.35s, transform 0.3s;
+}
+
+[style*="border"]:hover,
+.lb-meta-item:hover,
+.stat-item:hover,
+.team-card:hover,
+.service-row:hover,
+.offer-item:hover,
+.approach-item:hover,
+.value-item:hover,
+.process-step:hover {
+    border-color: rgba(255,255,255,0.22) !important;
+    box-shadow: 0 0 32px rgba(255,255,255,0.04), 0 8px 32px rgba(0,0,0,0.4);
+    background: rgba(255,255,255,0.035) !important;
+}
+
+/* ── Stat number lights up ───────────────────────────────── */
+.stat-item:hover .stat-number {
+    background: linear-gradient(135deg, #fff 20%, rgba(0,255,255,0.7));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+.stat-item:hover .stat-label {
+    color: rgba(255,255,255,0.55);
+}
+
+/* ── Paragraph text brightens on section hover ───────────── */
+.about-col:hover p,
+.lb-body:hover .lb-desc {
+    color: rgba(255,255,255,0.75);
+    transition: color 0.35s;
+}
+
+/* ── Form inputs: glow on focus ──────────────────────────── */
+input, textarea, select {
+    transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+}
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: rgba(255,255,255,0.35) !important;
+    box-shadow: 0 0 0 3px rgba(0,255,255,0.08), 0 0 20px rgba(0,255,255,0.06) !important;
+    background: rgba(255,255,255,0.06) !important;
+}
+
+/* ── Filter tabs on works page ───────────────────────────── */
+.filter-tab:hover {
+    box-shadow: 0 0 12px rgba(255,255,255,0.06);
+}
+
+/* ── Footer tagline lifts on hover ───────────────────────── */
+.tagline {
+    transition: color 0.35s;
+}
+.tagline:hover {
+    color: rgba(255,255,255,0.85);
+}
+
+/* ── Nav pill / cta buttons spotlight ───────────────────── */
+.pill-btn,
+.cta-btn {
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s, color 0.25s;
+}
+.pill-btn:hover {
+    box-shadow: 0 0 20px rgba(74,222,128,0.18), 0 0 0 1px rgba(74,222,128,0.4);
+}
+.cta-btn:hover {
+    box-shadow: 0 0 16px rgba(255,255,255,0.08);
 }
 
 @media (max-width: 600px) {
