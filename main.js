@@ -18,6 +18,13 @@ let iridLights = [];   // coloured spot lights that orbit to fake anisotropy
 const mouse    = { x: 0, y: 0 };
 const targetMouse = { x: 0, y: 0 };
 
+// Manual ping-pong rotation on textGroup (independent of OrbitControls)
+const TEXT_ROT_MAX   =  0.6;   // radians, ~34°
+const TEXT_ROT_MIN   = -0.6;
+const TEXT_ROT_SPEED =  0.0005; // radians per frame (~0.14°/frame)
+let   textRotY       =  0;     // current Y angle of textGroup
+let   textRotDir     =  1;     // 1 = clockwise, -1 = counter-clockwise
+
 // ── Boot ───────────────────────────────────────────────────────────────────
 init();
 
@@ -60,19 +67,19 @@ function init() {
     // Post-processing
     setupPostProcessing();
 
-    // Controls (orbit for mouse-viewsight, NO positional follow)
+    // Controls — mouse drag only, NO autoRotate (ping-pong is handled manually)
     controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping    = true;
-    controls.dampingFactor    = 0.06;
-    controls.enableZoom       = false;
-    controls.enablePan        = false;
-    controls.autoRotate       = true;
-    controls.autoRotateSpeed  = 0.35;
-    // Constrain rotation so it always feels like a "viewsight", not a full spin
-    controls.minPolarAngle = Math.PI / 2 - 0.55;
-    controls.maxPolarAngle = Math.PI / 2 + 0.55;
-    controls.minAzimuthAngle = -0.6;
-    controls.maxAzimuthAngle =  0.6;
+    controls.enableDamping   = true;
+    controls.dampingFactor   = 0.06;
+    controls.enableZoom      = false;
+    controls.enablePan       = false;
+    controls.autoRotate      = false;
+    // Keep a gentle polar constraint so dragging vertically stays reasonable
+    controls.minPolarAngle   = Math.PI / 2 - 0.55;
+    controls.maxPolarAngle   = Math.PI / 2 + 0.55;
+    // Limit horizontal (azimuth) movement
+    controls.minAzimuthAngle = -0.5;
+    controls.maxAzimuthAngle =  0.5;
 
     // Events
     document.addEventListener('mousemove', onMouseMove);
@@ -277,29 +284,36 @@ function onResize() {
 function animate() {
     const t = performance.now() * 0.001;
 
-    // Smooth mouse lerp (used to softly nudge OrbitControls target)
+    // Smooth mouse lerp
     mouse.x += (targetMouse.x - mouse.x) * 0.07;
     mouse.y += (targetMouse.y - mouse.y) * 0.07;
+
+    // ── Manual ping-pong Y rotation on textGroup ───────────────────────────
+    textRotY += textRotDir * TEXT_ROT_SPEED;
+    if (textRotY >= TEXT_ROT_MAX) {
+        textRotY   = TEXT_ROT_MAX;
+        textRotDir = -1;               // hit right limit → reverse to counter-clockwise
+    } else if (textRotY <= TEXT_ROT_MIN) {
+        textRotY   = TEXT_ROT_MIN;
+        textRotDir =  1;               // hit left limit  → reverse to clockwise
+    }
 
     // Gentle float on the text group (position stays centred)
     if (textGroup) {
         textGroup.position.x = 0;
         textGroup.position.y = Math.sin(t * 0.45) * 0.35;
-
-        // Tiny idle Z-roll so reflections are always shifting
-        textGroup.rotation.z = Math.sin(t * 0.12) * 0.018;
+        textGroup.rotation.y = textRotY;                      // ping-pong Y
+        textGroup.rotation.z = Math.sin(t * 0.12) * 0.018;   // subtle Z-roll
     }
 
     // Orbit the iridescent accent lights around the text
-    // This is what creates the vertically-streaky CD-disc rainbow bands
     iridLights.forEach((light) => {
         const angle = t * light.userData.speed + light.userData.phase;
         const r     = light.userData.radius;
-        // Lights orbit on a tilted ellipse to produce vertical streaks
         light.position.set(
             Math.cos(angle) * r,
-            Math.sin(angle * 1.7) * r * 0.55,  // vertical oscillation
-            Math.sin(angle) * (r * 0.5) + 5     // slight depth curve
+            Math.sin(angle * 1.7) * r * 0.55,
+            Math.sin(angle) * (r * 0.5) + 5
         );
     });
 
