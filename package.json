@@ -1,16 +1,26 @@
 {
-  "name": "vrtx-studio",
+  "name": "btl",
   "version": "1.0.0",
-  "description": "VRTX Studio — Creative design portfolio website",
+  "description": "",
+  "main": "main.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
-  "devDependencies": {
-    "vite": "^5.4.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoangduy2126/BTL.git"
   },
-  "dependencies": {
-    "three": "^0.164.0"
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/hoangduy2126/BTL/issues"
+  },
+  "homepage": "https://github.com/hoangduy2126/BTL#readme",
+  "devDependencies": {
+    "vite": "^8.0.9"
   }
 }
