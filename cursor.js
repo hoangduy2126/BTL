@@ -13,11 +13,18 @@
 
     let mx = -200, my = -200;   // mouse real position
     let rx = -200, ry = -200;   // ring smoothed position
+    let firstMove = true;       // flag to snap on first move
 
     /* ── Mouse tracking ─────────────────────────────────── */
     document.addEventListener('mousemove', (e) => {
         mx = e.clientX;
         my = e.clientY;
+        // Snap ring to cursor immediately on first move (e.g. after page transition)
+        if (firstMove) {
+            rx = mx;
+            ry = my;
+            firstMove = false;
+        }
     });
 
     document.addEventListener('mouseleave', () => {
