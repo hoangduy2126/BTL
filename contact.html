@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | VRTX Studio</title>
-    <meta name="description" content="Start a project with VRTX Studio — reach out to discuss brand identity, motion design, or digital experiences.">
+    <meta name="description"
+        content="Start a project with VRTX Studio — reach out to discuss brand identity, motion design, or digital experiences.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/webp" href="./assets/images/VRTX_LOGO.webp">
     <style>
         /* ── Main ─────────────────────────────────────────────── */
         main {
@@ -17,7 +22,12 @@
             margin: 0 auto;
             width: 100%;
         }
-        @media (max-width: 768px) { main { padding: 3rem 1.5rem 2rem; } }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 3rem 1.5rem 2rem;
+            }
+        }
 
         /* ── Two-column layout ────────────────────────────────── */
         .contact-layout {
@@ -27,33 +37,50 @@
             align-items: start;
             margin-bottom: 6rem;
         }
+
         @media (max-width: 800px) {
-            .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
         }
 
         /* ── Contact info (left) ──────────────────────────────── */
-        .contact-info { display: flex; flex-direction: column; gap: 2.5rem; }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
 
-        .info-block { display: flex; flex-direction: column; gap: 0.45rem; }
+        .info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
         .info-label {
             font-size: 0.62rem;
             letter-spacing: 0.24em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.26);
+            color: rgba(255, 255, 255, 0.26);
         }
+
         .info-value {
             font-size: 0.92rem;
-            color: rgba(255,255,255,0.78);
+            color: rgba(255, 255, 255, 0.78);
             text-decoration: none;
             line-height: 1.65;
             transition: color 0.2s;
         }
-        a.info-value:hover { color: #fff; }
+
+        a.info-value:hover {
+            color: #fff;
+        }
 
         .info-divider {
             width: 100%;
             height: 1px;
-            background: rgba(255,255,255,0.06);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         /* Availability badge */
@@ -62,19 +89,22 @@
             align-items: center;
             gap: 0.6rem;
             padding: 0.65rem 1.2rem;
-            border: 1px solid rgba(74,222,128,0.25);
+            border: 1px solid rgba(74, 222, 128, 0.25);
             border-radius: 4px;
-            background: rgba(74,222,128,0.05);
+            background: rgba(74, 222, 128, 0.05);
             width: fit-content;
         }
+
         .avail-dot {
-            width: 7px; height: 7px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
             background: var(--green);
             box-shadow: 0 0 8px var(--green);
             animation: pulse-dot 2s ease-in-out infinite;
             flex-shrink: 0;
         }
+
         .avail-text {
             font-size: 0.7rem;
             font-weight: 500;
@@ -84,41 +114,60 @@
         }
 
         /* Social links */
-        .social-links { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
         .social-link {
             font-size: 0.7rem;
             font-weight: 500;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.35);
+            color: rgba(255, 255, 255, 0.35);
             text-decoration: none;
             padding-bottom: 2px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             transition: color 0.22s, border-color 0.22s;
         }
-        .social-link:hover { color: rgba(255,255,255,0.82); border-color: rgba(255,255,255,0.38); }
+
+        .social-link:hover {
+            color: rgba(255, 255, 255, 0.82);
+            border-color: rgba(255, 255, 255, 0.38);
+        }
 
         /* ── Form (right) ─────────────────────────────────────── */
-        .contact-form { display: flex; flex-direction: column; gap: 0; }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
 
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
             padding: 1.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             position: relative;
         }
-        .form-group:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+
+        .form-group:first-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
 
         .form-label {
             font-size: 0.62rem;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.26);
+            color: rgba(255, 255, 255, 0.26);
             transition: color 0.2s;
         }
-        .form-group:focus-within .form-label { color: rgba(255,255,255,0.62); }
+
+        .form-group:focus-within .form-label {
+            color: rgba(255, 255, 255, 0.62);
+        }
 
         /* Animated bottom line on focus */
         .form-group::after {
@@ -129,9 +178,12 @@
             width: 0;
             height: 1px;
             background: linear-gradient(90deg, var(--cyan), var(--magenta));
-            transition: width 0.38s cubic-bezier(.4,0,.2,1);
+            transition: width 0.38s cubic-bezier(.4, 0, .2, 1);
         }
-        .form-group:focus-within::after { width: 100%; }
+
+        .form-group:focus-within::after {
+            width: 100%;
+        }
 
         .form-input,
         .form-textarea,
@@ -148,10 +200,21 @@
             resize: none;
             appearance: none;
         }
+
         .form-input::placeholder,
-        .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
-        .form-select option { background: #0a0a0a; color: #fff; }
-        .form-textarea { min-height: 90px; line-height: 1.65; }
+        .form-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .form-select option {
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .form-textarea {
+            min-height: 90px;
+            line-height: 1.65;
+        }
 
         /* Validation error */
         .form-error {
@@ -164,34 +227,45 @@
             opacity: 0;
             transition: height 0.25s, opacity 0.25s;
         }
+
         .form-group.has-error .form-error {
             height: 1.2em;
             opacity: 1;
         }
+
         .form-group.has-error::after {
             width: 100%;
             background: #ff6b6b;
         }
-        .form-group.has-error .form-label { color: #ff6b6b; }
+
+        .form-group.has-error .form-label {
+            color: #ff6b6b;
+        }
 
         /* Budget chips */
-        .budget-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .budget-chips {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
         .budget-chip {
             padding: 0.3rem 0.88rem;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 999px;
             font-size: 0.7rem;
             font-weight: 500;
             letter-spacing: 0.1em;
-            color: rgba(255,255,255,0.42);
+            color: rgba(255, 255, 255, 0.42);
             background: transparent;
             transition: all 0.2s;
         }
+
         .budget-chip:hover,
         .budget-chip.selected {
-            border-color: rgba(255,255,255,0.38);
+            border-color: rgba(255, 255, 255, 0.38);
             color: #fff;
-            background: rgba(255,255,255,0.06);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         /* Submit */
@@ -203,12 +277,14 @@
             gap: 1.5rem;
             flex-wrap: wrap;
         }
+
         .submit-note {
             font-size: 0.7rem;
-            color: rgba(255,255,255,0.28);
+            color: rgba(255, 255, 255, 0.28);
             max-width: 260px;
             line-height: 1.65;
         }
+
         .submit-btn {
             display: inline-flex;
             align-items: center;
@@ -226,15 +302,31 @@
             transition: background 0.25s, transform 0.2s, box-shadow 0.25s, opacity 0.2s;
             white-space: nowrap;
         }
+
         .submit-btn:hover {
-            background: rgba(255,255,255,0.88);
+            background: rgba(255, 255, 255, 0.88);
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255,255,255,0.12);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.12);
         }
-        .submit-btn:active { transform: translateY(0); }
-        .submit-btn:disabled { opacity: 0.55; transform: none; box-shadow: none; }
-        .submit-btn .btn-arrow { display: inline-block; transition: transform 0.2s; }
-        .submit-btn:hover .btn-arrow { transform: translateX(4px); }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.55;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .submit-btn .btn-arrow {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .submit-btn:hover .btn-arrow {
+            transform: translateX(4px);
+        }
 
         /* Success state */
         .success-message {
@@ -246,21 +338,50 @@
             padding: 5rem 2rem;
             text-align: center;
         }
-        .success-message.visible { display: flex; }
-        .success-icon {
-            width: 52px; height: 52px;
-            border-radius: 50%;
-            background: rgba(74,222,128,0.1);
-            border: 1px solid rgba(74,222,128,0.35);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem;
-            animation: scale-in 0.4s cubic-bezier(.4,0,.2,1);
+
+        .success-message.visible {
+            display: flex;
         }
-        @keyframes scale-in { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .success-title { font-size: 1.2rem; font-weight: 500; }
-        .success-sub   { font-size: 0.85rem; color: rgba(255,255,255,0.42); line-height: 1.65; max-width: 320px; }
+
+        .success-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            animation: scale-in 0.4s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        @keyframes scale-in {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .success-sub {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.42);
+            line-height: 1.65;
+            max-width: 320px;
+        }
     </style>
 </head>
+
 <body>
 
     <!-- Custom Cursor -->
@@ -273,7 +394,9 @@
     <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loading-logo">VRTX</div>
-        <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+        <div class="loading-bar-wrap">
+            <div class="loading-bar"></div>
+        </div>
         <div class="loading-label">Let's Talk</div>
     </div>
 
@@ -362,13 +485,15 @@
 
                         <div class="form-group" id="fg-email">
                             <label class="form-label" for="email">Email address</label>
-                            <input class="form-input" id="email" type="email" placeholder="you@company.com" autocomplete="off">
+                            <input class="form-input" id="email" type="email" placeholder="you@company.com"
+                                autocomplete="off">
                             <span class="form-error" id="email-error">Please enter a valid email</span>
                         </div>
 
                         <div class="form-group" id="fg-company">
                             <label class="form-label" for="company">Company / Project</label>
-                            <input class="form-input" id="company" type="text" placeholder="Where do you work?" autocomplete="off">
+                            <input class="form-input" id="company" type="text" placeholder="Where do you work?"
+                                autocomplete="off">
                             <span class="form-error">Please enter your company or project name</span>
                         </div>
 
@@ -399,7 +524,8 @@
 
                         <div class="form-group" id="fg-message">
                             <label class="form-label" for="message">Tell us about the project</label>
-                            <textarea class="form-textarea" id="message" placeholder="Share as much or as little as you like — timeline, goals, inspiration, anything..."></textarea>
+                            <textarea class="form-textarea" id="message"
+                                placeholder="Share as much or as little as you like — timeline, goals, inspiration, anything..."></textarea>
                             <span class="form-error">Please tell us a little about your project</span>
                         </div>
 
@@ -422,7 +548,7 @@
         </main>
 
         <footer>
-            <p class="tagline">Creating memorable brand experiences not for attention but for impact.</p>
+            <p class="tagline">Creating memorable brand experiences for impact.</p>
             <div class="footer-meta">
                 <span>[ VRTX Studio — Contact ]</span>
                 <span>&copy; 2026 VRTX Inc.</span>
@@ -435,28 +561,30 @@
     <script>
         // ── Particle canvas ────────────────────────────────────────
         const canvas = document.getElementById('bg-canvas');
-        const ctx    = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
         let W, H, particles = [];
-        const PALETTE = [[0,255,255],[255,0,204],[255,204,0],[74,222,128],[170,0,255]];
+        const PALETTE = [[0, 255, 255], [255, 0, 204], [255, 204, 0], [74, 222, 128], [170, 0, 255]];
 
         function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
         function initParticles(n = 300) {
             particles = [];
             for (let i = 0; i < n; i++) {
                 const c = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-                particles.push({ x: Math.random()*W, y: Math.random()*H,
-                    r: Math.random()*1.2+0.2, dx:(Math.random()-0.5)*0.17, dy:(Math.random()-0.5)*0.17,
-                    color:`rgba(${c[0]},${c[1]},${c[2]},`, alpha: Math.random()*0.4+0.07 });
+                particles.push({
+                    x: Math.random() * W, y: Math.random() * H,
+                    r: Math.random() * 1.2 + 0.2, dx: (Math.random() - 0.5) * 0.17, dy: (Math.random() - 0.5) * 0.17,
+                    color: `rgba(${c[0]},${c[1]},${c[2]},`, alpha: Math.random() * 0.4 + 0.07
+                });
             }
         }
         function drawFrame() {
-            ctx.clearRect(0,0,W,H);
+            ctx.clearRect(0, 0, W, H);
             for (const p of particles) {
-                ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-                ctx.fillStyle = p.color+p.alpha+')'; ctx.fill();
-                p.x+=p.dx; p.y+=p.dy;
-                if(p.x<0)p.x=W; if(p.x>W)p.x=0;
-                if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.color + p.alpha + ')'; ctx.fill();
+                p.x += p.dx; p.y += p.dy;
+                if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+                if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
             }
             requestAnimationFrame(drawFrame);
         }
@@ -503,7 +631,7 @@
         }
 
         // Live clear errors on input
-        ['name','email','company','service','message'].forEach(id => {
+        ['name', 'email', 'company', 'service', 'message'].forEach(id => {
             const el = document.getElementById(id);
             if (!el) return;
             el.addEventListener('input', () => {
@@ -514,15 +642,15 @@
             });
         });
 
-        const form    = document.getElementById('contact-form');
+        const form = document.getElementById('contact-form');
         const success = document.getElementById('success-message');
         const submitBtn = document.getElementById('submit-btn');
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const v1 = validateField('fg-name',    'name',    v => v.length >= 2);
-            const v2 = validateField('fg-email',   'email',   v => isValidEmail(v));
+            const v1 = validateField('fg-name', 'name', v => v.length >= 2);
+            const v2 = validateField('fg-email', 'email', v => isValidEmail(v));
             const v3 = validateField('fg-company', 'company', v => v.length >= 2);
             const v4 = validateField('fg-service', 'service', v => v !== '');
             const v5 = validateField('fg-message', 'message', v => v.length >= 10);
@@ -544,4 +672,5 @@
         });
     </script>
 </body>
+
 </html>

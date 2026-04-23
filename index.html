@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VRTX Studio | Creating Memorable Brand Experiences</title>
-    <meta name="description" content="VRTX Studio — Creating memorable brand experiences not for attention but for impact.">
+    <meta name="description"
+        content="VRTX Studio — Creating memorable brand experiences for impact.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/webp" href="./assets/images/VRTX_LOGO.webp">
     <style>
         /* ── Index-specific overrides ─────────────────────── */
-        body { overflow: hidden; }
+        body {
+            overflow: hidden;
+        }
 
         canvas {
             display: block;
@@ -59,7 +66,7 @@
             font-size: 0.65rem;
             letter-spacing: 0.28em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.3);
+            color: rgba(255, 255, 255, 0.3);
             transition: color 0.25s;
         }
 
@@ -67,12 +74,12 @@
             display: block;
             width: 32px;
             height: 32px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.4);
+            color: rgba(255, 255, 255, 0.4);
             font-size: 0.9rem;
             text-decoration: none;
             transition: border-color 0.3s, color 0.3s, transform 0.3s, background 0.3s;
@@ -80,15 +87,25 @@
         }
 
         @keyframes float-arrow {
-            0%, 100% { transform: translateY(0); }
-            50%       { transform: translateY(5px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(5px);
+            }
         }
 
-        .index-cta:hover .index-cta-text { color: rgba(255,255,255,0.65); }
+        .index-cta:hover .index-cta-text {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
         .index-cta:hover .index-cta-arrow {
-            border-color: rgba(255,255,255,0.5);
-            color: rgba(255,255,255,0.8);
-            background: rgba(255,255,255,0.05);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         /* Footer meta adjustments */
@@ -99,7 +116,7 @@
             font-size: 0.68rem;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.28);
+            color: rgba(255, 255, 255, 0.28);
             padding: 0 3rem 3.5rem;
         }
     </style>
@@ -115,6 +132,7 @@
     }
     </script>
 </head>
+
 <body>
 
     <!-- Custom Cursor -->
@@ -127,7 +145,9 @@
     <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loading-logo">VRTX</div>
-        <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+        <div class="loading-bar-wrap">
+            <div class="loading-bar"></div>
+        </div>
         <div class="loading-label">Initializing 3D Environment</div>
     </div>
 
@@ -173,4 +193,5 @@
     <script src="./cursor.js"></script>
     <script src="./transitions.js"></script>
 </body>
+
 </html>
