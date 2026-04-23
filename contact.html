@@ -128,8 +128,10 @@
             left: 0;
             width: 0;
             height: 1px;
-            background: linear-gradient(90deg, var(--cyan), var(--magenta));
+            background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--violet), var(--gold), var(--cyan), var(--magenta), var(--violet));
+            background-size: 600% 600%;
             transition: width 0.38s cubic-bezier(.4,0,.2,1);
+            animation: nav-gradient-flow 10s ease-in-out infinite;
         }
         .form-group:focus-within::after { width: 100%; }
 
@@ -437,7 +439,7 @@
         const canvas = document.getElementById('bg-canvas');
         const ctx    = canvas.getContext('2d');
         let W, H, particles = [];
-        const PALETTE = [[0,255,255],[255,0,204],[255,204,0],[74,222,128],[170,0,255]];
+        const PALETTE = [[26,140,138],[12,100,120],[122,173,168],[237,244,245],[74,222,128]];
 
         function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
         function initParticles(n = 300) {

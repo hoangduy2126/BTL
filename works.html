@@ -136,17 +136,17 @@
         }
 
         /* Distinct gradient art-direction per card */
-        .thumb-1 { background: linear-gradient(135deg, #040d1a 0%, #061830 50%, #001422 100%);
+        .thumb-1 { background: linear-gradient(135deg, #041418 0%, #082830 50%, #001c22 100%);
                    display: flex; align-items: center; justify-content: center; }
-        .thumb-2 { background: linear-gradient(135deg, #17021a 0%, #2a0a22 55%, #160020 100%);
+        .thumb-2 { background: linear-gradient(135deg, #020d10 0%, #041820 55%, #001018 100%);
                    display: flex; align-items: center; justify-content: center; }
-        .thumb-3 { background: linear-gradient(135deg, #041408 0%, #082210 55%, #001c08 100%);
+        .thumb-3 { background: linear-gradient(135deg, #051414 0%, #0a2424 55%, #002020 100%);
                    display: flex; align-items: center; justify-content: center; }
-        .thumb-4 { background: linear-gradient(135deg, #191200 0%, #2a1e00 60%, #161000 100%);
+        .thumb-4 { background: linear-gradient(135deg, #081a1a 0%, #0f2c2c 60%, #062020 100%);
                    display: flex; align-items: center; justify-content: center; }
-        .thumb-5 { background: linear-gradient(135deg, #0a0614 0%, #180320 55%, #060018 100%);
+        .thumb-5 { background: linear-gradient(135deg, #031014 0%, #071e28 55%, #021418 100%);
                    display: flex; align-items: center; justify-content: center; }
-        .thumb-6 { background: linear-gradient(135deg, #001818 0%, #003030 55%, #001a24 100%);
+        .thumb-6 { background: linear-gradient(135deg, #021218 0%, #062030 55%, #031828 100%);
                    display: flex; align-items: center; justify-content: center; }
 
         .thumb-glyph {
@@ -814,7 +814,7 @@
         const canvas = document.getElementById('bg-canvas');
         const ctx    = canvas.getContext('2d');
         let W, H, particles = [];
-        const PALETTE = [[0,255,255],[255,0,204],[255,204,0],[74,222,128],[170,0,255]];
+        const PALETTE = [[26,140,138],[12,100,120],[122,173,168],[237,244,245],[74,222,128]];
 
         function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
         function initParticles(n = 300) {

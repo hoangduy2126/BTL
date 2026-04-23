@@ -57,11 +57,13 @@
             font-size: clamp(2rem, 3.5vw, 3rem);
             font-weight: 600;
             letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #fff 40%, rgba(255,255,255,0.4));
+            background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--violet), var(--gold), var(--cyan), var(--magenta), var(--violet));
+            background-size: 600% 600%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             display: inline-block;
+            animation: nav-gradient-flow 10s ease-in-out infinite;
         }
         .stat-label {
             font-size: 0.7rem;
@@ -96,9 +98,11 @@
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(0,255,255,0.5), transparent);
+            background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--violet), var(--gold), var(--cyan), var(--magenta), var(--violet));
+            background-size: 600% 600%;
             opacity: 0;
             transition: opacity 0.4s;
+            animation: nav-gradient-flow 10s ease-in-out infinite;
         }
         .team-card:hover {
             border-color: rgba(255,255,255,0.14);
@@ -196,10 +200,12 @@
             position: absolute;
             bottom: 0; left: 0; right: 0;
             height: 1px;
-            background: linear-gradient(90deg, var(--cyan), var(--magenta));
+            background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--violet), var(--gold), var(--cyan), var(--magenta), var(--violet));
+            background-size: 600% 600%;
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+            animation: nav-gradient-flow 10s ease-in-out infinite;
         }
         .value-item:hover { background: rgba(255,255,255,0.03); }
         .value-item:hover::after { transform: scaleX(1); }
@@ -457,7 +463,7 @@
         let W, H, particles = [];
 
         const PALETTE = [
-            [0,255,255], [255,0,204], [255,204,0], [74,222,128], [170,0,255]
+            [26,140,138], [12,100,120], [122,173,168], [237,244,245], [74,222,128]
         ];
 
         function resize() {

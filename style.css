@@ -6,10 +6,10 @@
 
 :root {
     --green:   #4ade80;
-    --cyan:    #00ffff;
-    --magenta: #ff00cc;
-    --gold:    #ffcc00;
-    --violet:  #aa00ff;
+    --cyan:    #1a8c8a;
+    --magenta: #0c6478;
+    --violet:  #7aada8;
+    --gold:    #edf4f5;
 }
 
 /* ── Base ──────────────────────────────────────────────────── */
@@ -69,8 +69,8 @@ body {
 #cursor-ring.is-link {
     width: 68px;
     height: 68px;
-    border-color: rgba(255,255,255,0.65);
-    background: rgba(255,255,255,0.06);
+    border-color: rgba(26,140,138,0.65);
+    background: rgba(26,140,138,0.07);
     color: rgba(255,255,255,0.85);
 }
 
@@ -142,35 +142,44 @@ header.scrolled {
     gap: 2rem;
 }
 
+@keyframes nav-gradient-flow {
+    0%   { background-position:   0%   0%; }
+    25%  { background-position: 100%  50%; }
+    50%  { background-position:  50% 100%; }
+    75%  { background-position:   0%  50%; }
+    100% { background-position:   0%   0%; }
+}
+
 .nav-link {
     font-size: 0.78rem;
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.75);
     text-decoration: none;
     position: relative;
-    transition: color 0.25s, transform 0.25s cubic-bezier(.4,0,.2,1);
     display: inline-block;
+    background: linear-gradient(
+        135deg,
+        var(--cyan),
+        var(--magenta),
+        var(--violet),
+        var(--gold),
+        var(--cyan),
+        var(--magenta),
+        var(--violet)
+    );
+    background-size: 600% 600%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: rgba(255,255,255,0.75);
+    transition: -webkit-text-fill-color 0.3s, filter 0.3s, transform 0.25s cubic-bezier(.4,0,.2,1);
 }
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -7px;
-    left: 50%;
-    width: 0;
-    height: 1px;
-    background: linear-gradient(90deg, var(--cyan), var(--magenta));
-    transform: translateX(-50%);
-    transition: width 0.35s cubic-bezier(.4,0,.2,1);
+.nav-link:hover,
+.nav-link.active {
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 12px rgba(26,140,138,0.35)) drop-shadow(0 0 24px rgba(122,173,168,0.15));
+    animation: nav-gradient-flow 10s ease-in-out infinite;
 }
-.nav-link:hover {
-    color: #fff;
-    filter: brightness(1.25) drop-shadow(0 0 8px rgba(255,255,255,0.18));
-}
-.nav-link:hover::after  { width: 100%; }
-.nav-link.active        { color: #fff; }
-.nav-link.active::after { width: 100%; }
 
 /* Green pill button */
 .pill-btn {
@@ -321,8 +330,9 @@ header.scrolled {
 }
 .loading-bar {
     height: 100%;
-    background: linear-gradient(90deg, var(--cyan), var(--magenta));
-    animation: load-bar 1.3s cubic-bezier(.4,0,.2,1) forwards;
+    background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--violet), var(--gold), var(--cyan), var(--magenta), var(--violet));
+    background-size: 600% 600%;
+    animation: load-bar 1.3s cubic-bezier(.4,0,.2,1) forwards, nav-gradient-flow 10s ease-in-out infinite;
 }
 @keyframes load-bar { from { width: 0; } to { width: 100%; } }
 .loading-label {
@@ -381,10 +391,13 @@ header.scrolled {
 }
 .hero-headline em {
     font-style: normal;
-    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--violet), var(--gold), var(--cyan), var(--magenta), var(--violet));
+    background-size: 600% 600%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: nav-gradient-flow 10s ease-in-out infinite;
+    display: inline;
 }
 
 /* ── Section Label ─────────────────────────────────────────── */
@@ -527,9 +540,11 @@ footer {
 
 /* ── Stat number lights up ───────────────────────────────── */
 .stat-item:hover .stat-number {
-    background: linear-gradient(135deg, #fff 20%, rgba(0,255,255,0.7));
+    background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--violet), var(--gold), var(--cyan), var(--magenta), var(--violet));
+    background-size: 600% 600%;
     -webkit-background-clip: text;
     background-clip: text;
+    animation: nav-gradient-flow 10s ease-in-out infinite;
 }
 .stat-item:hover .stat-label {
     color: rgba(255,255,255,0.55);
@@ -550,9 +565,9 @@ input:focus,
 textarea:focus,
 select:focus {
     outline: none;
-    border-color: rgba(255,255,255,0.35) !important;
-    box-shadow: 0 0 0 3px rgba(0,255,255,0.08), 0 0 20px rgba(0,255,255,0.06) !important;
-    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(26,140,138,0.45) !important;
+    box-shadow: 0 0 0 3px rgba(26,140,138,0.1), 0 0 20px rgba(26,140,138,0.08) !important;
+    background: rgba(26,140,138,0.04) !important;
 }
 
 /* ── Filter tabs on works page ───────────────────────────── */
