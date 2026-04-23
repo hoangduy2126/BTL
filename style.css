@@ -11,11 +11,11 @@
 }
 
 :root {
-    --green: #4ade80;
-    --cyan: #00ffff;
+    --green:   #4ade80;
+    --cyan:    #00ffff;
     --magenta: #ff00cc;
-    --gold: #ffcc00;
-    --violet: #aa00ff;
+    --gold:    #ffcc00;
+    --violet:  #aa00ff;
 }
 
 /* ── Base ──────────────────────────────────────────────────── */
@@ -80,9 +80,9 @@ body {
 #cursor-ring.is-link {
     width: 68px;
     height: 68px;
-    border-color: rgba(255, 255, 255, 0.65);
-    background: rgba(255, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255,255,255,0.65);
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.85);
 }
 
 /* ── Page Transition Overlay ───────────────────────────────── */
@@ -155,18 +155,25 @@ header.scrolled {
     gap: 2rem;
 }
 
+@keyframes nav-gradient-flow {
+    0%   { background-position:   0%   0%; }
+    25%  { background-position: 100%  50%; }
+    50%  { background-position:  50% 100%; }
+    75%  { background-position:   0%  50%; }
+    100% { background-position:   0%   0%; }
+}
+
 .nav-link {
     font-size: 0.78rem;
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255,255,255,0.75);
     text-decoration: none;
     position: relative;
-    transition: color 0.25s, transform 0.25s cubic-bezier(.4, 0, .2, 1);
+    transition: color 0.25s, transform 0.25s cubic-bezier(.4,0,.2,1);
     display: inline-block;
 }
-
 .nav-link::after {
     content: '';
     position: absolute;
@@ -176,25 +183,15 @@ header.scrolled {
     height: 1px;
     background: linear-gradient(90deg, var(--cyan), var(--magenta));
     transform: translateX(-50%);
-    transition: width 0.35s cubic-bezier(.4, 0, .2, 1);
+    transition: width 0.35s cubic-bezier(.4,0,.2,1);
 }
-
 .nav-link:hover {
     color: #fff;
-    filter: brightness(1.25) drop-shadow(0 0 8px rgba(255, 255, 255, 0.18));
+    filter: brightness(1.25) drop-shadow(0 0 8px rgba(255,255,255,0.18));
 }
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-.nav-link.active {
-    color: #fff;
-}
-
-.nav-link.active::after {
-    width: 100%;
-}
+.nav-link:hover::after  { width: 100%; }
+.nav-link.active        { color: #fff; }
+.nav-link.active::after { width: 100%; }
 
 /* Green pill button */
 .pill-btn {
@@ -387,7 +384,7 @@ header.scrolled {
 .loading-bar {
     height: 100%;
     background: linear-gradient(90deg, var(--cyan), var(--magenta));
-    animation: load-bar 1.3s cubic-bezier(.4, 0, .2, 1) forwards;
+    animation: load-bar 1.3s cubic-bezier(.4,0,.2,1) forwards;
 }
 
 @keyframes load-bar {
@@ -474,10 +471,13 @@ header.scrolled {
 
 .hero-headline em {
     font-style: normal;
-    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--violet), var(--gold), var(--cyan), var(--magenta), var(--violet));
+    background-size: 600% 600%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: nav-gradient-flow 10s ease-in-out infinite;
+    display: inline;
 }
 
 /* ── Section Label ─────────────────────────────────────────── */
@@ -636,9 +636,10 @@ footer {
 
 /* ── Stat number lights up ───────────────────────────────── */
 .stat-item:hover .stat-number {
-    background: linear-gradient(135deg, #fff 20%, rgba(0, 255, 255, 0.7));
+    background: linear-gradient(135deg, #fff 20%, rgba(0,255,255,0.7));
     -webkit-background-clip: text;
     background-clip: text;
+    animation: nav-gradient-flow 10s ease-in-out infinite;
 }
 
 .stat-item:hover .stat-label {
@@ -663,9 +664,9 @@ input:focus,
 textarea:focus,
 select:focus {
     outline: none;
-    border-color: rgba(255, 255, 255, 0.35) !important;
-    box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.08), 0 0 20px rgba(0, 255, 255, 0.06) !important;
-    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255,255,255,0.35) !important;
+    box-shadow: 0 0 0 3px rgba(0,255,255,0.08), 0 0 20px rgba(0,255,255,0.06) !important;
+    background: rgba(255,255,255,0.06) !important;
 }
 
 /* ── Filter tabs on works page ───────────────────────────── */

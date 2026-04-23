@@ -178,7 +178,7 @@
             width: 0;
             height: 1px;
             background: linear-gradient(90deg, var(--cyan), var(--magenta));
-            transition: width 0.38s cubic-bezier(.4, 0, .2, 1);
+            transition: width 0.38s cubic-bezier(.4,0,.2,1);
         }
 
         .form-group:focus-within::after {
@@ -562,7 +562,7 @@
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let W, H, particles = [];
-        const PALETTE = [[0, 255, 255], [255, 0, 204], [255, 204, 0], [74, 222, 128], [170, 0, 255]];
+        const PALETTE = [[0,255,255],[255,0,204],[255,204,0],[74,222,128],[170,0,255]];
 
         function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
         function initParticles(n = 300) {

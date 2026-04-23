@@ -80,11 +80,12 @@
             font-size: clamp(2rem, 3.5vw, 3rem);
             font-weight: 600;
             letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #fff 40%, rgba(255, 255, 255, 0.4));
+            background: linear-gradient(135deg, #fff 40%, rgba(255,255,255,0.4));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             display: inline-block;
+            animation: nav-gradient-flow 10s ease-in-out infinite;
         }
 
         .stat-label {
@@ -128,9 +129,10 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.5), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0,255,255,0.5), transparent);
             opacity: 0;
             transition: opacity 0.4s;
+            animation: nav-gradient-flow 10s ease-in-out infinite;
         }
 
         .team-card:hover {
@@ -261,10 +263,11 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, var(--cyan), var(--magenta));
+            background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--violet), var(--gold), var(--cyan), var(--magenta), var(--violet));
+            background-size: 600% 600%;
             transform: scaleX(0);
             transform-origin: left;
-            transition: transform 0.4s cubic-bezier(.4, 0, .2, 1);
+            transition: transform 0.4s cubic-bezier(.4,0,.2,1);
         }
 
         .value-item:hover {
@@ -602,7 +605,7 @@
         let W, H, particles = [];
 
         const PALETTE = [
-            [0, 255, 255], [255, 0, 204], [255, 204, 0], [74, 222, 128], [170, 0, 255]
+            [0,255,255], [255,0,204], [255,204,0], [74,222,128], [170,0,255]
         ];
 
         function resize() {
