@@ -159,10 +159,10 @@ function loadText() {
                 roughness:       0.28,        // slightly brushed — cuts harsh glare
                 envMapIntensity: 1.1,         // moderate env reflections
 
-                // Very faint glass-like depth
-                transmission:    0.03,
-                ior:             1.5,
-                thickness:       2.5,
+                // Removed very faint glass-like depth to fix massive lag
+                // transmission:    0.03,
+                // ior:             1.5,
+                // thickness:       2.5,
 
                 // Thin-film iridescence — present but restrained
                 iridescence:          0.65,
@@ -184,12 +184,12 @@ function loadText() {
                 font,
                 size:          7.8,
                 depth:         3.8,
-                curveSegments: 20,
+                curveSegments: 5,   // Reduced from 20 for performance
                 bevelEnabled:  true,
                 bevelThickness: 0.45,
                 bevelSize:      0.28,
                 bevelOffset:    0,
-                bevelSegments:  12,
+                bevelSegments:  4,   // Reduced from 12 for performance
             });
             geo.center();
 
