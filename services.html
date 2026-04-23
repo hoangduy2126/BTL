@@ -47,39 +47,80 @@
         }
 
         .service-item {
+            display: flex;
+            flex-direction: column;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.4s, transform 0.4s, box-shadow 0.4s, border-color 0.4s;
+            overflow: hidden;
+        }
+
+        .service-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .service-content {
             display: grid;
             grid-template-columns: 80px 1fr 1fr;
             gap: 2.5rem;
             align-items: start;
-            padding: 3rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.07);
-            position: relative;
-            transition: background 0.3s;
         }
 
-        .service-item:last-child {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        .service-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 1.2s cubic-bezier(0.7, 0, 0.2, 1);
         }
 
-        .service-item::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, var(--cyan), var(--magenta));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.5s cubic-bezier(.4, 0, .2, 1);
+        .service-images img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(30px);
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.2, 1);
+            transition-delay: 0.2s;
         }
 
-        .service-item:hover::after {
-            transform: scaleX(1);
+        .service-item.expanded .service-images {
+            max-height: 400px;
+            opacity: 1;
+            margin-top: 3rem;
+        }
+
+        .service-item.expanded .service-images img {
+            transform: translateY(0);
+        }
+        
+        .service-item.expanded {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         @media (max-width: 768px) {
             .service-item {
+                padding: 2rem 1.5rem;
+            }
+
+            .service-content {
                 grid-template-columns: 60px 1fr;
                 grid-template-rows: auto auto;
                 gap: 1.5rem;
@@ -87,6 +128,17 @@
 
             .service-desc {
                 grid-column: 1 / -1;
+            }
+            
+            .service-images {
+                grid-template-columns: 1fr;
+            }
+            .service-images img {
+                height: 200px;
+            }
+            .service-item.expanded .service-images {
+                max-height: 600px;
+                margin-top: 2rem;
             }
         }
 
@@ -290,118 +342,148 @@
 
                 <!-- 01 Brand Identity -->
                 <div class="service-item">
-                    <div class="service-index"><span class="service-num-accent">01</span></div>
-                    <div class="service-title-wrap">
-                        <div class="service-name">Brand Identity</div>
-                        <div class="service-tags">
-                            <span class="service-tag">Strategy</span>
-                            <span class="service-tag">Logo & Mark</span>
-                            <span class="service-tag">Typography</span>
-                            <span class="service-tag">Colour System</span>
-                            <span class="service-tag">Brand Guidelines</span>
+                    <div class="service-content">
+                        <div class="service-index"><span class="service-num-accent">01</span></div>
+                        <div class="service-title-wrap">
+                            <div class="service-name">Brand Identity</div>
+                            <div class="service-tags">
+                                <span class="service-tag">Strategy</span>
+                                <span class="service-tag">Logo & Mark</span>
+                                <span class="service-tag">Typography</span>
+                                <span class="service-tag">Colour System</span>
+                                <span class="service-tag">Brand Guidelines</span>
+                            </div>
+                            <a href="./contact.html" class="service-cta">Start a project <span
+                                    class="service-cta-arrow">→</span></a>
                         </div>
-                        <a href="./contact.html" class="service-cta">Start a project <span
-                                class="service-cta-arrow">→</span></a>
+                        <div class="service-desc">
+                            We build brand identities that hold their ground — visually and strategically. Our process starts
+                            with deep research into your market position and ends with a complete, deployable brand system.
+                            Every mark we create carries intention, and every colour decision is rooted in behavioural
+                            psychology and competitive analysis. The result is a brand that looks distinctive today and
+                            remains relevant for years to come.
+                        </div>
                     </div>
-                    <div class="service-desc">
-                        We build brand identities that hold their ground — visually and strategically. Our process starts
-                        with deep research into your market position and ends with a complete, deployable brand system.
-                        Every mark we create carries intention, and every colour decision is rooted in behavioural
-                        psychology and competitive analysis. The result is a brand that looks distinctive today and
-                        remains relevant for years to come.
+                    <div class="service-images">
+                        <img src="./assets/images/brand_identity_1.png" alt="Brand Identity 1">
+                        <img src="./assets/images/brand_identity_2.png" alt="Brand Identity 2">
                     </div>
                 </div>
 
                 <!-- 02 Product Design -->
                 <div class="service-item">
-                    <div class="service-index"><span class="service-num-accent">02</span></div>
-                    <div class="service-title-wrap">
-                        <div class="service-name">Product Design</div>
-                        <div class="service-tags">
-                            <span class="service-tag">UI/UX</span>
-                            <span class="service-tag">Prototyping</span>
-                            <span class="service-tag">User Research</span>
-                            <span class="service-tag">Industrial Design</span>
-                            <span class="service-tag">Packaging</span>
+                    <div class="service-content">
+                        <div class="service-index"><span class="service-num-accent">02</span></div>
+                        <div class="service-title-wrap">
+                            <div class="service-name">Product Design</div>
+                            <div class="service-tags">
+                                <span class="service-tag">UI/UX</span>
+                                <span class="service-tag">Prototyping</span>
+                                <span class="service-tag">User Research</span>
+                                <span class="service-tag">Industrial Design</span>
+                                <span class="service-tag">Packaging</span>
+                            </div>
+                            <a href="./contact.html" class="service-cta">Start a project <span
+                                    class="service-cta-arrow">→</span></a>
                         </div>
-                        <a href="./contact.html" class="service-cta">Start a project <span
-                                class="service-cta-arrow">→</span></a>
+                        <div class="service-desc">
+                            From physical objects to digital interfaces, we design products that feel inevitable — as though
+                            they couldn't have been designed any other way. We bridge the gap between user needs and
+                            manufacturing constraints, applying rigorous design thinking at every stage. Form, function, and
+                            materiality are treated as inseparable, resulting in objects and experiences that earn loyalty.
+                        </div>
                     </div>
-                    <div class="service-desc">
-                        From physical objects to digital interfaces, we design products that feel inevitable — as though
-                        they couldn't have been designed any other way. We bridge the gap between user needs and
-                        manufacturing constraints, applying rigorous design thinking at every stage. Form, function, and
-                        materiality are treated as inseparable, resulting in objects and experiences that earn loyalty.
+                    <div class="service-images">
+                        <img src="./assets/images/product_design_1.png" alt="Product Design 1">
+                        <img src="./assets/images/product_design_2.png" alt="Product Design 2">
                     </div>
                 </div>
 
                 <!-- 03 Motion Graphics -->
                 <div class="service-item">
-                    <div class="service-index"><span class="service-num-accent">03</span></div>
-                    <div class="service-title-wrap">
-                        <div class="service-name">Motion Graphics</div>
-                        <div class="service-tags">
-                            <span class="service-tag">Animation</span>
-                            <span class="service-tag">3D Rendering</span>
-                            <span class="service-tag">Title Sequences</span>
-                            <span class="service-tag">Product Visualisation</span>
-                            <span class="service-tag">Social Content</span>
+                    <div class="service-content">
+                        <div class="service-index"><span class="service-num-accent">03</span></div>
+                        <div class="service-title-wrap">
+                            <div class="service-name">Motion Graphics</div>
+                            <div class="service-tags">
+                                <span class="service-tag">Animation</span>
+                                <span class="service-tag">3D Rendering</span>
+                                <span class="service-tag">Title Sequences</span>
+                                <span class="service-tag">Product Visualisation</span>
+                                <span class="service-tag">Social Content</span>
+                            </div>
+                            <a href="./contact.html" class="service-cta">Start a project <span
+                                    class="service-cta-arrow">→</span></a>
                         </div>
-                        <a href="./contact.html" class="service-cta">Start a project <span
-                                class="service-cta-arrow">→</span></a>
+                        <div class="service-desc">
+                            Motion is not decoration — it is communication. Our motion team works across 2D animation and
+                            full 3D production to create sequences that convey complex ideas with immediate clarity. Whether
+                            it's a product launch film, a broadcast title sequence, or a social asset series, every frame is
+                            considered. We work in Cinema 4D, After Effects, and Unreal Engine, delivering broadcast-ready
+                            output at any format.
+                        </div>
                     </div>
-                    <div class="service-desc">
-                        Motion is not decoration — it is communication. Our motion team works across 2D animation and
-                        full 3D production to create sequences that convey complex ideas with immediate clarity. Whether
-                        it's a product launch film, a broadcast title sequence, or a social asset series, every frame is
-                        considered. We work in Cinema 4D, After Effects, and Unreal Engine, delivering broadcast-ready
-                        output at any format.
+                    <div class="service-images">
+                        <img src="./assets/images/motion_graphics_1.png" alt="Motion Graphics 1">
+                        <img src="./assets/images/motion_graphics_2.png" alt="Motion Graphics 2">
                     </div>
                 </div>
 
                 <!-- 04 Web Design -->
                 <div class="service-item">
-                    <div class="service-index"><span class="service-num-accent">04</span></div>
-                    <div class="service-title-wrap">
-                        <div class="service-name">Web Design</div>
-                        <div class="service-tags">
-                            <span class="service-tag">Art Direction</span>
-                            <span class="service-tag">Interaction Design</span>
-                            <span class="service-tag">Responsive Layout</span>
-                            <span class="service-tag">Front-End Development</span>
-                            <span class="service-tag">Performance</span>
+                    <div class="service-content">
+                        <div class="service-index"><span class="service-num-accent">04</span></div>
+                        <div class="service-title-wrap">
+                            <div class="service-name">Web Design</div>
+                            <div class="service-tags">
+                                <span class="service-tag">Art Direction</span>
+                                <span class="service-tag">Interaction Design</span>
+                                <span class="service-tag">Responsive Layout</span>
+                                <span class="service-tag">Front-End Development</span>
+                                <span class="service-tag">Performance</span>
+                            </div>
+                            <a href="./contact.html" class="service-cta">Start a project <span
+                                    class="service-cta-arrow">→</span></a>
                         </div>
-                        <a href="./contact.html" class="service-cta">Start a project <span
-                                class="service-cta-arrow">→</span></a>
+                        <div class="service-desc">
+                            We design digital environments that behave as well as they look. Our web projects begin with art
+                            direction and layout strategy, then move into interaction design and development. We prioritise
+                            performance and accessibility without compromising on visual ambition. Every site we build is an
+                            extension of the brand — structured, intentional, and built to last across devices and browsers.
+                        </div>
                     </div>
-                    <div class="service-desc">
-                        We design digital environments that behave as well as they look. Our web projects begin with art
-                        direction and layout strategy, then move into interaction design and development. We prioritise
-                        performance and accessibility without compromising on visual ambition. Every site we build is an
-                        extension of the brand — structured, intentional, and built to last across devices and browsers.
+                    <div class="service-images">
+                        <img src="./assets/images/web_design_1.png" alt="Web Design 1">
+                        <img src="./assets/images/web_design_2.png" alt="Web Design 2">
                     </div>
                 </div>
 
                 <!-- 05 Audio Design -->
                 <div class="service-item">
-                    <div class="service-index"><span class="service-num-accent">05</span></div>
-                    <div class="service-title-wrap">
-                        <div class="service-name">Audio Design</div>
-                        <div class="service-tags">
-                            <span class="service-tag">Sound Branding</span>
-                            <span class="service-tag">Sonic Identity</span>
-                            <span class="service-tag">Music Composition</span>
-                            <span class="service-tag">Sound Effects</span>
-                            <span class="service-tag">Mixing & Mastering</span>
+                    <div class="service-content">
+                        <div class="service-index"><span class="service-num-accent">05</span></div>
+                        <div class="service-title-wrap">
+                            <div class="service-name">Audio Design</div>
+                            <div class="service-tags">
+                                <span class="service-tag">Sound Branding</span>
+                                <span class="service-tag">Sonic Identity</span>
+                                <span class="service-tag">Music Composition</span>
+                                <span class="service-tag">Sound Effects</span>
+                                <span class="service-tag">Mixing & Mastering</span>
+                            </div>
+                            <a href="./contact.html" class="service-cta">Start a project <span
+                                    class="service-cta-arrow">→</span></a>
                         </div>
-                        <a href="./contact.html" class="service-cta">Start a project <span
-                                class="service-cta-arrow">→</span></a>
+                        <div class="service-desc">
+                            A brand is heard as much as it is seen. Our audio design practice covers everything from full
+                            sonic identity systems — the sounds that define how a brand feels in motion — to bespoke music
+                            composition and immersive soundscapes for film, installation, and digital experience. We craft
+                            audio that reinforces brand character and creates emotional resonance at every touchpoint.
+                        </div>
                     </div>
-                    <div class="service-desc">
-                        A brand is heard as much as it is seen. Our audio design practice covers everything from full
-                        sonic identity systems — the sounds that define how a brand feels in motion — to bespoke music
-                        composition and immersive soundscapes for film, installation, and digital experience. We craft
-                        audio that reinforces brand character and creates emotional resonance at every touchpoint.
+                    <div class="service-images">
+                        <img src="./assets/images/audio_design_1.png" alt="Audio Design 1">
+                        <img src="./assets/images/audio_design_2.png" alt="Audio Design 2">
                     </div>
                 </div>
 
@@ -506,6 +588,21 @@
         const header = document.querySelector('header');
         window.addEventListener('scroll', () => {
             header.classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        // ── Service Item Expand ───────────────────────────────────
+        const serviceItems = document.querySelectorAll('.service-item');
+        serviceItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (e.target.closest('.service-cta') || e.target.closest('.service-tag')) return;
+                
+                const isExpanded = item.classList.contains('expanded');
+                serviceItems.forEach(si => si.classList.remove('expanded'));
+                
+                if (!isExpanded) {
+                    item.classList.add('expanded');
+                }
+            });
         });
 
         // ── Loading screen ────────────────────────────────────────
