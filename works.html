@@ -147,6 +147,75 @@
             grid-column: span 12;
         }
 
+        /* Unique layout modifiers */
+        .side-layout {
+            display: flex !important;
+            flex-direction: row;
+            align-items: stretch;
+        }
+
+        .side-layout .card-thumb {
+            width: 60%;
+            height: auto;
+            aspect-ratio: auto;
+        }
+
+        .side-layout .card-info {
+            width: 40%;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .reverse-layout {
+            flex-direction: row-reverse;
+        }
+
+        .reverse-layout .card-info {
+            border-left: none;
+            border-right: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .info-overlay-style {
+            position: relative;
+        }
+
+        .info-overlay-style .card-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 2rem;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .info-overlay-style .card-thumb {
+            aspect-ratio: 16/11;
+        }
+
+        @media (max-width: 900px) {
+            .side-layout {
+                flex-direction: column !important;
+            }
+
+            .side-layout .card-thumb,
+            .side-layout .card-info {
+                width: 100% !important;
+            }
+
+            .side-layout .card-info {
+                padding: 1.5rem;
+                border-left: none;
+                border-right: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.07);
+            }
+        }
+
         @media (max-width: 900px) {
 
             .span-7,
@@ -197,18 +266,47 @@
         }
 
         /* Distinct gradient art-direction per card */
-        .thumb-1 { background: linear-gradient(135deg, #040d1a 0%, #061830 50%, #001422 100%);
-                   display: flex; align-items: center; justify-content: center; }
-        .thumb-2 { background: linear-gradient(135deg, #17021a 0%, #2a0a22 55%, #160020 100%);
-                   display: flex; align-items: center; justify-content: center; }
-        .thumb-3 { background: linear-gradient(135deg, #041408 0%, #082210 55%, #001c08 100%);
-                   display: flex; align-items: center; justify-content: center; }
-        .thumb-4 { background: linear-gradient(135deg, #191200 0%, #2a1e00 60%, #161000 100%);
-                   display: flex; align-items: center; justify-content: center; }
-        .thumb-5 { background: linear-gradient(135deg, #0a0614 0%, #180320 55%, #060018 100%);
-                   display: flex; align-items: center; justify-content: center; }
-        .thumb-6 { background: linear-gradient(135deg, #001818 0%, #003030 55%, #001a24 100%);
-                   display: flex; align-items: center; justify-content: center; }
+        .thumb-1 {
+            background: url('./assets/images/ảnh%2012.webp') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumb-2 {
+            background: url('./assets/images/ảnh%2011.webp') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumb-3 {
+            background: url('./assets/images/ẢNH%2013.webp') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumb-4 {
+            background: url('./assets/images/ẢNH%2014.webp') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumb-5 {
+            background: url('./assets/images/ẢNH%2015.webp') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumb-6 {
+            background: url('./assets/images/ẢNH%2016.webp') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         .thumb-glyph {
             font-size: clamp(2.5rem, 5vw, 5rem);
@@ -374,7 +472,7 @@
             transition: all 0.8s cubic-bezier(0.7, 0, 0.2, 1);
             overflow-y: auto;
             scrollbar-width: none;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
         }
 
         .lb-panel::-webkit-scrollbar {
@@ -589,8 +687,23 @@
                 <a href="./services.html" class="nav-link">Services</a>
                 <a href="./contact.html" class="pill-btn">Start a Conversation</a>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-                    <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                    <svg class="moon-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor"
+                        stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor"
+                        stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                        style="display:none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
                 </button>
                 <button class="hamburger" id="hamburger" aria-label="Open menu">
                     <span></span><span></span><span></span>
@@ -687,7 +800,7 @@
                 </div>
 
                 <!-- Row 3 -->
-                <div class="work-card span-6" data-category="motion" data-index="4">
+                <div class="work-card span-7" data-category="motion" data-index="4">
                     <div class="card-thumb">
                         <div class="card-thumb-inner thumb-5">
                             <div class="thumb-glyph glyph-violet">VX</div>
@@ -703,7 +816,7 @@
                     </div>
                 </div>
 
-                <div class="work-card span-6" data-category="print" data-index="5">
+                <div class="work-card span-5" data-category="print" data-index="5">
                     <div class="card-thumb">
                         <div class="card-thumb-inner thumb-6">
                             <div class="thumb-glyph glyph-cyan">NR</div>
@@ -716,6 +829,280 @@
                         <div class="card-cat">Publication · Print</div>
                         <div class="card-title">Noir — Annual Art Magazine</div>
                         <div class="card-year">2023</div>
+                    </div>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="work-card span-7" data-category="product" data-index="6">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner thumb-7"
+                            style="background: url('./assets/images/product_design_1.webp') center/cover;">
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Product Design</div>
+                        <div class="card-title">Nexus Smart Thermostat</div>
+                        <div class="card-year">2025</div>
+                    </div>
+                </div>
+
+                <div class="work-card span-5" data-category="audio" data-index="7">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner thumb-8"
+                            style="background: url('./assets/images/audio_design_1.webp') center/cover;">
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Audio Design</div>
+                        <div class="card-title">SonicForge Audio Console</div>
+                        <div class="card-year">2024</div>
+                    </div>
+                </div>
+
+                <!-- Row 5 -->
+                <div class="work-card span-6" data-category="web" data-index="8">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner thumb-9"
+                            style="background: url('./assets/images/web_design_1.webp') center/cover;">
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Web Design</div>
+                        <div class="card-title">Elysium E-Commerce</div>
+                        <div class="card-year">2025</div>
+                    </div>
+                </div>
+
+                <div class="work-card span-6" data-category="web" data-index="9">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner thumb-10"
+                            style="background: url('./assets/images/web_design_2.webp') center/cover;">
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Web Design</div>
+                        <div class="card-title">Aero — Digital Banking App</div>
+                        <div class="card-year">2024</div>
+                    </div>
+                </div>
+
+                <!-- Row 6 -->
+                <div class="work-card span-7" data-category="product" data-index="10">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner thumb-11"
+                            style="background: url('./assets/images/product_design_2.webp') center/cover;">
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Product Design</div>
+                        <div class="card-title">Lumina Drone Concept</div>
+                        <div class="card-year">2023</div>
+                    </div>
+                </div>
+
+                <div class="work-card span-5" data-category="audio" data-index="11">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner thumb-12"
+                            style="background: url('./assets/images/audio_design_2.webp') center/cover;">
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Audio Design</div>
+                        <div class="card-title">Pulse Synth Interface</div>
+                        <div class="card-year">2025</div>
+                    </div>
+                </div>
+
+                <!-- Row 7: Brand Identity -->
+                <div class="work-card span-7" data-category="identity" data-index="12">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner"
+                            style="background: url('./assets/images/brand_identity_1.webp') center/cover;">
+                            <div class="thumb-glyph glyph-cyan">NV</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Brand Identity</div>
+                        <div class="card-title">Nova Branding System</div>
+                        <div class="card-year">2026</div>
+                    </div>
+                </div>
+
+                <div class="work-card span-5" data-category="identity" data-index="13">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner"
+                            style="background: url('./assets/images/brand_identity_2.webp') center/cover;">
+                            <div class="thumb-glyph glyph-green">AS</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Brand Identity</div>
+                        <div class="card-title">Astra Visual Identity</div>
+                        <div class="card-year">2025</div>
+                    </div>
+                </div>
+
+                <!-- Row 8: Product Design -->
+                <div class="work-card span-5" data-category="product" data-index="14">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner"
+                            style="background: url('./assets/images/product_moonwatch.jpg') center/cover;">
+                            <div class="thumb-glyph glyph-cyan">ZP</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Product Design</div>
+                        <div class="card-title">Zephyr Smart Watch</div>
+                        <div class="card-year">2026</div>
+                    </div>
+                </div>
+
+                <div class="work-card span-7" data-category="product" data-index="15">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner"
+                            style="background: url('./assets/images/product_spheres.jpg') center/cover;">
+                            <div class="thumb-glyph glyph-magenta">EC</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Product Design</div>
+                        <div class="card-title">Echo VR Headset</div>
+                        <div class="card-year">2025</div>
+                    </div>
+                </div>
+
+                <!-- Row 9: Motion Graphics -->
+                <div class="work-card span-5" data-category="motion" data-index="16">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner"
+                            style="background: url('./assets/images/motion_graphics_2.webp') center/cover;">
+                            <div class="thumb-glyph glyph-gold">KT</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Motion Graphics</div>
+                        <div class="card-title">Kinetic Typo Series</div>
+                        <div class="card-year">2025</div>
+                    </div>
+                </div>
+
+                <div class="work-card span-7" data-category="motion" data-index="17">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner"
+                            style="background: url('./assets/images/motion_graphics_1.webp') center/cover;">
+                            <div class="thumb-glyph glyph-violet">NF</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Motion Graphics</div>
+                        <div class="card-title">Neon Flow Promo</div>
+                        <div class="card-year">2024</div>
+                    </div>
+                </div>
+
+                <!-- Row 10: Web Design -->
+                <div class="work-card span-7" data-category="web" data-index="18">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner"
+                            style="background: url('./assets/images/web_wireframe.jpg') center/cover;">
+                            <div class="thumb-glyph glyph-cyan">HZ</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Web Design</div>
+                        <div class="card-title">Horizon Dashboard</div>
+                        <div class="card-year">2026</div>
+                    </div>
+                </div>
+
+                <div class="work-card span-5" data-category="web" data-index="19">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner"
+                            style="background: url('./assets/images/web_design_2.webp') center/cover;">
+                            <div class="thumb-glyph glyph-violet">QT</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Web Design</div>
+                        <div class="card-title">Quantum Platform</div>
+                        <div class="card-year">2025</div>
+                    </div>
+                </div>
+
+                <!-- Row 11: Audio Design -->
+                <div class="work-card span-6" data-category="audio" data-index="20">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner"
+                            style="background: url('./assets/images/audio_wave_neon.jpg') center/cover;">
+                            <div class="thumb-glyph glyph-gold">RS</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Audio Design</div>
+                        <div class="card-title">Resonance Panels</div>
+                        <div class="card-year">2024</div>
+                    </div>
+                </div>
+
+                <div class="work-card span-6" data-category="audio" data-index="21">
+                    <div class="card-thumb">
+                        <div class="card-thumb-inner"
+                            style="background: url('./assets/images/audio_wave_glow.jpg') center/cover;">
+                            <div class="thumb-glyph glyph-cyan">VB</div>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="overlay-cta">View Project</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-cat">Audio Design</div>
+                        <div class="card-title">Vibe Mixing Studio</div>
+                        <div class="card-year">2026</div>
                     </div>
                 </div>
             </div>
@@ -767,7 +1154,7 @@
                 cat: 'Brand Identity',
                 glyph: 'HELIX',
                 glyphColor: 'var(--cyan)',
-                bg: 'linear-gradient(135deg,#040d1a,#061830,#001422)',
+                bg: 'url(./assets/images/ảnh%2012.webp) center/cover',
                 desc: 'A comprehensive visual identity built for a biotech pioneer entering public markets. We developed the mark, colour system, typography, and a full design language for print, digital, and environmental applications.',
                 year: '2025',
                 services: 'Identity, Strategy, Print',
@@ -779,7 +1166,7 @@
                 cat: 'Motion Design',
                 glyph: 'MV',
                 glyphColor: 'var(--magenta)',
-                bg: 'linear-gradient(135deg,#17021a,#2a0a22,#160020)',
+                bg: 'url(./assets/images/ảnh%2011.webp) center/cover',
                 desc: 'Kinetic title sequence for an independent film production. Working closely with the director, we created a 90-second opening that establishes mood, tone, and character through typography-led motion design.',
                 year: '2025',
                 services: 'Motion Design, After Effects',
@@ -791,7 +1178,7 @@
                 cat: 'Digital Experience',
                 glyph: 'FOLD',
                 glyphColor: 'var(--green)',
-                bg: 'linear-gradient(135deg,#041408,#082210,#001c08)',
+                bg: 'url(./assets/images/ẢNH%2013.webp) center/cover',
                 desc: 'An interactive product launch microsite built around layered parallax and scroll-triggered animation. Fold.io saw a 3× increase in demo sign-ups during the campaign window.',
                 year: '2024',
                 services: 'Web Design, Motion, Dev Direction',
@@ -803,7 +1190,7 @@
                 cat: 'Brand Identity · Print',
                 glyph: 'AURA',
                 glyphColor: 'var(--gold)',
-                bg: 'linear-gradient(135deg,#191200,#2a1e00,#161000)',
+                bg: 'url(./assets/images/ẢNH%2014.webp) center/cover',
                 desc: 'End-to-end identity for a fine jewellery brand entering the European market. Covered wordmark, secondary marks, colour, type, photography direction, and a full suite of packaging spanning boxes, tissue, ribbons, and carrier bags.',
                 year: '2024',
                 services: 'Identity, Packaging, Art Direction',
@@ -815,7 +1202,7 @@
                 cat: '3D · Motion',
                 glyph: 'VX',
                 glyphColor: 'var(--violet)',
-                bg: 'linear-gradient(135deg,#0a0614,#180320,#060018)',
+                bg: 'url(./assets/images/ẢNH%2015.webp) center/cover',
                 desc: 'A 60-second 3D product reveal film for VX Labs\u2019 flagship hardware launch. Rendered in Cinema 4D with custom shaders, and finished in DaVinci Resolve for broadcast and social delivery.',
                 year: '2024',
                 services: '3D, Motion, Colour Grade',
@@ -827,13 +1214,205 @@
                 cat: 'Publication · Print',
                 glyph: 'NR',
                 glyphColor: 'var(--cyan)',
-                bg: 'linear-gradient(135deg,#001818,#003030,#001a24)',
+                bg: 'url(./assets/images/ẢNH%2016.webp) center/cover',
                 desc: 'Art direction and editorial design for Noir\u2019s annual print edition. 140 pages across two volumes \u2014 spanning long-form interviews, photographic essays, and conceptual spreads for an international readership.',
                 year: '2023',
                 services: 'Editorial Design, Print, Art Direction',
                 client: 'Noir Mag',
                 scope: 'Annual edition (2 vols)',
             },
+            {
+                title: 'Nexus Smart Thermostat',
+                cat: 'Product Design',
+                glyph: '',
+                glyphColor: 'transparent',
+                bg: 'url(./assets/images/product_design_1.webp) center/cover',
+                desc: 'Industrial design and interface engineering for a next-generation smart home climate control system. Focus on sustainable materials, tactile feedback, and intuitive interactions.',
+                year: '2025',
+                services: 'Industrial Design, UI/UX',
+                client: 'Nexus Home',
+                scope: 'Product Design & Prototyping',
+            },
+            {
+                title: 'SonicForge Audio Console',
+                cat: 'Audio Design',
+                glyph: '',
+                glyphColor: 'transparent',
+                bg: 'url(./assets/images/audio_design_1.webp) center/cover',
+                desc: 'A premium concept for a digital-analog hybrid mixing console. Designing the physical layout, LED feedback systems, and haptic response for professional audio engineers.',
+                year: '2024',
+                services: 'Hardware Concept, Interface',
+                client: 'SonicForge Inc.',
+                scope: 'Concept & Rendering',
+            },
+            {
+                title: 'Elysium E-Commerce',
+                cat: 'Web Design',
+                glyph: '',
+                glyphColor: 'transparent',
+                bg: 'url(./assets/images/web_design_1.webp) center/cover',
+                desc: 'A high-performance e-commerce experience blending seamless 3D product interactions with a modern headless architecture.',
+                year: '2025',
+                services: 'Web Design, UI/UX, Front-End',
+                client: 'Elysium Retail',
+                scope: 'Full Website Redesign',
+            },
+            {
+                title: 'Aero — Digital Banking App',
+                cat: 'Web Design',
+                glyph: '',
+                glyphColor: 'transparent',
+                bg: 'url(./assets/images/web_design_2.webp) center/cover',
+                desc: 'Reimagining personal finance through a fluid, responsive web application interface designed for clarity and engagement.',
+                year: '2024',
+                services: 'Web Design, Product Design',
+                client: 'Aero Bank',
+                scope: 'App Design & Web Portal',
+            },
+            {
+                title: 'Lumina Drone Concept',
+                cat: 'Product Design',
+                glyph: '',
+                glyphColor: 'transparent',
+                bg: 'url(./assets/images/product_design_2.webp) center/cover',
+                desc: 'A conceptual industrial design for a consumer photography drone. Emphasizing foldability, robust materials, and an aerodynamic profile.',
+                year: '2023',
+                services: 'Industrial Design, 3D Modeling',
+                client: 'Lumina Tech',
+                scope: 'Concept & Rendering',
+            },
+            {
+                title: 'Pulse Synth Interface',
+                cat: 'Audio Design',
+                glyph: '',
+                glyphColor: 'transparent',
+                bg: 'url(./assets/images/audio_design_2.webp) center/cover',
+                desc: 'Hardware interface design for a modern analog synthesizer. Carefully balanced ergonomics and tactile controls for live performance.',
+                year: '2025',
+                services: 'Hardware Interface, UI/UX',
+                client: 'Pulse Instruments',
+                scope: 'Interface Design',
+            },
+            {
+                title: 'Nova Branding System',
+                cat: 'Brand Identity',
+                glyph: 'NV',
+                glyphColor: 'var(--cyan)',
+                bg: 'url(./assets/images/brand_identity_1.webp) center/cover',
+                desc: 'A complete brand refresh for Nova Space Systems. Evolving their mark and typography to reflect their transition into a global leader in aerospace tech.',
+                year: '2026',
+                services: 'Identity, Guidelines',
+                client: 'Nova Space Systems',
+                scope: 'Full Identity Rebrand',
+            },
+            {
+                title: 'Astra Visual Identity',
+                cat: 'Brand Identity',
+                glyph: 'AS',
+                glyphColor: 'var(--green)',
+                bg: 'url(./assets/images/brand_identity_2.webp) center/cover',
+                desc: 'Strategic brand identity for Astra Financial, blending trust, security, and forward-thinking digital aesthetics into a versatile design system.',
+                year: '2025',
+                services: 'Strategy, Visual Identity',
+                client: 'Astra Financial',
+                scope: 'Identity System',
+            },
+            {
+                title: 'Zephyr Smart Watch',
+                cat: 'Product Design',
+                glyph: 'ZP',
+                glyphColor: 'var(--cyan)',
+                bg: 'url(./assets/images/product_moonwatch.jpg) center/cover',
+                desc: 'Industrial design and hardware conceptualization for a luxury smart watch. Focused on integrating advanced sensors into a slim, classical timepiece silhouette.',
+                year: '2026',
+                services: 'Product Design, 3D Rendering',
+                client: 'Zephyr Wearables',
+                scope: 'Hardware Concept',
+            },
+            {
+                title: 'Echo VR Headset',
+                cat: 'Product Design',
+                glyph: 'EC',
+                glyphColor: 'var(--magenta)',
+                bg: 'url(./assets/images/product_spheres.jpg) center/cover',
+                desc: 'Ergonomic study and visual prototyping for a next-gen standalone virtual reality headset, maximizing comfort and thermal efficiency.',
+                year: '2025',
+                services: 'Ergonomic Design, Prototyping',
+                client: 'Echo Reality',
+                scope: 'Product Concept',
+            },
+            {
+                title: 'Kinetic Typo Series',
+                cat: 'Motion Graphics',
+                glyph: 'KT',
+                glyphColor: 'var(--gold)',
+                bg: 'url(./assets/images/motion_graphics_2.webp) center/cover',
+                desc: 'An experimental typographic motion series exploring weight, speed, and rhythm. Featured in international design exhibitions.',
+                year: '2025',
+                services: 'Motion Design, Typography',
+                client: 'Self-Initiated',
+                scope: 'Animation Series',
+            },
+            {
+                title: 'Neon Flow Promo',
+                cat: 'Motion Graphics',
+                glyph: 'NF',
+                glyphColor: 'var(--violet)',
+                bg: 'url(./assets/images/motion_graphics_1.webp) center/cover',
+                desc: 'A high-energy, vibrant motion graphics promo for a major electronic music festival, combining abstract 3D elements with bold kinetic type.',
+                year: '2024',
+                services: 'Motion Graphics, 3D Animation',
+                client: 'Neon Flow Festival',
+                scope: 'Festival Promo Video',
+            },
+            {
+                title: 'Horizon Dashboard',
+                cat: 'Web Design',
+                glyph: 'HZ',
+                glyphColor: 'var(--cyan)',
+                bg: 'url(./assets/images/web_wireframe.jpg) center/cover',
+                desc: 'A comprehensive web dashboard for data analysts. Simplifying complex metrics into an elegant, highly responsive interface.',
+                year: '2026',
+                services: 'UI/UX, Frontend Development',
+                client: 'Horizon Data Systems',
+                scope: 'SaaS Dashboard',
+            },
+            {
+                title: 'Quantum Platform',
+                cat: 'Web Design',
+                glyph: 'QT',
+                glyphColor: 'var(--violet)',
+                bg: 'url(./assets/images/web_design_2.webp) center/cover',
+                desc: 'A decentralized finance trading platform interface. Balancing extreme data density with clean, legible design patterns.',
+                year: '2025',
+                services: 'Web Design, User Experience',
+                client: 'Quantum Finance',
+                scope: 'Platform Design',
+            },
+            {
+                title: 'Resonance Panels',
+                cat: 'Audio Design',
+                glyph: 'RS',
+                glyphColor: 'var(--gold)',
+                bg: 'url(./assets/images/audio_wave_neon.jpg) center/cover',
+                desc: 'Physical design and acoustic engineering for modular studio treatment panels. Ensuring pristine sound absorption while maintaining a premium aesthetic.',
+                year: '2024',
+                services: 'Acoustic Design, Materials',
+                client: 'Resonance Acoustics',
+                scope: 'Product & Acoustic Concept',
+            },
+            {
+                title: 'Vibe Mixing Studio',
+                cat: 'Audio Design',
+                glyph: 'VB',
+                glyphColor: 'var(--cyan)',
+                bg: 'url(./assets/images/audio_wave_glow.jpg) center/cover',
+                desc: 'A complete spatial audio mixing studio setup design, optimizing speaker placement, workstation ergonomics, and lighting for extended creative sessions.',
+                year: '2026',
+                services: 'Studio Layout, Acoustic Planning',
+                client: 'Vibe Records',
+                scope: 'Studio Design',
+            }
         ];
 
         // ── Lightbox Logic ────────────────────────────────────────
@@ -874,7 +1453,7 @@
             lbNext.disabled = posInVisible >= visibleIndices.length - 1;
 
             const panel = document.querySelector('.lb-panel');
-            
+
             if (originElement) {
                 const rect = originElement.getBoundingClientRect();
                 panel.style.transition = 'none';
@@ -883,10 +1462,10 @@
                 panel.style.width = rect.width + 'px';
                 panel.style.height = rect.height + 'px';
                 panel.style.transform = 'translate(0, 0) scale(1)';
-                
+
                 // Force reflow
                 panel.offsetHeight;
-                
+
                 panel.style.transition = 'all 0.8s cubic-bezier(0.7, 0, 0.2, 1)';
                 panel.style.left = '50%';
                 panel.style.top = '50%';
@@ -911,7 +1490,7 @@
         function closeLightbox() {
             lb.classList.remove('open');
             document.body.style.overflow = '';
-            
+
             setTimeout(() => {
                 const panel = document.querySelector('.lb-panel');
                 panel.style.transition = '';
@@ -990,7 +1569,7 @@
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let W, H, particles = [];
-        const PALETTE = [[145,198,188],[225,122,71],[243,235,178],[81,159,168],[145,198,188]];
+        const PALETTE = [[145, 198, 188], [225, 122, 71], [243, 235, 178], [81, 159, 168], [145, 198, 188]];
 
         function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
         function initParticles(n = 300) {
