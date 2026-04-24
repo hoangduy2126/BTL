@@ -11,11 +11,11 @@
 }
 
 :root {
-    --green:   #519fa8;
-    --cyan:    #91c6bc;
-    --magenta: #e17a47;
-    --gold:    #f3ebb2;
-    --violet:  #519fa8;
+    --green:   #3b8c9d;
+    --cyan:    #8ebba8;
+    --magenta: #d96b38;
+    --gold:    #f6ecc0;
+    --violet:  #3b8c9d;
 }
 
 /* ── Base ──────────────────────────────────────────────────── */
@@ -123,19 +123,24 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2rem 3rem;
+    padding: 1.5rem 3rem;
     position: sticky;
     top: 0;
     z-index: 200;
-    transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
-    border-bottom: 1px solid transparent;
+    background: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    transform: translateZ(0);
+    will-change: background-color, box-shadow;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 header.scrolled {
-    background: rgba(0, 0, 0, 0.72);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border-color: rgba(255, 255, 255, 0.07);
+    background: rgba(0, 0, 0, 0.45);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
 .header-logo {
@@ -184,9 +189,18 @@ header.scrolled {
     transform: translateX(-50%) scaleX(0);
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, var(--cyan), var(--magenta), transparent);
-    box-shadow: 0 2px 8px rgba(0, 255, 255, 0.4), 0 2px 12px rgba(255, 0, 204, 0.3);
+    background: linear-gradient(90deg, var(--cyan), var(--green), var(--gold), var(--magenta), var(--cyan), var(--green));
+    background-size: 300% 100%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+    box-shadow: 0 2px 8px rgba(142, 187, 168, 0.4), 0 2px 12px rgba(217, 107, 56, 0.3);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+    transform: translateX(-50%) scaleX(1);
+    animation: nav-gradient-flow 3.5s ease-in-out infinite;
 }
 
 .nav-link::after {
@@ -194,7 +208,7 @@ header.scrolled {
     position: absolute;
     inset: -4px -12px;
     border-radius: 8px;
-    background: radial-gradient(ellipse at center, rgba(0, 255, 255, 0.15) 0%, rgba(255, 0, 204, 0.05) 60%, transparent 100%);
+    background: radial-gradient(ellipse at center, rgba(142, 187, 168, 0.15) 0%, rgba(217, 107, 56, 0.05) 60%, transparent 100%);
     opacity: 0;
     transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: -1;
@@ -412,7 +426,7 @@ header.scrolled {
 
 .loading-bar {
     height: 100%;
-    background: linear-gradient(90deg, var(--cyan), var(--magenta));
+    background: linear-gradient(90deg, var(--cyan), var(--green), var(--gold), var(--magenta));
     animation: load-bar 1.3s cubic-bezier(.4,0,.2,1) forwards;
 }
 
@@ -500,7 +514,7 @@ header.scrolled {
 
 .hero-headline em {
     font-style: normal;
-    background: linear-gradient(135deg, var(--cyan), var(--magenta), var(--violet), var(--gold), var(--cyan), var(--magenta), var(--violet));
+    background: linear-gradient(135deg, var(--cyan), var(--green), var(--gold), var(--magenta), var(--cyan), var(--green), var(--gold));
     background-size: 600% 600%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -781,9 +795,10 @@ body.light-mode .client-name {
 }
 
 body.light-mode .stat-number {
-    background: none;
-    -webkit-text-fill-color: #111111;
-    color: #111111;
+    background: linear-gradient(135deg, #111111 40%, rgba(17, 17, 17, 0.4));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 body.light-mode .nav-link:hover,
@@ -832,7 +847,7 @@ body.light-mode .team-socials {
     border-top-color: rgba(0, 0, 0, 0.1);
 }
 
-body.light-mode [class*="card"],
+body.light-mode .testimonial-card,
 body.light-mode .service-item,
 body.light-mode .value-item,
 body.light-mode .form-input,
@@ -844,9 +859,26 @@ body.light-mode .lb-panel {
     color: #111;
 }
 
+body.light-mode .team-card {
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-color: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04) !important;
+}
+
+body.light-mode header {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+}
+
 body.light-mode header.scrolled {
-    background: rgba(244, 238, 230, 0.85);
-    border-color: rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.45);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
 }
 
 body.light-mode .stats-row,
@@ -912,7 +944,7 @@ body.light-mode .form-textarea::placeholder {
 }
 
 /* ── LIGHT MODE GLOW EFFECTS ───────────────────────────────── */
-body.light-mode [class*="card"]:hover,
+body.light-mode .testimonial-card:hover,
 body.light-mode .service-item:hover,
 body.light-mode .value-item:hover,
 body.light-mode .lb-panel:hover,
@@ -1014,11 +1046,36 @@ body.light-mode .service-num-accent {
 }
 
 body.light-mode .team-social-link {
-    color: rgba(0, 0, 0, 0.6);
-    border-bottom-color: rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.65) !important;
+    border-bottom-color: rgba(0, 0, 0, 0.25) !important;
 }
 
 body.light-mode .team-social-link:hover {
-    color: var(--cyan);
-    border-bottom-color: var(--cyan);
+    color: var(--cyan) !important;
+    border-bottom-color: var(--cyan) !important;
+}
+
+/* ── LIGHT MODE WORKS PAGE FIXES ───────────────────────────── */
+body.light-mode .work-card {
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .work-card:hover {
+    border-color: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+}
+
+body.light-mode .work-card:hover .card-title {
+    color: #111111;
+}
+
+body.light-mode .work-card:hover .card-cat,
+body.light-mode .work-card:hover .card-year {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+body.light-mode .about-col:hover p,
+body.light-mode .lb-body:hover .lb-desc {
+    color: #444444;
 }
