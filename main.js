@@ -13,6 +13,8 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 // ── State ──────────────────────────────────────────────────────────────────
 let camera, scene, renderer, composer, controls;
 let textGroup;
+let textMesh;          // Keep reference for wireframe toggle
+let bloomPass, darkMaterial, lightMaterial;
 let iridLights = [];   // coloured spot lights that orbit to fake anisotropy
 
 const mouse    = { x: 0, y: 0 };
@@ -32,14 +34,27 @@ function init() {
 
     // Scene
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
+    // Background is handled by CSS (renderer alpha: true)
+    scene.background = null;
+
+    const observer = new MutationObserver(() => {
+        const light = document.body.classList.contains('light-mode');
+        if (bloomPass) {
+            bloomPass.threshold = light ? 2.0 : 0.65;
+        }
+        if (textMesh && darkMaterial && lightMaterial) {
+            textMesh.material = light ? lightMaterial : darkMaterial;
+        }
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
     // Camera – pulled back enough to frame thick text nicely
     camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 200);
     camera.position.set(0, 0, 34);
 
     // Renderer
-    renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+    renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance', alpha: true });
+    renderer.setClearColor(0x000000, 0);
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
     renderer.setSize(innerWidth, innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -197,6 +212,21 @@ function loadText() {
             mesh.castShadow    = true;
             mesh.receiveShadow = true;
             textGroup.add(mesh);
+            textMesh = mesh;
+            darkMaterial = mat;
+            lightMaterial = new THREE.MeshBasicMaterial({
+                color: 0x519fa8,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.9
+            });
+            
+            // Trigger initial theme update for text
+            const light = document.body.classList.contains('light-mode');
+            if (light) {
+                textMesh.material = lightMaterial;
+                if (bloomPass) bloomPass.threshold = 2.0;
+            }
 
             // Hide loading screen once font is ready
             const ls = document.getElementById('loading-screen');
@@ -253,13 +283,13 @@ function setupPostProcessing() {
     composer.addPass(new RenderPass(scene, camera));
 
     // Gentle bloom – enough to make highlights glow without washing out detail
-    const bloom = new UnrealBloomPass(
+    bloomPass = new UnrealBloomPass(
         new THREE.Vector2(innerWidth, innerHeight),
         0.25,   // strength — subtle glow only
         0.4,    // radius
         0.65    // threshold — only hottest highlights bloom
     );
-    composer.addPass(bloom);
+    composer.addPass(bloomPass);
 
     // Chromatic aberration – subtle lens fringing
     const rgbShift = new ShaderPass(RGBShiftShader);
