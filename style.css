@@ -910,7 +910,10 @@ body.light-mode .lb-nav-btn:hover {
 }
 
 body.light-mode #cursor-dot {
-    background: #000;
+    background: linear-gradient(135deg, var(--cyan), var(--green), var(--gold), var(--magenta), var(--cyan), var(--green), var(--gold));
+    background-size: 600% 600%;
+    animation: nav-gradient-flow 10s ease-in-out infinite;
+    mix-blend-mode: normal;
 }
 body.light-mode #cursor-ring {
     border-color: rgba(0, 0, 0, 0.3);
