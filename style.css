@@ -850,9 +850,6 @@ body.light-mode .team-socials {
 body.light-mode .testimonial-card,
 body.light-mode .service-item,
 body.light-mode .value-item,
-body.light-mode .form-input,
-body.light-mode .form-textarea,
-body.light-mode .form-select,
 body.light-mode .lb-panel {
     background: #ffffff !important;
     border-color: rgba(0, 0, 0, 0.08) !important;
@@ -989,6 +986,7 @@ body.light-mode select:focus {
     border-color: var(--cyan) !important;
     box-shadow: 0 0 24px rgba(145, 198, 188, 0.4) !important;
     background: #ffffff !important;
+    color: #000 !important;
 }
 
 body.light-mode .hero-headline em {
