@@ -134,3 +134,27 @@
         });
     });
 })();
+
+/* ── Theme Toggle ────────────────────────────────────────── */
+(function () {
+    const initTheme = () => {
+        const isLight = localStorage.getItem('vrtx-theme') === 'light';
+        document.body.classList.toggle('light-mode', isLight);
+    };
+    initTheme(); // Run immediately
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleBtn = document.getElementById('theme-toggle');
+        if (!toggleBtn) return;
+        
+        toggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.add('theme-transitioning');
+            const isLight = document.body.classList.toggle('light-mode');
+            localStorage.setItem('vrtx-theme', isLight ? 'light' : 'dark');
+            
+            setTimeout(() => {
+                document.documentElement.classList.remove('theme-transitioning');
+            }, 400);
+        });
+    });
+})();
