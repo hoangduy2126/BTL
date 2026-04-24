@@ -242,13 +242,15 @@
             color: #ff6b6b;
         }
 
-        /* Budget chips */
+        /* Form chips (Services & Budget) */
+        .service-chips,
         .budget-chips {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
         }
 
+        .service-chip,
         .budget-chip {
             padding: 0.3rem 0.88rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -261,6 +263,8 @@
             transition: all 0.2s;
         }
 
+        .service-chip:hover,
+        .service-chip.selected,
         .budget-chip:hover,
         .budget-chip.selected {
             border-color: rgba(255, 255, 255, 0.38);
@@ -502,15 +506,15 @@
 
                         <div class="form-group" id="fg-service">
                             <label class="form-label">Services needed</label>
-                            <select class="form-select" id="service">
-                                <option value="" disabled selected>Select a service</option>
-                                <option value="identity">Brand Identity</option>
-                                <option value="product">Product Design</option>
-                                <option value="motion">Motion Graphics</option>
-                                <option value="web">Web Design</option>
-                                <option value="audio">Audio Design</option>
-                                <option value="other">Other / Not Sure</option>
-                            </select>
+                            <input type="hidden" id="service" value="">
+                            <div class="service-chips">
+                                <button type="button" class="service-chip" data-value="identity">Brand Identity</button>
+                                <button type="button" class="service-chip" data-value="product">Product Design</button>
+                                <button type="button" class="service-chip" data-value="motion">Motion Graphics</button>
+                                <button type="button" class="service-chip" data-value="web">Web Design</button>
+                                <button type="button" class="service-chip" data-value="audio">Audio Design</button>
+                                <button type="button" class="service-chip" data-value="other">Other / Not Sure</button>
+                            </div>
                             <span class="form-error">Please select a service</span>
                         </div>
 
@@ -612,6 +616,21 @@
                 document.querySelectorAll('.budget-chip').forEach(c => c.classList.remove('selected'));
                 chip.classList.add('selected');
                 selectedBudget = chip.dataset.value;
+            });
+        });
+
+        // ── Service chips ──────────────────────────────────────────
+        const serviceInput = document.getElementById('service');
+        document.querySelectorAll('.service-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.service-chip').forEach(c => c.classList.remove('selected'));
+                chip.classList.add('selected');
+                serviceInput.value = chip.dataset.value;
+                // Clear error if exists
+                const group = serviceInput.closest('.form-group');
+                if (group && group.classList.contains('has-error')) {
+                    group.classList.remove('has-error');
+                }
             });
         });
 
