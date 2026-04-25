@@ -53,6 +53,10 @@
         const label = resolveLabel(e.target);
         if (label !== null) {
             ring.classList.add('is-link');
+            if (e.target.closest('.work-card')) {
+                ring.classList.add('is-work');
+                dot.classList.add('is-work');
+            }
             ring.textContent = label;
         }
     });
@@ -61,6 +65,10 @@
         const label = resolveLabel(e.target);
         if (label !== null) {
             ring.classList.remove('is-link');
+            if (e.target.closest('.work-card')) {
+                ring.classList.remove('is-work');
+                dot.classList.remove('is-work');
+            }
             ring.textContent = '';
         }
     });

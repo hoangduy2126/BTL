@@ -44,7 +44,17 @@
             gap: 0.5rem;
             margin-bottom: 3.5rem;
             flex-wrap: wrap;
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            padding: 1.5rem 0;
+            background: var(--bg-color);
+            transition: padding 0.3s ease;
         }
+
+        /* Add a slight border/shadow when pinned if possible, 
+           but since we don't have a scroll-watcher for the bar itself, 
+           we'll just keep it clean. */
 
         .filter-tab {
             padding: 0.35rem 1rem;
@@ -410,18 +420,18 @@
             font-weight: 600;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.16);
+            color: rgba(255, 255, 255, 0.4);
             white-space: nowrap;
             transition: color 0.25s;
         }
 
         .client-name:hover {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         /* Marquee separator */
         .client-sep {
-            color: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.2);
             font-size: 0.5rem;
             flex-shrink: 0;
         }
@@ -617,14 +627,7 @@
     <!-- Page Transition -->
     <div id="page-transition"></div>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loading-logo">VRTX</div>
-        <div class="loading-bar-wrap">
-            <div class="loading-bar"></div>
-        </div>
-        <div class="loading-label">Selected Works</div>
-    </div>
+
 
     <!-- Background Canvas -->
     <canvas id="bg-canvas"></canvas>
@@ -634,8 +637,7 @@
         <a href="./index.html" class="nav-link">Home</a>
         <a href="./works.html" class="nav-link active">Works</a>
         <a href="./services.html" class="nav-link">Services</a>
-        <a href="./about.html" class="nav-link">About</a>
-        <a href="./contact.html" class="pill-btn">Contact Us</a>
+        <a href="./contact.html" class="pill-btn">Start a Conversation</a>
     </nav>
 
     <!-- Lightbox -->
@@ -679,13 +681,18 @@
     <!-- Page -->
     <div id="page">
         <header>
-            <a href="./index.html" class="header-logo">VRTX Studio</a>
+            <a href="./index.html" class="header-logo">
+                <img src="./assets/images/VRTX_LOGO.webp" alt="VRTX Logo" class="logo-mark">
+                <div class="logo-text">
+                    <span class="logo-vertex">VRTX</span>
+                    <span class="logo-studio">STUDIO</span>
+                </div>
+            </a>
             <nav class="header-nav">
                 <a href="./index.html" class="nav-link">Home</a>
                 <a href="./works.html" class="nav-link active">Works</a>
                 <a href="./services.html" class="nav-link">Services</a>
-                <a href="./about.html" class="nav-link">About</a>
-                <a href="./contact.html" class="pill-btn">Contact Us</a>
+                <a href="./contact.html" class="pill-btn">Start a Conversation</a>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
                     <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor"
                         stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -712,7 +719,7 @@
         </header>
 
         <main>
-            <div class="page-label reveal reveal-d1">02 — Selected Works</div>
+            <div class="page-label reveal reveal-d1">Selected Works</div>
 
             <h1 class="hero-headline reveal reveal-d2">
                 Work built to <em>endure</em>, not just impress.
@@ -1129,6 +1136,8 @@
                         <span class="client-name">TopTop</span>
                         <span class="client-sep">◆</span>
                         <span class="client-name">Guugle </span>
+                        <span class="client-sep">◆</span>
+                        <span class="client-name">Cornhub </span>
                         <span class="client-sep">◆</span>
                     </div>
                 </div>
@@ -1562,6 +1571,19 @@
                 });
 
                 grid.classList.toggle('filtered', filter !== 'all');
+
+                // Reset scroll to the top of the section (Hero title)
+                const header = document.querySelector('.page-label');
+                const headerOffset = -300; 
+                const elementPosition = header.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }, 10);
             });
         });
 
@@ -1597,18 +1619,7 @@
         resize(); initParticles(); drawFrame();
         window.addEventListener('resize', () => { resize(); initParticles(); });
 
-        // Dismiss loading screen as soon as DOM is ready (no external resources to wait for)
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const ls = document.getElementById('loading-screen');
-                if (ls) ls.classList.add('hidden');
-            }, 1000);
-        });
-        // Fallback: ensure it's gone after 2.5s regardless
-        setTimeout(() => {
-            const ls = document.getElementById('loading-screen');
-            if (ls) ls.classList.add('hidden');
-        }, 2500);
+
     </script>
 </body>
 

@@ -44,10 +44,10 @@
             });
         });
 
-        // Intercept same-origin link clicks → fade then navigate
-        document.addEventListener('click', (e) => {
-            const a = e.target.closest('a[href]');
-            if (!a) return;
+    // Intercept same-origin link clicks → fade then navigate
+    document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href]');
+        if (!a) return;
 
             const href = a.getAttribute('href');
             // Skip: external, anchor, mailto/tel, new-tab
@@ -60,11 +60,10 @@
                 (href.startsWith('http') && !href.startsWith(location.origin))
             ) return;
 
-            e.preventDefault();
-            overlay.classList.add('active');
-            setTimeout(() => { window.location.href = href; }, 420);
-        });
-    }
+        e.preventDefault();
+        overlay.classList.add('active');
+        setTimeout(() => { window.location.href = href; }, 440);
+    });
 })();
 
 /* ── Scroll Reveal (IntersectionObserver) ─────────────────── */

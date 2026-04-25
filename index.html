@@ -51,62 +51,91 @@
         /* ── Footer strip ─────────────────────────────────── */
         #ui-overlay footer {
             margin-top: 0;
+            padding-bottom: 2rem;
         }
 
         /* ── Scroll CTA arrow ─────────────────────────────── */
         .index-cta {
-            display: flex;
-            flex-direction: column;
+            display: inline-flex;
+            flex-direction: row;
             align-items: center;
-            gap: 1rem;
+            gap: 0.8rem;
             pointer-events: all;
+<<<<<<< HEAD
+            padding: 0.5rem 0.5rem 0.5rem 1.4rem;
+            border-radius: 999px;
+            position: relative;
+            overflow: hidden;
             text-decoration: none;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s ease;
+            border: 1px solid transparent;
+            z-index: 1;
+        }
+
+        .index-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--cyan), var(--green), var(--gold), var(--magenta), var(--cyan), var(--green), var(--gold));
+            background-size: 600% 600%;
+            animation: nav-gradient-flow 10s ease-in-out infinite;
+            z-index: -1;
+            transform-origin: right;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .index-cta:hover {
+            transform: scale(1.05);
+            border-color: var(--cyan);
+        }
+
+        .index-cta:hover::before {
+            transform: scaleX(0);
+=======
+            text-decoration: none;
+>>>>>>> d747e7ba083530123c5c367253f5b467e7634c84
         }
 
         .index-cta-text {
-            font-size: 0.65rem;
-            letter-spacing: 0.28em;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.3);
-            transition: color 0.25s;
-        }
-
-        .index-cta-arrow {
-            display: block;
-            width: 32px;
-            height: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.9rem;
-            text-decoration: none;
-            transition: border-color 0.3s, color 0.3s, transform 0.3s, background 0.3s;
-            animation: float-arrow 2.2s ease-in-out infinite;
-        }
-
-        @keyframes float-arrow {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(5px);
-            }
+            color: #fff;
+            position: relative;
+            z-index: 2;
+            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .index-cta:hover .index-cta-text {
-            color: rgba(255, 255, 255, 0.65);
+            color: var(--cyan);
+        }
+
+        .index-cta-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #fff;
+            color: var(--cyan);
+            border: 1px solid transparent;
+            position: relative;
+            z-index: 2;
+            transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s ease;
+        }
+
+        .index-cta-arrow svg {
+            width: 14px;
+            height: 14px;
+            margin-top: 2px;
         }
 
         .index-cta:hover .index-cta-arrow {
-            border-color: rgba(255, 255, 255, 0.5);
-            color: rgba(255, 255, 255, 0.8);
-            background: rgba(255, 255, 255, 0.05);
+            background: transparent;
+            color: var(--cyan);
+            border-color: var(--cyan);
         }
 
         /* Footer meta adjustments */
@@ -118,7 +147,7 @@
             letter-spacing: 0.14em;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.28);
-            padding: 0 3rem 3.5rem;
+            padding: 0;
         }
     </style>
 
@@ -148,19 +177,23 @@
         <a href="./index.html" class="nav-link active">Home</a>
         <a href="./works.html" class="nav-link">Works</a>
         <a href="./services.html" class="nav-link">Services</a>
-        <a href="./about.html" class="nav-link">About</a>
-        <a href="./contact.html" class="pill-btn">Contact Us</a>
+        <a href="./contact.html" class="pill-btn">Start a Conversation</a>
     </nav>
 
     <!-- UI Overlay -->
     <div id="ui-overlay">
         <header>
-            <div class="header-logo">VRTX Studio</div>
+            <div class="header-logo">
+                <img src="./assets/images/VRTX_LOGO.webp" alt="VRTX Logo" class="logo-mark">
+                <div class="logo-text">
+                    <span class="logo-vertex">VRTX</span>
+                    <span class="logo-studio">STUDIO</span>
+                </div>
+            </div>
             <nav class="header-nav">
                 <a href="./works.html" class="nav-link">Works</a>
                 <a href="./services.html" class="nav-link">Services</a>
-                <a href="./about.html" class="nav-link">About</a>
-                <a href="./contact.html" class="pill-btn">Contact Us</a>
+                <a href="./contact.html" class="pill-btn">Start a Conversation</a>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
                     <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                     <svg class="moon-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -174,7 +207,9 @@
         <footer>
             <a href="./works.html" class="index-cta">
                 <span class="index-cta-text">Explore our work</span>
-                <span class="index-cta-arrow">↓</span>
+                <span class="index-cta-arrow">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
             </a>
             <div class="index-footer">
                 <span>[ Drag to Orbit ]</span>

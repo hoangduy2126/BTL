@@ -1,713 +1,740 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VRTX Studio | Our Services</title>
-    <meta
-      name="description"
-      content="Explore VRTX Studio's full range of creative services — from brand identity and motion graphics to web design and audio design."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="icon" type="image/webp" href="./assets/images/VRTX_LOGO.webp" />
-    <style>
-      /* ── Main ─────────────────────────────────────────────── */
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VRTX Studio | Our Services</title>
+  <meta name="description"
+    content="Explore VRTX Studio's full range of creative services — from brand identity and motion graphics to web design and audio design." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="icon" type="image/webp" href="./assets/images/VRTX_LOGO.webp" />
+  <style>
+    /* ── Main ─────────────────────────────────────────────── */
+    main {
+      flex: 1;
+      padding: 4rem 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
       main {
-        flex: 1;
-        padding: 4rem 3rem 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-        width: 100%;
+        padding: 3rem 1.5rem 2rem;
       }
+    }
 
-      @media (max-width: 768px) {
-        main {
-          padding: 3rem 1.5rem 2rem;
-        }
-      }
+    /* ── Hero intro ───────────────────────────────────────── */
+    .hero-sub {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.42);
+      max-width: 520px;
+      line-height: 1.78;
+      margin-bottom: 5rem;
+      margin-top: -2rem;
+    }
 
-      /* ── Hero intro ───────────────────────────────────────── */
-      .hero-sub {
-        font-size: 0.88rem;
-        color: rgba(255, 255, 255, 0.42);
-        max-width: 520px;
-        line-height: 1.78;
-        margin-bottom: 5rem;
-        margin-top: -2rem;
-      }
+    /* ── Services List ────────────────────────────────────── */
+    .services-list {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 6rem;
+    }
 
-      /* ── Services List ────────────────────────────────────── */
-      .services-list {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 6rem;
-      }
+    .service-item {
+      display: flex;
+      flex-direction: column;
+      padding: 3rem;
+      margin-bottom: 2.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      cursor: pointer;
+      position: relative;
+      transition:
+        background 0.4s,
+        transform 0.4s,
+        box-shadow 0.4s,
+        border-color 0.4s;
+      overflow: hidden;
+    }
 
+    .service-expand-icon {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.3);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .service-item:hover .service-expand-icon {
+      border-color: rgba(255, 255, 255, 0.22);
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .service-expand-icon svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.6s cubic-bezier(0.7, 0, 0.2, 1);
+    }
+
+    .service-item.expanded .service-expand-icon {
+      background: var(--cyan);
+      color: #000;
+      border-color: transparent;
+    }
+
+    .service-item.expanded .service-expand-icon svg {
+      transform: rotate(180deg);
+    }
+
+    .service-item.expanded {
+      padding-bottom: 5rem;
+    }
+
+    .service-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .service-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .service-content {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .service-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 1.2s cubic-bezier(0.7, 0, 0.2, 1);
+    }
+
+    .service-images img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translateY(30px);
+      transition: transform 1.2s cubic-bezier(0.7, 0, 0.2, 1);
+      transition-delay: 0.2s;
+    }
+
+    .service-item.expanded .service-images {
+      max-height: 400px;
+      opacity: 1;
+      margin-top: 3rem;
+    }
+
+    .service-item.expanded .service-images img {
+      transform: translateY(0);
+    }
+
+    .service-item.expanded {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    @media (max-width: 768px) {
       .service-item {
-        display: flex;
-        flex-direction: column;
-        padding: 3rem;
-        margin-bottom: 2rem;
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 20px;
-        cursor: pointer;
-        transition:
-          background 0.4s,
-          transform 0.4s,
-          box-shadow 0.4s,
-          border-color 0.4s;
-        overflow: hidden;
-      }
-
-      .service-item:last-child {
-        margin-bottom: 0;
-      }
-
-      .service-item:hover {
-        background: rgba(255, 255, 255, 0.06);
-        transform: translateY(-4px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        border-color: rgba(255, 255, 255, 0.15);
+        padding: 2rem 1.5rem;
       }
 
       .service-content {
-        display: grid;
-        grid-template-columns: 80px 1fr 1fr;
-        gap: 2.5rem;
-        align-items: start;
-      }
-
-      .service-images {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 60px 1fr;
+        grid-template-rows: auto auto;
         gap: 1.5rem;
-        max-height: 0;
-        opacity: 0;
-        overflow: hidden;
-        transition: all 1.2s cubic-bezier(0.7, 0, 0.2, 1);
-      }
-
-      .service-images img {
-        width: 100%;
-        height: 280px;
-        object-fit: cover;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transform: translateY(30px);
-        transition: transform 1.2s cubic-bezier(0.7, 0, 0.2, 1);
-        transition-delay: 0.2s;
-      }
-
-      .service-item.expanded .service-images {
-        max-height: 400px;
-        opacity: 1;
-        margin-top: 3rem;
-      }
-
-      .service-item.expanded .service-images img {
-        transform: translateY(0);
-      }
-
-      .service-item.expanded {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.2);
-      }
-
-      @media (max-width: 768px) {
-        .service-item {
-          padding: 2rem 1.5rem;
-        }
-
-        .service-content {
-          grid-template-columns: 60px 1fr;
-          grid-template-rows: auto auto;
-          gap: 1.5rem;
-        }
-
-        .service-desc {
-          grid-column: 1 / -1;
-        }
-
-        .service-images {
-          grid-template-columns: 1fr;
-        }
-        .service-images img {
-          height: 200px;
-        }
-        .service-item.expanded .service-images {
-          max-height: 600px;
-          margin-top: 2rem;
-        }
-      }
-
-      .service-index {
-        font-size: 0.65rem;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.22);
-        padding-top: 0.3rem;
-      }
-
-      .service-title-wrap {
-        display: flex;
-        flex-direction: column;
-        gap: 0.9rem;
-      }
-
-      .service-name {
-        font-size: clamp(1.5rem, 3vw, 2.2rem);
-        font-weight: 500;
-        letter-spacing: -0.01em;
-        line-height: 1.15;
-      }
-
-      .service-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.45rem;
-      }
-
-      .service-tag {
-        font-size: 0.62rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.38);
-        padding: 0.25rem 0.7rem;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 999px;
       }
 
       .service-desc {
-        font-size: 0.88rem;
-        line-height: 1.85;
-        color: rgba(255, 255, 255, 0.48);
-        padding-top: 0.3rem;
+        grid-column: 1 / -1;
       }
 
-      .service-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 1.5rem;
-        font-size: 0.7rem;
-        font-weight: 500;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.38);
-        text-decoration: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-        padding-bottom: 2px;
-        transition:
-          color 0.25s,
-          border-color 0.25s;
+      .service-images {
+        grid-template-columns: 1fr;
       }
 
-      .service-cta:hover {
-        color: rgba(255, 255, 255, 0.82);
-        border-color: rgba(255, 255, 255, 0.42);
+      .service-images img {
+        height: 200px;
       }
 
-      .service-cta-arrow {
-        transition: transform 0.2s;
+      .service-item.expanded .service-images {
+        max-height: 600px;
+        margin-top: 2rem;
       }
+    }
 
-      .service-cta:hover .service-cta-arrow {
-        transform: translateX(4px);
-      }
+    .service-index {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.22);
+      padding-top: 0.3rem;
+    }
 
-      /* Service number accent */
-      .service-num-accent {
-        color: rgba(255, 255, 255, 0.6);
-      }
+    .service-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
 
-      /* ── Bottom CTA ───────────────────────────────────────── */
-      .services-cta-block {
-        border-top: 1px solid rgba(255, 255, 255, 0.07);
-        padding: 5rem 0 4rem;
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        margin-bottom: 4rem;
-      }
+    .service-name {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
 
-      .services-cta-label {
-        font-size: 0.62rem;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.22);
-      }
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
 
-      .services-cta-headline {
-        font-family: "Playfair Display", serif;
-        font-style: italic;
-        font-size: clamp(2rem, 4vw, 3.2rem);
-        font-weight: 400;
-        line-height: 1.2;
-        max-width: 600px;
-        color: rgba(255, 255, 255, 0.88);
-      }
+    .service-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.38);
+      padding: 0.25rem 0.7rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+    }
 
-      body.light-mode .services-cta-headline {
-        color: #111111;
-      }
+    .service-desc {
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: rgba(255, 255, 255, 0.48);
+      padding-top: 0.3rem;
+    }
 
-      body.light-mode .services-cta-label {
-        color: #777777;
-      }
+    .service-cta {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.38);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding-bottom: 2px;
+      transition:
+        color 0.25s,
+        border-color 0.25s;
+    }
 
-      .services-cta-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.7rem;
-        padding: 0.9rem 2.5rem;
-        border-radius: 999px;
-        background: #fff;
-        color: #000;
-        font-size: 0.78rem;
-        font-weight: 600;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        text-decoration: none;
-        transition:
-          background 0.25s,
-          transform 0.2s,
-          box-shadow 0.25s;
-        width: fit-content;
-      }
+    .service-cta:hover {
+      color: rgba(255, 255, 255, 0.82);
+      border-color: rgba(255, 255, 255, 0.42);
+    }
 
-      .services-cta-btn:hover {
-        background: rgba(255, 255, 255, 0.88);
-        transform: translateY(-2px);
-        box-shadow: 0 12px 32px rgba(255, 255, 255, 0.12);
-      }
+    .service-cta-arrow {
+      transition: transform 0.2s;
+    }
 
-      .services-cta-btn .btn-arrow {
-        transition: transform 0.2s;
-      }
+    .service-cta:hover .service-cta-arrow {
+      transform: translateX(4px);
+    }
 
-      .services-cta-btn:hover .btn-arrow {
-        transform: translateX(4px);
-      }
-    </style>
-  </head>
+    /* Service number accent */
+    .service-num-accent {
+      color: rgba(255, 255, 255, 0.6);
+    }
 
-  <body>
-    <!-- Custom Cursor -->
-    <div id="cursor-dot"></div>
-    <div id="cursor-ring"></div>
+    /* Light Mode Overrides for Expand Icon */
+    body.light-mode .service-expand-icon {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: rgba(0, 0, 0, 0.08);
+      color: rgba(0, 0, 0, 0.4);
+    }
 
-    <!-- Page Transition -->
-    <div id="page-transition"></div>
+    body.light-mode .service-item:hover .service-expand-icon {
+      background: rgba(0, 0, 0, 0.1);
+      color: #000;
+    }
 
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-      <div class="loading-logo">VRTX</div>
-      <div class="loading-bar-wrap">
-        <div class="loading-bar"></div>
+    body.light-mode .service-item.expanded .service-expand-icon {
+      background: var(--cyan);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    /* ── Bottom CTA ───────────────────────────────────────── */
+    .services-cta-block {
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 5rem 0 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .services-cta-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.22);
+    }
+
+    .services-cta-headline {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.2;
+      max-width: 600px;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    body.light-mode .services-cta-headline {
+      color: #111111;
+    }
+
+    body.light-mode .services-cta-label {
+      color: #777777;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Custom Cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Page Transition -->
+  <div id="page-transition"></div>
+
+
+
+  <!-- Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Mobile Nav -->
+  <nav id="mobile-nav" class="mobile-nav">
+    <a href="./index.html" class="nav-link">Home</a>
+    <a href="./works.html" class="nav-link">Works</a>
+    <a href="./services.html" class="nav-link active">Services</a>
+    <a href="./contact.html" class="pill-btn">Start a Conversation</a>
+  </nav>
+
+  <!-- Page -->
+  <div id="page">
+    <header>
+      <a href="./index.html" class="header-logo">
+        <img src="./assets/images/VRTX_LOGO.webp" alt="VRTX Logo" class="logo-mark">
+        <div class="logo-text">
+          <span class="logo-vertex">VRTX</span>
+          <span class="logo-studio">STUDIO</span>
+        </div>
+      </a>
+      <nav class="header-nav">
+        <a href="./index.html" class="nav-link">Home</a>
+        <a href="./works.html" class="nav-link">Works</a>
+        <a href="./services.html" class="nav-link active">Services</a>
+        <a href="./contact.html" class="pill-btn">Start a Conversation</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+            fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+            fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <div class="page-label reveal reveal-d1">Services</div>
+
+      <h1 class="hero-headline reveal reveal-d2">
+        Every discipline, one <em>unified</em> vision.
+      </h1>
+
+      <p class="hero-sub reveal reveal-d3">
+        We offer a focused set of services designed to work together — from
+        the first strategic brief to the final pixel. Each discipline
+        reinforces the others.
+      </p>
+
+      <div class="services-list reveal reveal-d4">
+        <!-- 01 Brand Identity -->
+        <div class="service-item">
+          <div class="service-content">
+            <div class="service-index">
+              <span class="service-num-accent">01</span>
+            </div>
+            <div class="service-title-wrap">
+              <div class="service-name">Brand Identity</div>
+              <div class="service-tags">
+                <span class="service-tag">Strategy</span>
+                <span class="service-tag">Logo & Mark</span>
+                <span class="service-tag">Typography</span>
+                <span class="service-tag">Colour System</span>
+                <span class="service-tag">Brand Guidelines</span>
+              </div>
+              <a href="./contact.html" class="service-cta">Contact Us <span class="service-cta-arrow">→</span></a>
+            </div>
+            <div class="service-desc">
+              We build brand identities that hold their ground — visually and
+              strategically. Our process starts with deep research into your
+              market position and ends with a complete, deployable brand
+              system. Every mark we create carries intention, and every colour
+              decision is rooted in behavioural psychology and competitive
+              analysis. The result is a brand that looks distinctive today and
+              remains relevant for years to come.
+            </div>
+          </div>
+          <div class="service-images">
+            <img src="./assets/images/brand_identity_1.webp" alt="Brand Identity 1" />
+            <img src="./assets/images/brand_identity_2.webp" alt="Brand Identity 2" />
+          </div>
+          <div class="service-expand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 02 Product Design -->
+        <div class="service-item">
+          <div class="service-content">
+            <div class="service-index">
+              <span class="service-num-accent">02</span>
+            </div>
+            <div class="service-title-wrap">
+              <div class="service-name">Product Design</div>
+              <div class="service-tags">
+                <span class="service-tag">UI/UX</span>
+                <span class="service-tag">Prototyping</span>
+                <span class="service-tag">User Research</span>
+                <span class="service-tag">Industrial Design</span>
+                <span class="service-tag">Packaging</span>
+              </div>
+              <a href="./contact.html" class="service-cta">Contact Us <span class="service-cta-arrow">→</span></a>
+            </div>
+            <div class="service-desc">
+              From physical objects to digital interfaces, we design products
+              that feel inevitable — as though they couldn't have been
+              designed any other way. We bridge the gap between user needs and
+              manufacturing constraints, applying rigorous design thinking at
+              every stage. Form, function, and materiality are treated as
+              inseparable, resulting in objects and experiences that earn
+              loyalty.
+            </div>
+          </div>
+          <div class="service-images">
+            <img src="./assets/images/product_design_1.webp" alt="Product Design 1" />
+            <img src="./assets/images/product_design_2.webp" alt="Product Design 2" />
+          </div>
+          <div class="service-expand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 03 Motion Graphics -->
+        <div class="service-item">
+          <div class="service-content">
+            <div class="service-index">
+              <span class="service-num-accent">03</span>
+            </div>
+            <div class="service-title-wrap">
+              <div class="service-name">Motion Graphics</div>
+              <div class="service-tags">
+                <span class="service-tag">Animation</span>
+                <span class="service-tag">3D Rendering</span>
+                <span class="service-tag">Title Sequences</span>
+                <span class="service-tag">Product Visualisation</span>
+                <span class="service-tag">Social Content</span>
+              </div>
+              <a href="./contact.html" class="service-cta">Contact Us <span class="service-cta-arrow">→</span></a>
+            </div>
+            <div class="service-desc">
+              Motion is not decoration — it is communication. Our motion team
+              works across 2D animation and full 3D production to create
+              sequences that convey complex ideas with immediate clarity.
+              Whether it's a product launch film, a broadcast title sequence,
+              or a social asset series, every frame is considered. We work in
+              Cinema 4D, After Effects, and Unreal Engine, delivering
+              broadcast-ready output at any format.
+            </div>
+          </div>
+          <div class="service-images">
+            <img src="./assets/images/motion_graphics_1.webp" alt="Motion Graphics 1" />
+            <img src="./assets/images/motion_graphics_2.webp" alt="Motion Graphics 2" />
+          </div>
+          <div class="service-expand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 04 Web Design -->
+        <div class="service-item">
+          <div class="service-content">
+            <div class="service-index">
+              <span class="service-num-accent">04</span>
+            </div>
+            <div class="service-title-wrap">
+              <div class="service-name">Web Design</div>
+              <div class="service-tags">
+                <span class="service-tag">Art Direction</span>
+                <span class="service-tag">Interaction Design</span>
+                <span class="service-tag">Responsive Layout</span>
+                <span class="service-tag">Front-End Development</span>
+                <span class="service-tag">Performance</span>
+              </div>
+              <a href="./contact.html" class="service-cta">Contact Us <span class="service-cta-arrow">→</span></a>
+            </div>
+            <div class="service-desc">
+              We design digital environments that behave as well as they look.
+              Our web projects begin with art direction and layout strategy,
+              then move into interaction design and development. We prioritise
+              performance and accessibility without compromising on visual
+              ambition. Every site we build is an extension of the brand —
+              structured, intentional, and built to last across devices and
+              browsers.
+            </div>
+          </div>
+          <div class="service-images">
+            <img src="./assets/images/web_design_1.webp" alt="Web Design 1" />
+            <img src="./assets/images/web_design_2.webp" alt="Web Design 2" />
+          </div>
+          <div class="service-expand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 05 Audio Design -->
+        <div class="service-item">
+          <div class="service-content">
+            <div class="service-index">
+              <span class="service-num-accent">05</span>
+            </div>
+            <div class="service-title-wrap">
+              <div class="service-name">Audio Design</div>
+              <div class="service-tags">
+                <span class="service-tag">Sound Branding</span>
+                <span class="service-tag">Sonic Identity</span>
+                <span class="service-tag">Music Composition</span>
+                <span class="service-tag">Sound Effects</span>
+                <span class="service-tag">Mixing & Mastering</span>
+              </div>
+              <a href="./contact.html" class="service-cta">Contact Us <span class="service-cta-arrow">→</span></a>
+            </div>
+            <div class="service-desc">
+              A brand is heard as much as it is seen. Our audio design
+              practice covers everything from full sonic identity systems —
+              the sounds that define how a brand feels in motion — to bespoke
+              music composition and immersive soundscapes for film,
+              installation, and digital experience. We craft audio that
+              reinforces brand character and creates emotional resonance at
+              every touchpoint.
+            </div>
+          </div>
+          <div class="service-images">
+            <img src="./assets/images/audio_design_1.webp" alt="Audio Design 1" />
+            <img src="./assets/images/audio_design_2.webp" alt="Audio Design 2" />
+          </div>
+          <div class="service-expand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
       </div>
-      <div class="loading-label">Our Services</div>
-    </div>
 
-    <!-- Background Canvas -->
-    <canvas id="bg-canvas"></canvas>
-
-    <!-- Mobile Nav -->
-    <nav id="mobile-nav" class="mobile-nav">
-      <a href="./index.html" class="nav-link">Home</a>
-      <a href="./works.html" class="nav-link">Works</a>
-      <a href="./services.html" class="nav-link active">Services</a>
-      <a href="./about.html" class="nav-link">About</a>
-      <a href="./contact.html" class="pill-btn">Contact Us</a>
-    </nav>
-
-    <!-- Page -->
-    <div id="page">
-      <header>
-        <a href="./index.html" class="header-logo">VRTX Studio</a>
-        <nav class="header-nav">
-          <a href="./index.html" class="nav-link">Home</a>
-          <a href="./works.html" class="nav-link">Works</a>
-          <a href="./services.html" class="nav-link active">Services</a>
-          <a href="./about.html" class="nav-link">About</a>
-          <a href="./contact.html" class="pill-btn">Contact Us</a>
-          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-            <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-            <svg class="moon-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-          </button>
-          <button class="hamburger" id="hamburger" aria-label="Open menu">
-            <span></span><span></span><span></span>
-          </button>
-        </nav>
-      </header>
-
-      <main>
-        <div class="page-label reveal reveal-d1">03 — Services</div>
-
-        <h1 class="hero-headline reveal reveal-d2">
-          Every discipline, one <em>unified</em> vision.
-        </h1>
-
-        <p class="hero-sub reveal reveal-d3">
-          We offer a focused set of services designed to work together — from
-          the first strategic brief to the final pixel. Each discipline
-          reinforces the others.
-        </p>
-
-        <div class="services-list reveal reveal-d4">
-          <!-- 01 Brand Identity -->
-          <div class="service-item">
-            <div class="service-content">
-              <div class="service-index">
-                <span class="service-num-accent">01</span>
-              </div>
-              <div class="service-title-wrap">
-                <div class="service-name">Brand Identity</div>
-                <div class="service-tags">
-                  <span class="service-tag">Strategy</span>
-                  <span class="service-tag">Logo & Mark</span>
-                  <span class="service-tag">Typography</span>
-                  <span class="service-tag">Colour System</span>
-                  <span class="service-tag">Brand Guidelines</span>
-                </div>
-                <a href="./contact.html" class="service-cta"
-                  >Start a project <span class="service-cta-arrow">→</span></a
-                >
-              </div>
-              <div class="service-desc">
-                We build brand identities that hold their ground — visually and
-                strategically. Our process starts with deep research into your
-                market position and ends with a complete, deployable brand
-                system. Every mark we create carries intention, and every colour
-                decision is rooted in behavioural psychology and competitive
-                analysis. The result is a brand that looks distinctive today and
-                remains relevant for years to come.
-              </div>
-            </div>
-            <div class="service-images">
-              <img
-                src="./assets/images/brand_identity_1.webp"
-                alt="Brand Identity 1"
-              />
-              <img
-                src="./assets/images/brand_identity_2.webp"
-                alt="Brand Identity 2"
-              />
-            </div>
-          </div>
-
-          <!-- 02 Product Design -->
-          <div class="service-item">
-            <div class="service-content">
-              <div class="service-index">
-                <span class="service-num-accent">02</span>
-              </div>
-              <div class="service-title-wrap">
-                <div class="service-name">Product Design</div>
-                <div class="service-tags">
-                  <span class="service-tag">UI/UX</span>
-                  <span class="service-tag">Prototyping</span>
-                  <span class="service-tag">User Research</span>
-                  <span class="service-tag">Industrial Design</span>
-                  <span class="service-tag">Packaging</span>
-                </div>
-                <a href="./contact.html" class="service-cta"
-                  >Start a project <span class="service-cta-arrow">→</span></a
-                >
-              </div>
-              <div class="service-desc">
-                From physical objects to digital interfaces, we design products
-                that feel inevitable — as though they couldn't have been
-                designed any other way. We bridge the gap between user needs and
-                manufacturing constraints, applying rigorous design thinking at
-                every stage. Form, function, and materiality are treated as
-                inseparable, resulting in objects and experiences that earn
-                loyalty.
-              </div>
-            </div>
-            <div class="service-images">
-              <img
-                src="./assets/images/product_design_1.webp"
-                alt="Product Design 1"
-              />
-              <img
-                src="./assets/images/product_design_2.webp"
-                alt="Product Design 2"
-              />
-            </div>
-          </div>
-
-          <!-- 03 Motion Graphics -->
-          <div class="service-item">
-            <div class="service-content">
-              <div class="service-index">
-                <span class="service-num-accent">03</span>
-              </div>
-              <div class="service-title-wrap">
-                <div class="service-name">Motion Graphics</div>
-                <div class="service-tags">
-                  <span class="service-tag">Animation</span>
-                  <span class="service-tag">3D Rendering</span>
-                  <span class="service-tag">Title Sequences</span>
-                  <span class="service-tag">Product Visualisation</span>
-                  <span class="service-tag">Social Content</span>
-                </div>
-                <a href="./contact.html" class="service-cta"
-                  >Start a project <span class="service-cta-arrow">→</span></a
-                >
-              </div>
-              <div class="service-desc">
-                Motion is not decoration — it is communication. Our motion team
-                works across 2D animation and full 3D production to create
-                sequences that convey complex ideas with immediate clarity.
-                Whether it's a product launch film, a broadcast title sequence,
-                or a social asset series, every frame is considered. We work in
-                Cinema 4D, After Effects, and Unreal Engine, delivering
-                broadcast-ready output at any format.
-              </div>
-            </div>
-            <div class="service-images">
-              <img
-                src="./assets/images/motion_graphics_1.webp"
-                alt="Motion Graphics 1"
-              />
-              <img
-                src="./assets/images/motion_graphics_2.webp"
-                alt="Motion Graphics 2"
-              />
-            </div>
-          </div>
-
-          <!-- 04 Web Design -->
-          <div class="service-item">
-            <div class="service-content">
-              <div class="service-index">
-                <span class="service-num-accent">04</span>
-              </div>
-              <div class="service-title-wrap">
-                <div class="service-name">Web Design</div>
-                <div class="service-tags">
-                  <span class="service-tag">Art Direction</span>
-                  <span class="service-tag">Interaction Design</span>
-                  <span class="service-tag">Responsive Layout</span>
-                  <span class="service-tag">Front-End Development</span>
-                  <span class="service-tag">Performance</span>
-                </div>
-                <a href="./contact.html" class="service-cta"
-                  >Start a project <span class="service-cta-arrow">→</span></a
-                >
-              </div>
-              <div class="service-desc">
-                We design digital environments that behave as well as they look.
-                Our web projects begin with art direction and layout strategy,
-                then move into interaction design and development. We prioritise
-                performance and accessibility without compromising on visual
-                ambition. Every site we build is an extension of the brand —
-                structured, intentional, and built to last across devices and
-                browsers.
-              </div>
-            </div>
-            <div class="service-images">
-              <img src="./assets/images/web_design_1.webp" alt="Web Design 1" />
-              <img src="./assets/images/web_design_2.webp" alt="Web Design 2" />
-            </div>
-          </div>
-
-          <!-- 05 Audio Design -->
-          <div class="service-item">
-            <div class="service-content">
-              <div class="service-index">
-                <span class="service-num-accent">05</span>
-              </div>
-              <div class="service-title-wrap">
-                <div class="service-name">Audio Design</div>
-                <div class="service-tags">
-                  <span class="service-tag">Sound Branding</span>
-                  <span class="service-tag">Sonic Identity</span>
-                  <span class="service-tag">Music Composition</span>
-                  <span class="service-tag">Sound Effects</span>
-                  <span class="service-tag">Mixing & Mastering</span>
-                </div>
-                <a href="./contact.html" class="service-cta"
-                  >Start a project <span class="service-cta-arrow">→</span></a
-                >
-              </div>
-              <div class="service-desc">
-                A brand is heard as much as it is seen. Our audio design
-                practice covers everything from full sonic identity systems —
-                the sounds that define how a brand feels in motion — to bespoke
-                music composition and immersive soundscapes for film,
-                installation, and digital experience. We craft audio that
-                reinforces brand character and creates emotional resonance at
-                every touchpoint.
-              </div>
-            </div>
-            <div class="service-images">
-              <img
-                src="./assets/images/audio_design_1.webp"
-                alt="Audio Design 1"
-              />
-              <img
-                src="./assets/images/audio_design_2.webp"
-                alt="Audio Design 2"
-              />
-            </div>
-          </div>
+      <!-- Bottom CTA -->
+      <div class="services-cta-block reveal">
+        <div class="services-cta-label">Ready to begin?</div>
+        <div class="services-cta-headline">
+          Let's build something worth remembering.
         </div>
+        <a href="./contact.html" class="services-cta-btn">Start a conversation <span class="btn-arrow">→</span></a>
+      </div>
+    </main>
 
-        <!-- Bottom CTA -->
-        <div class="services-cta-block reveal">
-          <div class="services-cta-label">Ready to begin?</div>
-          <div class="services-cta-headline">
-            Let's build something worth remembering.
-          </div>
-          <a href="./contact.html" class="services-cta-btn"
-            >Contact Us <span class="btn-arrow">→</span></a
-          >
-        </div>
-      </main>
+    <footer>
+      <p class="tagline">Creating memorable brand experiences for impact.</p>
+      <div class="footer-meta">
+        <span>[ VRTX Studio — Services ]</span>
+        <span>&copy; 2026 VRTX Inc.</span>
+      </div>
+    </footer>
+  </div>
 
-      <footer>
-        <p class="tagline">Creating memorable brand experiences for impact.</p>
-        <div class="footer-meta">
-          <span>[ VRTX Studio — Services ]</span>
-          <span>&copy; 2026 VRTX Inc.</span>
-        </div>
-      </footer>
-    </div>
+  <script type="module" src="./cursor.js"></script>
+  <script type="module" src="./transitions.js"></script>
+  <script>
+    // ── Particle canvas background ─────────────────────────────
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+    let W,
+      H,
+      particles = [];
 
-    <script type="module" src="./cursor.js"></script>
-    <script type="module" src="./transitions.js"></script>
-    <script>
-      // ── Particle canvas background ─────────────────────────────
-      const canvas = document.getElementById("bg-canvas");
-      const ctx = canvas.getContext("2d");
-      let W,
-        H,
-        particles = [];
+    const PALETTE = [
+      [145, 198, 188],
+      [225, 122, 71],
+      [243, 235, 178],
+      [81, 159, 168],
+      [145, 198, 188],
+    ];
 
-      const PALETTE = [
-        [145, 198, 188],
-        [225, 122, 71],
-        [243, 235, 178],
-        [81, 159, 168],
-        [145, 198, 188],
-      ];
+    function resize() {
+      W = canvas.width = innerWidth;
+      H = canvas.height = innerHeight;
+    }
 
-      function resize() {
-        W = canvas.width = innerWidth;
-        H = canvas.height = innerHeight;
+    function initParticles(count = 300) {
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        const c = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+        particles.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() * 1.3 + 0.2,
+          dx: (Math.random() - 0.5) * 0.18,
+          dy: (Math.random() - 0.5) * 0.18,
+          color: `rgba(${c[0]},${c[1]},${c[2]},`,
+          alpha: Math.random() * 0.38 + 0.06,
+        });
       }
+    }
 
-      function initParticles(count = 300) {
-        particles = [];
-        for (let i = 0; i < count; i++) {
-          const c = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-          particles.push({
-            x: Math.random() * W,
-            y: Math.random() * H,
-            r: Math.random() * 1.3 + 0.2,
-            dx: (Math.random() - 0.5) * 0.18,
-            dy: (Math.random() - 0.5) * 0.18,
-            color: `rgba(${c[0]},${c[1]},${c[2]},`,
-            alpha: Math.random() * 0.38 + 0.06,
-          });
-        }
+    function drawFrame() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + p.alpha + ")";
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0) p.x = W;
+        if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H;
+        if (p.y > H) p.y = 0;
       }
+      requestAnimationFrame(drawFrame);
+    }
 
-      function drawFrame() {
-        ctx.clearRect(0, 0, W, H);
-        for (const p of particles) {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = p.color + p.alpha + ")";
-          ctx.fill();
-          p.x += p.dx;
-          p.y += p.dy;
-          if (p.x < 0) p.x = W;
-          if (p.x > W) p.x = 0;
-          if (p.y < 0) p.y = H;
-          if (p.y > H) p.y = 0;
-        }
-        requestAnimationFrame(drawFrame);
-      }
-
+    resize();
+    initParticles();
+    drawFrame();
+    window.addEventListener("resize", () => {
       resize();
       initParticles();
-      drawFrame();
-      window.addEventListener("resize", () => {
-        resize();
-        initParticles();
+    });
+
+    // ── Hamburger ─────────────────────────────────────────────
+    const ham = document.getElementById("hamburger");
+    const mobileNav = document.getElementById("mobile-nav");
+    if (ham && mobileNav) {
+      ham.addEventListener("click", () => {
+        ham.classList.toggle("open");
+        mobileNav.classList.toggle("open");
       });
+    }
 
-      // ── Hamburger ─────────────────────────────────────────────
-      const ham = document.getElementById("hamburger");
-      const mobileNav = document.getElementById("mobile-nav");
-      if (ham && mobileNav) {
-        ham.addEventListener("click", () => {
-          ham.classList.toggle("open");
-          mobileNav.classList.toggle("open");
-        });
-      }
-
-      // ── Scroll reveal ─────────────────────────────────────────
-      const revealEls = document.querySelectorAll(".reveal");
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("visible");
-              observer.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.08 },
-      );
-      revealEls.forEach((el) => observer.observe(el));
-
-      // ── Header scroll ─────────────────────────────────────────
-      const header = document.querySelector("header");
-      window.addEventListener("scroll", () => {
-        header.classList.toggle("scrolled", window.scrollY > 40);
-      });
-
-      // ── Service Item Expand ───────────────────────────────────
-      const serviceItems = document.querySelectorAll(".service-item");
-      serviceItems.forEach((item) => {
-        item.addEventListener("click", (e) => {
-          if (
-            e.target.closest(".service-cta") ||
-            e.target.closest(".service-tag")
-          )
-            return;
-
-          const isExpanded = item.classList.contains("expanded");
-          serviceItems.forEach((si) => si.classList.remove("expanded"));
-
-          if (!isExpanded) {
-            item.classList.add("expanded");
+    // ── Scroll reveal ─────────────────────────────────────────
+    const revealEls = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+            observer.unobserve(e.target);
           }
         });
-      });
+      },
+      { threshold: 0.08 },
+    );
+    revealEls.forEach((el) => observer.observe(el));
 
-      // ── Loading screen ────────────────────────────────────────
-      document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(() => {
-          const ls = document.getElementById("loading-screen");
-          if (ls) ls.classList.add("hidden");
-        }, 1000);
+    // ── Header scroll ─────────────────────────────────────────
+    const header = document.querySelector("header");
+    window.addEventListener("scroll", () => {
+      header.classList.toggle("scrolled", window.scrollY > 40);
+    });
+
+    // ── Service Item Expand ───────────────────────────────────
+    const serviceItems = document.querySelectorAll(".service-item");
+    serviceItems.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        if (
+          e.target.closest(".service-cta") ||
+          e.target.closest(".service-tag")
+        )
+          return;
+
+        const isExpanded = item.classList.contains("expanded");
+        serviceItems.forEach((si) => si.classList.remove("expanded"));
+
+        if (!isExpanded) {
+          item.classList.add("expanded");
+        }
       });
-      setTimeout(() => {
-        const ls = document.getElementById("loading-screen");
-        if (ls) ls.classList.add("hidden");
-      }, 2500);
-    </script>
-  </body>
+    });
+
+
+  </script>
+</body>
+
 </html>
