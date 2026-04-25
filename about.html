@@ -1,397 +1,415 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VRTX Studio | About Us</title>
-  <meta name="description"
-    content="VRTX Studio is a creative design studio crafting meaningful brand experiences through strategy, identity, and digital craft." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="./style.css" />
-  <link rel="icon" type="image/webp" href="./assets/images/VRTX_LOGO.webp" />
-  <style>
-    /* ── Main Content ─────────────────────────────────── */
-    main {
-      flex: 1;
-      padding: 4rem 3rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    /* Two-column layout */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      margin-bottom: 6rem;
-    }
-
-    @media (max-width: 768px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-    }
-
-    .about-col p {
-      font-size: 0.92rem;
-      line-height: 1.88;
-      color: rgba(255, 255, 255, 0.58);
-      margin-bottom: 1.2rem;
-    }
-
-    .about-col p:last-child {
-      margin-bottom: 0;
-    }
-
-    /* Stats row */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      padding: 3rem 0;
-      margin-bottom: 6rem;
-    }
-
-    @media (max-width: 768px) {
-      .stats-row {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VRTX Studio | About Us</title>
+    <meta
+      name="description"
+      content="VRTX Studio is a creative design studio crafting meaningful brand experiences through strategy, identity, and digital craft."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" type="image/webp" href="./assets/images/VRTX_LOGO.webp" />
+    <style>
+      /* ── Main Content ─────────────────────────────────── */
       main {
-        padding: 3rem 1.5rem 2rem;
+        flex: 1;
+        padding: 4rem 3rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
       }
-    }
 
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
+      /* Two-column layout */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        margin-bottom: 6rem;
+      }
 
-    .stat-number {
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #fff 40%, rgba(255, 255, 255, 0.4));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      display: inline-block;
-      animation: nav-gradient-flow 10s ease-in-out infinite;
-    }
+      @media (max-width: 768px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+      }
 
-    .stat-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.32);
-    }
+      .about-col p {
+        font-size: 0.92rem;
+        line-height: 1.88;
+        color: rgba(255, 255, 255, 0.58);
+        margin-bottom: 1.2rem;
+      }
 
-    /* Team section */
-    .team-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 6rem;
-    }
+      .about-col p:last-child {
+        margin-bottom: 0;
+      }
 
-    .team-card {
-      flex: 0 1 calc(33.333% - 1rem);
-      min-width: 300px;
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 2px;
-      padding: 2rem 1.8rem;
-      background: rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(6px);
-      transition:
-        border-color 0.35s,
-        background 0.35s,
-        transform 0.35s,
-        box-shadow 0.35s;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
+      /* Stats row */
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        padding: 3rem 0;
+        margin-bottom: 6rem;
+      }
 
-    .team-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg,
+      @media (max-width: 768px) {
+        .stats-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        main {
+          padding: 3rem 1.5rem 2rem;
+        }
+      }
+
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .stat-number {
+        font-size: clamp(2rem, 3.5vw, 3rem);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        background: linear-gradient(135deg, #fff 40%, rgba(255, 255, 255, 0.4));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: inline-block;
+        animation: nav-gradient-flow 10s ease-in-out infinite;
+      }
+
+      .stat-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.32);
+      }
+
+      /* Team section */
+      .team-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 6rem;
+      }
+
+      .team-card {
+        flex: 0 1 calc(33.333% - 1rem);
+        min-width: 300px;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 2px;
+        padding: 2rem 1.8rem;
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(6px);
+        transition:
+          border-color 0.35s,
+          background 0.35s,
+          transform 0.35s,
+          box-shadow 0.35s;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .team-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
           transparent,
           rgba(0, 255, 255, 0.5),
-          transparent);
-      opacity: 0;
-      transition: opacity 0.4s;
-      animation: nav-gradient-flow 10s ease-in-out infinite;
-    }
-
-    .team-card:hover {
-      border-color: rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.04);
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .team-card:hover::before {
-      opacity: 1;
-    }
-
-    .team-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      flex-shrink: 0;
-    }
-
-    .avatar-cyan {
-      background: rgba(0, 255, 255, 0.1);
-      color: var(--cyan);
-      border: 1px solid rgba(0, 255, 255, 0.28);
-    }
-
-    .avatar-mg {
-      background: rgba(255, 0, 204, 0.1);
-      color: var(--magenta);
-      border: 1px solid rgba(255, 0, 204, 0.28);
-    }
-
-    .avatar-green {
-      background: rgba(74, 222, 128, 0.1);
-      color: var(--green);
-      border: 1px solid rgba(74, 222, 128, 0.28);
-    }
-
-    .team-name {
-      font-size: 0.88rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.3rem;
-    }
-
-    .team-role {
-      font-size: 0.68rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.32);
-      margin-bottom: 1rem;
-    }
-
-    .team-bio {
-      font-size: 0.82rem;
-      line-height: 1.78;
-      color: rgba(255, 255, 255, 0.52);
-    }
-
-    /* Team socials */
-    .team-socials {
-      display: flex;
-      gap: 1rem;
-      margin-top: auto;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      opacity: 0;
-      transform: translateY(4px);
-      transition:
-        opacity 0.3s,
-        transform 0.3s;
-    }
-
-    .team-card:hover .team-socials {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .team-social-link {
-      font-size: 0.64rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.32);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 1px;
-      transition:
-        color 0.2s,
-        border-color 0.2s;
-    }
-
-    .team-social-link:hover {
-      color: rgba(255, 255, 255, 0.75);
-      border-color: rgba(255, 255, 255, 0.35);
-    }
-
-    /* Values section */
-    .values-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      margin-bottom: 6rem;
-    }
-
-    @media (max-width: 640px) {
-      .values-grid {
-        grid-template-columns: 1fr;
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.4s;
+        animation: nav-gradient-flow 10s ease-in-out infinite;
       }
-    }
 
-    .value-item {
-      padding: 2.2rem 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      background: rgba(255, 255, 255, 0.01);
-      transition: background 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
+      .team-card:hover {
+        border-color: rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.04);
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      }
 
-    .value-item::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(135deg,
+      .team-card:hover::before {
+        opacity: 1;
+      }
+
+      .team-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        flex-shrink: 0;
+      }
+
+      .avatar-cyan {
+        background: rgba(0, 255, 255, 0.1);
+        color: var(--cyan);
+        border: 1px solid rgba(0, 255, 255, 0.28);
+      }
+
+      .avatar-mg {
+        background: rgba(255, 0, 204, 0.1);
+        color: var(--magenta);
+        border: 1px solid rgba(255, 0, 204, 0.28);
+      }
+
+      .avatar-green {
+        background: rgba(74, 222, 128, 0.1);
+        color: var(--green);
+        border: 1px solid rgba(74, 222, 128, 0.28);
+      }
+
+      .team-name {
+        font-size: 0.88rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.3rem;
+      }
+
+      .team-role {
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.32);
+        margin-bottom: 1rem;
+      }
+
+      .team-bio {
+        font-size: 0.82rem;
+        line-height: 1.78;
+        color: rgba(255, 255, 255, 0.52);
+      }
+
+      /* Team socials */
+      .team-socials {
+        display: flex;
+        gap: 1rem;
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        opacity: 0;
+        transform: translateY(4px);
+        transition:
+          opacity 0.3s,
+          transform 0.3s;
+      }
+
+      .team-card:hover .team-socials {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .team-social-link {
+        font-size: 0.64rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.32);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 1px;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+      }
+
+      .team-social-link:hover {
+        color: rgba(255, 255, 255, 0.75);
+        border-color: rgba(255, 255, 255, 0.35);
+      }
+
+      /* Values section */
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1px;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        margin-bottom: 6rem;
+      }
+
+      @media (max-width: 640px) {
+        .values-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .value-item {
+        padding: 2.2rem 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        background: rgba(255, 255, 255, 0.01);
+        transition: background 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .value-item::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          135deg,
           var(--cyan),
           var(--green),
           var(--gold),
           var(--magenta),
           var(--cyan),
           var(--green),
-          var(--gold));
-      background-size: 600% 600%;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .value-item:hover {
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .value-item:hover::after {
-      transform: scaleX(1);
-    }
-
-    .value-index {
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.18);
-      margin-bottom: 0.9rem;
-    }
-
-    .value-title {
-      font-size: 1.05rem;
-      font-weight: 500;
-      margin-bottom: 0.6rem;
-      letter-spacing: 0.02em;
-    }
-
-    .value-desc {
-      font-size: 0.82rem;
-      line-height: 1.78;
-      color: rgba(255, 255, 255, 0.48);
-    }
-
-    /* Testimonials */
-    .testimonials {
-      margin-bottom: 6rem;
-    }
-
-    .testimonials-scroll {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    @media (max-width: 768px) {
-      .testimonials-scroll {
-        grid-template-columns: 1fr;
+          var(--gold)
+        );
+        background-size: 600% 600%;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       }
-    }
 
-    .testimonial-card {
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.02);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
+      .value-item:hover {
+        background: rgba(255, 255, 255, 0.03);
+      }
 
-    .testimonial-card::before {
-      content: "\201C";
-      font-family: "Playfair Display", serif;
-      font-size: 4rem;
-      line-height: 1;
-      color: rgba(255, 255, 255, 0.07);
-      position: absolute;
-      top: 1rem;
-      left: 1.5rem;
-    }
+      .value-item:hover::after {
+        transform: scaleX(1);
+      }
 
-    .testimonial-quote {
-      font-size: 0.88rem;
-      line-height: 1.82;
-      color: rgba(255, 255, 255, 0.55);
-      margin-bottom: 1.5rem;
-      position: relative;
-      z-index: 1;
-    }
+      .value-index {
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.18);
+        margin-bottom: 0.9rem;
+      }
 
-    .testimonial-author {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.45);
-      margin-top: auto;
-    }
+      .value-title {
+        font-size: 1.05rem;
+        font-weight: 500;
+        margin-bottom: 0.6rem;
+        letter-spacing: 0.02em;
+      }
 
-    .testimonial-role {
-      font-size: 0.66rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.22);
-      margin-top: 0.2rem;
-    }
-  </style>
-</head>
+      .value-desc {
+        font-size: 0.82rem;
+        line-height: 1.78;
+        color: rgba(255, 255, 255, 0.48);
+      }
 
-<body>
-  <!-- Custom Cursor -->
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
+      /* Testimonials */
+      .testimonials {
+        margin-bottom: 6rem;
+      }
 
-  <!-- Page Transition -->
-  <div id="page-transition"></div>
+      .testimonials-scroll {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
 
+      @media (max-width: 768px) {
+        .testimonials-scroll {
+          grid-template-columns: 1fr;
+        }
+      }
 
+      .testimonial-card {
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.02);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
 
-  <!-- Background Canvas -->
-  <canvas id="bg-canvas"></canvas>
+      .testimonial-card::before {
+        content: "\201C";
+        font-family: "Playfair Display", serif;
+        font-size: 4rem;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.07);
+        position: absolute;
+        top: 1rem;
+        left: 1.5rem;
+      }
 
+      .testimonial-quote {
+        font-size: 0.88rem;
+        line-height: 1.82;
+        color: rgba(255, 255, 255, 0.55);
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .testimonial-author {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+        margin-top: auto;
+      }
+
+      .testimonial-role {
+        font-size: 0.66rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.22);
+        margin-top: 0.2rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+<<<<<<< HEAD
+
+=======
+    <!-- Page Transition -->
+    <div id="page-transition"></div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <div class="loading-logo">VRTX</div>
+      <div class="loading-bar-wrap">
+        <div class="loading-bar"></div>
+      </div>
+      <div class="loading-label">About Us</div>
+    </div>
+>>>>>>> d747e7ba083530123c5c367253f5b467e7634c84
+
+    <!-- Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+<<<<<<< HEAD
   <!-- Mobile Nav -->
   <nav id="mobile-nav" class="mobile-nav">
     <a href="./index.html" class="nav-link">Home</a>
@@ -443,105 +461,227 @@
 
     <main>
       <div class="page-label reveal reveal-d1">About Us</div>
+=======
+    <!-- Mobile Nav -->
+    <nav id="mobile-nav" class="mobile-nav">
+      <a href="./index.html" class="nav-link">Home</a>
+      <a href="./about.html" class="nav-link active">About</a>
+      <a href="./works.html" class="nav-link">Work</a>
+      <a href="./services.html" class="nav-link">Services</a>
+      <a href="./contact.html" class="pill-btn">Start a Conversation</a>
+    </nav>
 
-      <h1 class="hero-headline reveal reveal-d2">
-        We craft identities that <em>outlast</em> the moment they're made.
-      </h1>
+    <!-- Page -->
+    <div id="page">
+      <header>
+        <a href="./index.html" class="header-logo">VRTX Studio</a>
+        <nav class="header-nav">
+          <a href="./index.html" class="nav-link">Home</a>
+          <a href="./about.html" class="nav-link active">About</a>
+          <a href="./works.html" class="nav-link">Work</a>
+          <a href="./services.html" class="nav-link">Services</a>
+          <a href="./contact.html" class="pill-btn">Start a Conversation</a>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+          <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </button>
+        </nav>
+      </header>
 
-      <div class="about-grid reveal reveal-d3">
-        <div class="about-col">
-          <p>
-            VRTX Studio is an independent design studio operating at the
-            intersection of strategy and craft. We believe a brand is more
-            than a visual system — it's a living argument for why something
-            should exist in the world.
-          </p>
-          <p>
-            Founded in 2026 by 5 members who are gifted students of VNU-UET,
-            we've partnered with founders, cultural institutions, and global
-            companies to define the visual languages that shape how people
-            perceive the things they love.
-          </p>
-        </div>
-        <div class="about-col">
-          <p>
-            Our process is deliberate and unhurried. We don't arrive at a logo
-            on day one. We arrive at understanding first — of your audience,
-            your competitors, your ambition — and let the form follow from
-            there.
-          </p>
-          <p>
-            The result is work that holds. Work that looks right in five
-            years. Work with a reason behind every decision.
-          </p>
-        </div>
-      </div>
+      <main>
+        <div class="page-label reveal reveal-d1">01 — About Us</div>
+>>>>>>> d747e7ba083530123c5c367253f5b467e7634c84
 
-      <div class="stats-row reveal reveal-d4">
-        <div class="stat-item">
-          <span class="stat-number" data-target="5" data-suffix="+">5+</span>
-          <span class="stat-label">Years of practice</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="210" data-suffix="">210</span>
-          <span class="stat-label">Projects delivered</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="18" data-suffix="">18</span>
-          <span class="stat-label">Countries reached</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="36" data-suffix="">36</span>
-          <span class="stat-label">Awards received</span>
-        </div>
-      </div>
+        <h1 class="hero-headline reveal reveal-d2">
+          We craft identities that <em>outlast</em> the moment they're made.
+        </h1>
 
-      <div class="section-label reveal reveal-d1">The team</div>
-      <div class="team-grid">
-        <div class="team-card reveal reveal-d2">
-          <div class="team-avatar" style="
+        <div class="about-grid reveal reveal-d3">
+          <div class="about-col">
+            <p>
+              VRTX Studio is an independent design studio operating at the
+              intersection of strategy and craft. We believe a brand is more
+              than a visual system — it's a living argument for why something
+              should exist in the world.
+            </p>
+            <p>
+              Founded in 2026 by 5 members who are gifted students of VNU-UET,
+              we've partnered with founders, cultural institutions, and global
+              companies to define the visual languages that shape how people
+              perceive the things they love.
+            </p>
+          </div>
+          <div class="about-col">
+            <p>
+              Our process is deliberate and unhurried. We don't arrive at a logo
+              on day one. We arrive at understanding first — of your audience,
+              your competitors, your ambition — and let the form follow from
+              there.
+            </p>
+            <p>
+              The result is work that holds. Work that looks right in five
+              years. Work with a reason behind every decision.
+            </p>
+          </div>
+        </div>
+
+        <div class="stats-row reveal reveal-d4">
+          <div class="stat-item">
+            <span class="stat-number" data-target="5" data-suffix="+">5+</span>
+            <span class="stat-label">Years of practice</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="210" data-suffix=""
+              >210</span
+            >
+            <span class="stat-label">Projects delivered</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="18" data-suffix="">18</span>
+            <span class="stat-label">Countries reached</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="36" data-suffix="">36</span>
+            <span class="stat-label">Awards received</span>
+          </div>
+        </div>
+
+        <div class="section-label reveal reveal-d1">The team</div>
+        <div class="team-grid">
+          <div class="team-card reveal reveal-d2">
+            <div
+              class="team-avatar"
+              style="
                 background: none;
                 border: none;
                 overflow: hidden;
                 border-radius: 50%;
-              ">
-            <img src="assets/images/bao-logo.webp" alt="Tran Gia Bao"
-              style="width: 100%; height: 100%; object-fit: cover" />
+              "
+            >
+              <img
+                src="assets/images/bao-logo.webp"
+                alt="Tran Gia Bao"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+            <div class="team-name">Tran Gia Bao</div>
+            <div class="team-role">Marketing Manager</div>
+            <div class="team-bio">
+              Works in both brand identity design and marketing, blending
+              creative visuals with clear brand strategy. Uses a mix of artistic
+              style and market knowledge to create designs that truly connect
+              with people.
+            </div>
+            <div class="team-socials">
+              <a
+                href="https://www.linkedin.com/in/anomal/"
+                class="team-social-link"
+                target="_blank"
+                >LinkedIn</a
+              >
+              <a
+                href="https://www.facebook.com/anomalgreatad"
+                class="team-social-link"
+                target="_blank"
+                >Facebook</a
+              >
+            </div>
           </div>
-          <div class="team-name">Tran Gia Bao</div>
-          <div class="team-role">Marketing Manager</div>
-          <div class="team-bio">
-            Works in both brand identity design and marketing, blending
-            creative visuals with clear brand strategy. Uses a mix of artistic
-            style and market knowledge to create designs that truly connect
-            with people.
-          </div>
-          <div class="team-socials">
-            <a href="https://www.linkedin.com/in/anomal/" class="team-social-link" target="_blank">LinkedIn</a>
-            <a href="https://www.facebook.com/anomalgreatad" class="team-social-link" target="_blank">Facebook</a>
-          </div>
-        </div>
-        <div class="team-card reveal reveal-d3">
-          <div class="team-avatar" style="
+          <div class="team-card reveal reveal-d3">
+            <div
+              class="team-avatar"
+              style="
                 background: none;
                 border: none;
                 overflow: hidden;
                 border-radius: 50%;
-              ">
-            <img src="assets/images/moee06-logo.webp" alt="Hoang Duc Duy"
-              style="width: 100%; height: 100%; object-fit: cover" />
+              "
+            >
+              <img
+                src="assets/images/moee06-logo.webp"
+                alt="Hoang Duc Duy"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+            <div class="team-name">Hoang Duc Duy</div>
+            <div class="team-role">Creative Director</div>
+            <div class="team-bio">
+              Turns abstract briefs into refined visual systems. Works at the
+              edge of print tradition and digital materiality.
+            </div>
+            <div class="team-socials">
+              <a href="https://www.linkedin.com/in/hoangduy2126/" class="team-social-link">LinkedIn</a>
+              <a href="https://www.behance.net/hoangduy2126" class="team-social-link">Behance</a>
+            </div>
           </div>
-          <div class="team-name">Hoang Duc Duy</div>
-          <div class="team-role">Creative Director</div>
-          <div class="team-bio">
-            Turns abstract briefs into refined visual systems. Works at the
-            edge of print tradition and digital materiality.
+          <div class="team-card reveal reveal-d4">
+            <div class="team-avatar avatar-green">SH</div>
+            <div class="team-name">Nguyen Pham Son Ha</div>
+            <div class="team-role">Senior Designer</div>
+            <div class="team-bio">
+              Bridges the gap between digital vision and physical reality.
+              Expertly handles the synthesis of form, function, and materiality
+              to create industrial designs that are both intuitive and enduring.
+            </div>
+            <div class="team-socials">
+              <a href="#" class="team-social-link">LinkedIn</a>
+              <a href="#" class="team-social-link">Behance</a>
+            </div>
           </div>
-          <div class="team-socials">
-            <a href="https://www.linkedin.com/in/hoangduy2126/" class="team-social-link">LinkedIn</a>
-            <a href="https://www.behance.net/hoangduy2126" class="team-social-link">Behance</a>
+          <div class="team-card reveal reveal-d5">
+            <div
+              class="team-avatar"
+              style="
+                background: none;
+                border: none;
+                overflow: hidden;
+                border-radius: 50%;
+              "
+            >
+              <img
+                src="assets/images/hieu-logo.webp"
+                alt="Ho Trung Hieu"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+            <div class="team-name">Ho Trung Hieu</div>
+            <div class="team-role">Senior Sound Engineer</div>
+            <div class="team-bio">
+              Brings sound to life. Specialises in mixing, mastering, and
+              crafting immersive audio experiences. Shapes raw recordings into
+              polished, emotionally driven sonic landscapes.
+            </div>
+            <div class="team-socials">
+              <a
+                href="https://open.spotify.com/artist/3uC8ee35WjTv5TvAQgHpF6"
+                class="team-social-link"
+                >Spotify</a
+              >
+              <a
+                href="https://www.facebook.com/nhincaigimanhin12"
+                class="team-social-link"
+                >Facebook</a
+              >
+            </div>
+          </div>
+          <div class="team-card reveal reveal-d6">
+            <div class="team-avatar avatar-mg">KL</div>
+            <div class="team-name">Tran Khanh Long</div>
+            <div class="team-role">Developer</div>
+            <div class="team-bio">
+              Bridges the gap between design and technology. Crafts seamless
+              digital experiences that look beautiful and perform flawlessly.
+            </div>
+            <div class="team-socials">
+              <a href="#" class="team-social-link">LinkedIn</a>
+              <a href="#" class="team-social-link">GitHub</a>
+            </div>
           </div>
         </div>
+<<<<<<< HEAD
         <div class="team-card reveal reveal-d4">
           <div class="team-avatar" style="
                 background: none;
@@ -608,13 +748,16 @@
           </div>
         </div>
       </div>
+=======
+>>>>>>> d747e7ba083530123c5c367253f5b467e7634c84
 
-      <div class="section-label reveal reveal-d1">What we stand for</div>
-      <div class="values-grid reveal reveal-d2">
-        <div class="value-item">
-          <div class="value-index">01</div>
-          <div class="value-title">
-            <span style="
+        <div class="section-label reveal reveal-d1">What we stand for</div>
+        <div class="values-grid reveal reveal-d2">
+          <div class="value-item">
+            <div class="value-index">01</div>
+            <div class="value-title">
+              <span
+                style="
                   background: linear-gradient(
                     90deg,
                     var(--cyan),
@@ -626,19 +769,22 @@
                   font-size: 1.8em;
                   line-height: 1;
                   margin-right: 2px;
-                ">V</span>ision
+                "
+                >V</span
+              >ision
+            </div>
+            <div class="value-desc">
+              Strategic foresight maps brand positioning. Anticipating market
+              shifts builds lasting identities. Clarity defines core messages.
+              Focus ensures long-term relevance. Foresight drives structural
+              design decisions.
+            </div>
           </div>
-          <div class="value-desc">
-            Strategic foresight maps brand positioning. Anticipating market
-            shifts builds lasting identities. Clarity defines core messages.
-            Focus ensures long-term relevance. Foresight drives structural
-            design decisions.
-          </div>
-        </div>
-        <div class="value-item">
-          <div class="value-index">02</div>
-          <div class="value-title">
-            <span style="
+          <div class="value-item">
+            <div class="value-index">02</div>
+            <div class="value-title">
+              <span
+                style="
                   background: linear-gradient(
                     90deg,
                     var(--cyan),
@@ -650,19 +796,22 @@
                   font-size: 1.8em;
                   line-height: 1;
                   margin-right: 2px;
-                ">R</span>esonance
+                "
+                >R</span
+              >esonance
+            </div>
+            <div class="value-desc">
+              Purpose replaces decoration. Sharp aesthetics engage specific
+              demographics. Behavioral analysis shapes visual languages.
+              Strategic visuals trigger emotion. Authentic connections replace
+              superficial interactions.
+            </div>
           </div>
-          <div class="value-desc">
-            Purpose replaces decoration. Sharp aesthetics engage specific
-            demographics. Behavioral analysis shapes visual languages.
-            Strategic visuals trigger emotion. Authentic connections replace
-            superficial interactions.
-          </div>
-        </div>
-        <div class="value-item">
-          <div class="value-index">03</div>
-          <div class="value-title">
-            <span style="
+          <div class="value-item">
+            <div class="value-index">03</div>
+            <div class="value-title">
+              <span
+                style="
                   background: linear-gradient(
                     90deg,
                     var(--cyan),
@@ -674,19 +823,22 @@
                   font-size: 1.8em;
                   line-height: 1;
                   margin-right: 2px;
-                ">T</span>ransformation
+                "
+                >T</span
+              >ransformation
+            </div>
+            <div class="value-desc">
+              Intentional design propels business growth. Innovation reshapes
+              industry standards. Structural visual upgrades elevate market
+              presence. Systemic changes deliver tangible impact. Excellence
+              demands continuous evolution.
+            </div>
           </div>
-          <div class="value-desc">
-            Intentional design propels business growth. Innovation reshapes
-            industry standards. Structural visual upgrades elevate market
-            presence. Systemic changes deliver tangible impact. Excellence
-            demands continuous evolution.
-          </div>
-        </div>
-        <div class="value-item">
-          <div class="value-index">04</div>
-          <div class="value-title">
-            <span style="
+          <div class="value-item">
+            <div class="value-index">04</div>
+            <div class="value-title">
+              <span
+                style="
                   background: linear-gradient(
                     90deg,
                     var(--cyan),
@@ -698,123 +850,126 @@
                   font-size: 1.8em;
                   line-height: 1;
                   margin-right: 2px;
-                ">X</span>-Factor
-          </div>
-          <div class="value-desc">
-            Synergy merges brand identity and marketing. Strategy anchors
-            creative execution. Aesthetics align strictly with business
-            objectives. Cohesive brand ecosystems demand attention.
-            Integration delivers undeniable results.
-          </div>
-        </div>
-      </div>
-
-      <!-- Testimonials section -->
-      <div class="section-label reveal reveal-d1">What clients say</div>
-      <div class="testimonials">
-        <div class="testimonials-scroll">
-          <div class="testimonial-card reveal reveal-d2">
-            <p class="testimonial-quote">
-              VRTX didn't just give us a logo. They gave us a language. Every
-              touchpoint now speaks with the same conviction.
-            </p>
-            <div class="testimonial-author">Sarah L.</div>
-            <div class="testimonial-role">CEO, Helix Biotech</div>
-          </div>
-          <div class="testimonial-card reveal reveal-d3">
-            <p class="testimonial-quote">
-              The process was unlike any agency we'd worked with. Unhurried,
-              precise, and deeply considered. The results speak for
-              themselves.
-            </p>
-            <div class="testimonial-author">James R.</div>
-            <div class="testimonial-role">Creative Director, Maeve Films</div>
-          </div>
-          <div class="testimonial-card reveal reveal-d4">
-            <p class="testimonial-quote">
-              Three years later and people still stop us to ask about our
-              brand. That longevity is everything to us.
-            </p>
-            <div class="testimonial-author">Anya M.</div>
-            <div class="testimonial-role">Founder, Aura Jewellery</div>
+                "
+                >X</span
+              >-Factor
+            </div>
+            <div class="value-desc">
+              Synergy merges brand identity and marketing. Strategy anchors
+              creative execution. Aesthetics align strictly with business
+              objectives. Cohesive brand ecosystems demand attention.
+              Integration delivers undeniable results.
+            </div>
           </div>
         </div>
-      </div>
-    </main>
 
-    <footer>
-      <p class="tagline">Creating memorable brand experiences for impact.</p>
-      <div class="footer-meta">
-        <span>[ VRTX Studio — About ]</span>
-        <span>&copy; 2026 VRTX Inc.</span>
-      </div>
-    </footer>
-  </div>
+        <!-- Testimonials section -->
+        <div class="section-label reveal reveal-d1">What clients say</div>
+        <div class="testimonials">
+          <div class="testimonials-scroll">
+            <div class="testimonial-card reveal reveal-d2">
+              <p class="testimonial-quote">
+                VRTX didn't just give us a logo. They gave us a language. Every
+                touchpoint now speaks with the same conviction.
+              </p>
+              <div class="testimonial-author">Sarah L.</div>
+              <div class="testimonial-role">CEO, Helix Biotech</div>
+            </div>
+            <div class="testimonial-card reveal reveal-d3">
+              <p class="testimonial-quote">
+                The process was unlike any agency we'd worked with. Unhurried,
+                precise, and deeply considered. The results speak for
+                themselves.
+              </p>
+              <div class="testimonial-author">James R.</div>
+              <div class="testimonial-role">Creative Director, Maeve Films</div>
+            </div>
+            <div class="testimonial-card reveal reveal-d4">
+              <p class="testimonial-quote">
+                Three years later and people still stop us to ask about our
+                brand. That longevity is everything to us.
+              </p>
+              <div class="testimonial-author">Anya M.</div>
+              <div class="testimonial-role">Founder, Aura Jewellery</div>
+            </div>
+          </div>
+        </div>
+      </main>
 
-  <script type="module" src="./cursor.js"></script>
-  <script type="module" src="./transitions.js"></script>
-  <script>
-    // ── Particle canvas background ─────────────────────────────
-    const canvas = document.getElementById("bg-canvas");
-    const ctx = canvas.getContext("2d");
-    let W,
-      H,
-      particles = [];
+      <footer>
+        <p class="tagline">Creating memorable brand experiences for impact.</p>
+        <div class="footer-meta">
+          <span>[ VRTX Studio — About ]</span>
+          <span>&copy; 2026 VRTX Inc.</span>
+        </div>
+      </footer>
+    </div>
 
-    const PALETTE = [
-      [145, 198, 188],
-      [225, 122, 71],
-      [243, 235, 178],
-      [81, 159, 168],
-      [145, 198, 188],
-    ];
+    <script type="module" src="./cursor.js"></script>
+    <script type="module" src="./transitions.js"></script>
+    <script>
+      // ── Particle canvas background ─────────────────────────────
+      const canvas = document.getElementById("bg-canvas");
+      const ctx = canvas.getContext("2d");
+      let W,
+        H,
+        particles = [];
 
-    function resize() {
-      W = canvas.width = innerWidth;
-      H = canvas.height = innerHeight;
-    }
+      const PALETTE = [
+        [145, 198, 188],
+        [225, 122, 71],
+        [243, 235, 178],
+        [81, 159, 168],
+        [145, 198, 188],
+      ];
 
-    function initParticles(count = 300) {
-      particles = [];
-      for (let i = 0; i < count; i++) {
-        const c = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-        particles.push({
-          x: Math.random() * W,
-          y: Math.random() * H,
-          r: Math.random() * 1.3 + 0.2,
-          dx: (Math.random() - 0.5) * 0.18,
-          dy: (Math.random() - 0.5) * 0.18,
-          color: `rgba(${c[0]},${c[1]},${c[2]},`,
-          alpha: Math.random() * 0.42 + 0.08,
-        });
+      function resize() {
+        W = canvas.width = innerWidth;
+        H = canvas.height = innerHeight;
       }
-    }
 
-    function drawFrame() {
-      ctx.clearRect(0, 0, W, H);
-      for (const p of particles) {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.color + p.alpha + ")";
-        ctx.fill();
-        p.x += p.dx;
-        p.y += p.dy;
-        if (p.x < 0) p.x = W;
-        if (p.x > W) p.x = 0;
-        if (p.y < 0) p.y = H;
-        if (p.y > H) p.y = 0;
+      function initParticles(count = 300) {
+        particles = [];
+        for (let i = 0; i < count; i++) {
+          const c = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+          particles.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            r: Math.random() * 1.3 + 0.2,
+            dx: (Math.random() - 0.5) * 0.18,
+            dy: (Math.random() - 0.5) * 0.18,
+            color: `rgba(${c[0]},${c[1]},${c[2]},`,
+            alpha: Math.random() * 0.42 + 0.08,
+          });
+        }
       }
-      requestAnimationFrame(drawFrame);
-    }
 
-    resize();
-    initParticles();
-    drawFrame();
-    window.addEventListener("resize", () => {
+      function drawFrame() {
+        ctx.clearRect(0, 0, W, H);
+        for (const p of particles) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color + p.alpha + ")";
+          ctx.fill();
+          p.x += p.dx;
+          p.y += p.dy;
+          if (p.x < 0) p.x = W;
+          if (p.x > W) p.x = 0;
+          if (p.y < 0) p.y = H;
+          if (p.y > H) p.y = 0;
+        }
+        requestAnimationFrame(drawFrame);
+      }
+
       resize();
       initParticles();
-    });
+      drawFrame();
+      window.addEventListener("resize", () => {
+        resize();
+        initParticles();
+      });
 
+<<<<<<< HEAD
 
     setTimeout(() => {
       const ls = document.getElementById("loading-screen");
@@ -824,3 +979,18 @@
 </body>
 
 </html>
+=======
+      document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(() => {
+          const ls = document.getElementById("loading-screen");
+          if (ls) ls.classList.add("hidden");
+        }, 1000);
+      });
+      setTimeout(() => {
+        const ls = document.getElementById("loading-screen");
+        if (ls) ls.classList.add("hidden");
+      }, 2500);
+    </script>
+  </body>
+</html>
+>>>>>>> d747e7ba083530123c5c367253f5b467e7634c84
