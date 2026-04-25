@@ -387,14 +387,7 @@
   <!-- Page Transition -->
   <div id="page-transition"></div>
 
-  <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div class="loading-logo">VRTX</div>
-    <div class="loading-bar-wrap">
-      <div class="loading-bar"></div>
-    </div>
-    <div class="loading-label">About Us</div>
-  </div>
+
 
   <!-- Background Canvas -->
   <canvas id="bg-canvas"></canvas>
@@ -405,19 +398,25 @@
     <a href="./works.html" class="nav-link">Work</a>
     <a href="./services.html" class="nav-link">Services</a>
     <a href="./about.html" class="nav-link active">About</a>
-    <a href="./contact.html" class="pill-btn">Start a Conversation</a>
+    <a href="./contact.html" class="pill-btn">Contact Us</a>
   </nav>
 
   <!-- Page -->
   <div id="page">
     <header>
-      <a href="./index.html" class="header-logo">VRTX Studio</a>
+      <a href="./index.html" class="header-logo">
+        <img src="./assets/images/VRTX_LOGO.webp" alt="VRTX Logo" class="logo-mark">
+        <div class="logo-text">
+          <span class="logo-vertex">VRTX</span>
+          <span class="logo-studio">STUDIO</span>
+        </div>
+      </a>
       <nav class="header-nav">
         <a href="./index.html" class="nav-link">Home</a>
         <a href="./works.html" class="nav-link">Work</a>
         <a href="./services.html" class="nav-link">Services</a>
         <a href="./about.html" class="nav-link active">About</a>
-        <a href="./contact.html" class="pill-btn">Start a Conversation</a>
+        <a href="./contact.html" class="pill-btn">Contact Us</a>
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
           <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
             fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -443,7 +442,7 @@
     </header>
 
     <main>
-      <div class="page-label reveal reveal-d1">01 — About Us</div>
+      <div class="page-label reveal reveal-d1">About Us</div>
 
       <h1 class="hero-headline reveal reveal-d2">
         We craft identities that <em>outlast</em> the moment they're made.
@@ -544,7 +543,15 @@
           </div>
         </div>
         <div class="team-card reveal reveal-d4">
-          <div class="team-avatar avatar-green">SH</div>
+          <div class="team-avatar" style="
+                background: none;
+                border: none;
+                overflow: hidden;
+                border-radius: 50%;
+              ">
+            <img src="assets/images/ha-logo.webp" alt="Nguyen Pham Son Ha"
+              style="width: 100%; height: 100%; object-fit: cover" />
+          </div>
           <div class="team-name">Nguyen Pham Son Ha</div>
           <div class="team-role">Senior Designer</div>
           <div class="team-bio">
@@ -558,7 +565,15 @@
           </div>
         </div>
         <div class="team-card reveal reveal-d5">
-          <div class="team-avatar avatar-cyan">TH</div>
+          <div class="team-avatar" style="
+                background: none;
+                border: none;
+                overflow: hidden;
+                border-radius: 50%;
+              ">
+            <img src="assets/images/hieu-logo.webp" alt="Ho Trung Hieu"
+              style="width: 100%; height: 100%; object-fit: cover" />
+          </div>
           <div class="team-name">Ho Trung Hieu</div>
           <div class="team-role">Senior Sound Engineer</div>
           <div class="team-bio">
@@ -572,16 +587,24 @@
           </div>
         </div>
         <div class="team-card reveal reveal-d6">
-          <div class="team-avatar avatar-mg">KL</div>
+          <div class="team-avatar" style="
+                background: none;
+                border: none;
+                overflow: hidden;
+                border-radius: 50%;
+              ">
+            <img src="assets/images/long-logo.webp" alt="Tran Khanh Long"
+              style="width: 100%; height: 100%; object-fit: cover" />
+          </div>
           <div class="team-name">Tran Khanh Long</div>
-          <div class="team-role">Developer</div>
+          <div class="team-role">Digital Artist</div>
           <div class="team-bio">
-            Bridges the gap between design and technology. Crafts seamless
+            Bridges the gap between art and technology. Crafts seamless
             digital experiences that look beautiful and perform flawlessly.
           </div>
           <div class="team-socials">
-            <a href="#" class="team-social-link">LinkedIn</a>
-            <a href="#" class="team-social-link">GitHub</a>
+            <a href="https://www.linkedin.com/in/tran-long-9999913bb/" class="team-social-link" target="_blank">LinkedIn</a>
+            <a href="https://www.instagram.com/lewd.ryou_lusty147/?hl=en" class="team-social-link" target="_blank">Instagram</a>
           </div>
         </div>
       </div>
@@ -792,12 +815,7 @@
       initParticles();
     });
 
-    document.addEventListener("DOMContentLoaded", () => {
-      setTimeout(() => {
-        const ls = document.getElementById("loading-screen");
-        if (ls) ls.classList.add("hidden");
-      }, 1000);
-    });
+
     setTimeout(() => {
       const ls = document.getElementById("loading-screen");
       if (ls) ls.classList.add("hidden");

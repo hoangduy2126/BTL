@@ -391,14 +391,7 @@
     <!-- Page Transition -->
     <div id="page-transition"></div>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loading-logo">VRTX</div>
-        <div class="loading-bar-wrap">
-            <div class="loading-bar"></div>
-        </div>
-        <div class="loading-label">Let's Talk</div>
-    </div>
+
 
     <!-- Background Canvas -->
     <canvas id="bg-canvas"></canvas>
@@ -409,19 +402,25 @@
         <a href="./works.html" class="nav-link">Work</a>
         <a href="./services.html" class="nav-link">Services</a>
         <a href="./about.html" class="nav-link">About</a>
-        <a href="./contact.html" class="pill-btn active">Start a Conversation</a>
+        <a href="./contact.html" class="pill-btn active">Contact Us</a>
     </nav>
 
     <!-- Page -->
     <div id="page">
         <header>
-            <a href="./index.html" class="header-logo">VRTX Studio</a>
+            <a href="./index.html" class="header-logo">
+                <img src="./assets/images/VRTX_LOGO.webp" alt="VRTX Logo" class="logo-mark">
+                <div class="logo-text">
+                    <span class="logo-vertex">VRTX</span>
+                    <span class="logo-studio">STUDIO</span>
+                </div>
+            </a>
             <nav class="header-nav">
                 <a href="./index.html" class="nav-link">Home</a>
                 <a href="./works.html" class="nav-link">Work</a>
                 <a href="./services.html" class="nav-link">Services</a>
                 <a href="./about.html" class="nav-link">About</a>
-                <a href="./contact.html" class="pill-btn">Start a Conversation</a>
+                <a href="./contact.html" class="pill-btn">Contact Us</a>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
                     <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                     <svg class="moon-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -433,7 +432,7 @@
         </header>
 
         <main>
-            <div class="page-label reveal reveal-d1">04 — Get in touch</div>
+            <div class="page-label reveal reveal-d1">Get in touch</div>
 
             <h1 class="hero-headline reveal reveal-d2">
                 Every great brand starts with a <em>conversation</em>.
@@ -594,16 +593,7 @@
         resize(); initParticles(); drawFrame();
         window.addEventListener('resize', () => { resize(); initParticles(); });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const ls = document.getElementById('loading-screen');
-                if (ls) ls.classList.add('hidden');
-            }, 1000);
-        });
-        setTimeout(() => {
-            const ls = document.getElementById('loading-screen');
-            if (ls) ls.classList.add('hidden');
-        }, 2500);
+
 
         // ── Budget chips ───────────────────────────────────────────
         let selectedBudget = '';

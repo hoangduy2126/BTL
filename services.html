@@ -52,19 +52,65 @@
         display: flex;
         flex-direction: column;
         padding: 3rem;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
         background: rgba(255, 255, 255, 0.03);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 20px;
+        border-radius: 24px;
         cursor: pointer;
+        position: relative;
         transition:
           background 0.4s,
           transform 0.4s,
           box-shadow 0.4s,
           border-color 0.4s;
         overflow: hidden;
+      }
+
+      .service-expand-icon {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.04);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.3);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      .service-item:hover .service-expand-icon {
+        border-color: rgba(255, 255, 255, 0.22);
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .service-expand-icon svg {
+        width: 18px;
+        height: 18px;
+        transition: transform 0.6s cubic-bezier(0.7, 0, 0.2, 1);
+      }
+
+      .service-item.expanded .service-expand-icon {
+        background: var(--cyan);
+        color: #000;
+        border-color: transparent;
+      }
+
+      .service-item.expanded .service-expand-icon svg {
+        transform: rotate(180deg);
+      }
+
+      .service-item.expanded {
+        padding-bottom: 5rem;
       }
 
       .service-item:last-child {
@@ -194,6 +240,7 @@
 
       .service-cta {
         display: inline-flex;
+        width: fit-content;
         align-items: center;
         gap: 0.5rem;
         margin-top: 1.5rem;
@@ -228,6 +275,22 @@
         color: rgba(255, 255, 255, 0.6);
       }
 
+      /* Light Mode Overrides for Expand Icon */
+      body.light-mode .service-expand-icon {
+        background: rgba(0, 0, 0, 0.05);
+        border-color: rgba(0, 0, 0, 0.08);
+        color: rgba(0, 0, 0, 0.4);
+      }
+      body.light-mode .service-item:hover .service-expand-icon {
+        background: rgba(0, 0, 0, 0.1);
+        color: #000;
+      }
+      body.light-mode .service-item.expanded .service-expand-icon {
+        background: var(--cyan);
+        color: #fff;
+        border-color: transparent;
+      }
+
       /* ── Bottom CTA ───────────────────────────────────────── */
       .services-cta-block {
         border-top: 1px solid rgba(255, 255, 255, 0.07);
@@ -255,39 +318,7 @@
         color: rgba(255, 255, 255, 0.88);
       }
 
-      .services-cta-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.7rem;
-        padding: 0.9rem 2.5rem;
-        border-radius: 999px;
-        background: #fff;
-        color: #000;
-        font-size: 0.78rem;
-        font-weight: 600;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        text-decoration: none;
-        transition:
-          background 0.25s,
-          transform 0.2s,
-          box-shadow 0.25s;
-        width: fit-content;
-      }
 
-      .services-cta-btn:hover {
-        background: rgba(255, 255, 255, 0.88);
-        transform: translateY(-2px);
-        box-shadow: 0 12px 32px rgba(255, 255, 255, 0.12);
-      }
-
-      .services-cta-btn .btn-arrow {
-        transition: transform 0.2s;
-      }
-
-      .services-cta-btn:hover .btn-arrow {
-        transform: translateX(4px);
-      }
     </style>
   </head>
 
@@ -299,14 +330,7 @@
     <!-- Page Transition -->
     <div id="page-transition"></div>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-      <div class="loading-logo">VRTX</div>
-      <div class="loading-bar-wrap">
-        <div class="loading-bar"></div>
-      </div>
-      <div class="loading-label">Our Services</div>
-    </div>
+
 
     <!-- Background Canvas -->
     <canvas id="bg-canvas"></canvas>
@@ -317,19 +341,25 @@
       <a href="./works.html" class="nav-link">Work</a>
       <a href="./services.html" class="nav-link active">Services</a>
       <a href="./about.html" class="nav-link">About</a>
-      <a href="./contact.html" class="pill-btn">Start a Conversation</a>
+      <a href="./contact.html" class="pill-btn">Contact Us</a>
     </nav>
 
     <!-- Page -->
     <div id="page">
       <header>
-        <a href="./index.html" class="header-logo">VRTX Studio</a>
+        <a href="./index.html" class="header-logo">
+          <img src="./assets/images/VRTX_LOGO.webp" alt="VRTX Logo" class="logo-mark">
+          <div class="logo-text">
+            <span class="logo-vertex">VRTX</span>
+            <span class="logo-studio">STUDIO</span>
+          </div>
+        </a>
         <nav class="header-nav">
           <a href="./index.html" class="nav-link">Home</a>
           <a href="./works.html" class="nav-link">Work</a>
           <a href="./services.html" class="nav-link active">Services</a>
           <a href="./about.html" class="nav-link">About</a>
-          <a href="./contact.html" class="pill-btn">Start a Conversation</a>
+          <a href="./contact.html" class="pill-btn">Contact Us</a>
           <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
             <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             <svg class="moon-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -341,7 +371,7 @@
       </header>
 
       <main>
-        <div class="page-label reveal reveal-d1">03 — Services</div>
+        <div class="page-label reveal reveal-d1">Services</div>
 
         <h1 class="hero-headline reveal reveal-d2">
           Every discipline, one <em>unified</em> vision.
@@ -370,7 +400,7 @@
                   <span class="service-tag">Brand Guidelines</span>
                 </div>
                 <a href="./contact.html" class="service-cta"
-                  >Start a project <span class="service-cta-arrow">→</span></a
+                  >Contact Us <span class="service-cta-arrow">→</span></a
                 >
               </div>
               <div class="service-desc">
@@ -393,6 +423,11 @@
                 alt="Brand Identity 2"
               />
             </div>
+            <div class="service-expand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
           </div>
 
           <!-- 02 Product Design -->
@@ -411,7 +446,7 @@
                   <span class="service-tag">Packaging</span>
                 </div>
                 <a href="./contact.html" class="service-cta"
-                  >Start a project <span class="service-cta-arrow">→</span></a
+                  >Contact Us <span class="service-cta-arrow">→</span></a
                 >
               </div>
               <div class="service-desc">
@@ -434,6 +469,11 @@
                 alt="Product Design 2"
               />
             </div>
+            <div class="service-expand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
           </div>
 
           <!-- 03 Motion Graphics -->
@@ -452,7 +492,7 @@
                   <span class="service-tag">Social Content</span>
                 </div>
                 <a href="./contact.html" class="service-cta"
-                  >Start a project <span class="service-cta-arrow">→</span></a
+                  >Contact Us <span class="service-cta-arrow">→</span></a
                 >
               </div>
               <div class="service-desc">
@@ -475,6 +515,11 @@
                 alt="Motion Graphics 2"
               />
             </div>
+            <div class="service-expand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
           </div>
 
           <!-- 04 Web Design -->
@@ -493,7 +538,7 @@
                   <span class="service-tag">Performance</span>
                 </div>
                 <a href="./contact.html" class="service-cta"
-                  >Start a project <span class="service-cta-arrow">→</span></a
+                  >Contact Us <span class="service-cta-arrow">→</span></a
                 >
               </div>
               <div class="service-desc">
@@ -509,6 +554,11 @@
             <div class="service-images">
               <img src="./assets/images/web_design_1.webp" alt="Web Design 1" />
               <img src="./assets/images/web_design_2.webp" alt="Web Design 2" />
+            </div>
+            <div class="service-expand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </div>
           </div>
 
@@ -528,7 +578,7 @@
                   <span class="service-tag">Mixing & Mastering</span>
                 </div>
                 <a href="./contact.html" class="service-cta"
-                  >Start a project <span class="service-cta-arrow">→</span></a
+                  >Contact Us <span class="service-cta-arrow">→</span></a
                 >
               </div>
               <div class="service-desc">
@@ -551,6 +601,11 @@
                 alt="Audio Design 2"
               />
             </div>
+            <div class="service-expand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
           </div>
         </div>
 
@@ -560,9 +615,12 @@
           <div class="services-cta-headline">
             Let's build something worth remembering.
           </div>
-          <a href="./contact.html" class="services-cta-btn"
-            >Start a conversation <span class="btn-arrow">→</span></a
-          >
+          <a href="./contact.html" class="services-cta-btn">
+            <span class="btn-text">Contact Us</span>
+            <span class="btn-arrow">
+              <svg viewBox="0 0 24 24"><path d="M5 12h14m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
         </div>
       </main>
 
@@ -689,17 +747,7 @@
         });
       });
 
-      // ── Loading screen ────────────────────────────────────────
-      document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(() => {
-          const ls = document.getElementById("loading-screen");
-          if (ls) ls.classList.add("hidden");
-        }, 1000);
-      });
-      setTimeout(() => {
-        const ls = document.getElementById("loading-screen");
-        if (ls) ls.classList.add("hidden");
-      }, 2500);
+
     </script>
   </body>
 </html>

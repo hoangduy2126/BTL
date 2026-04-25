@@ -19,6 +19,8 @@
     });
 
     // Intercept same-origin link clicks → fade then navigate
+    // (Xoá sự kiện click này để không còn fade đen khi chuyển trang)
+    /*
     document.addEventListener('click', (e) => {
         const a = e.target.closest('a[href]');
         if (!a) return;
@@ -38,6 +40,7 @@
         overlay.classList.add('active');
         setTimeout(() => { window.location.href = href; }, 440);
     });
+    */
 })();
 
 /* ── Scroll Reveal (IntersectionObserver) ───────────────── */
