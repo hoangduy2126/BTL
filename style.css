@@ -973,6 +973,9 @@ body.light-mode .team-socials {
 body.light-mode .testimonial-card,
 body.light-mode .service-item,
 body.light-mode .value-item,
+body.light-mode .form-input,
+body.light-mode .form-textarea,
+body.light-mode .form-select,
 body.light-mode .lb-panel {
     background: #ffffff !important;
     border-color: rgba(0, 0, 0, 0.08) !important;
@@ -1011,7 +1014,6 @@ body.light-mode .clients-section {
 body.light-mode .pill-btn,
 body.light-mode .cta-btn,
 body.light-mode .filter-tab,
-body.light-mode .service-chip,
 body.light-mode .budget-chip,
 body.light-mode .lb-nav-btn {
     border-color: rgba(0, 0, 0, 0.2) !important;
@@ -1022,8 +1024,6 @@ body.light-mode .pill-btn:hover,
 body.light-mode .cta-btn:hover,
 body.light-mode .filter-tab:hover,
 body.light-mode .filter-tab.active,
-body.light-mode .service-chip:hover,
-body.light-mode .service-chip.selected,
 body.light-mode .budget-chip:hover,
 body.light-mode .budget-chip.selected,
 body.light-mode .lb-nav-btn:hover {
@@ -1037,7 +1037,12 @@ body.light-mode #cursor-dot {
     mix-blend-mode: normal;
 }
 body.light-mode #cursor-ring {
-    border-color: rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 0, 0, 0.4);
+}
+body.light-mode #cursor-ring.is-link {
+    border-color: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.05);
+    color: #111;
 }
 
 body.light-mode #cursor-ring.is-work {
@@ -1099,8 +1104,6 @@ body.light-mode .pill-btn:hover,
 body.light-mode .cta-btn:hover,
 body.light-mode .filter-tab:hover,
 body.light-mode .filter-tab.active,
-body.light-mode .service-chip:hover,
-body.light-mode .service-chip.selected,
 body.light-mode .budget-chip:hover,
 body.light-mode .budget-chip.selected,
 body.light-mode .lb-nav-btn:hover {
@@ -1115,7 +1118,6 @@ body.light-mode select:focus {
     border-color: var(--cyan) !important;
     box-shadow: 0 0 24px rgba(145, 198, 188, 0.4) !important;
     background: #ffffff !important;
-    color: #000 !important;
 }
 
 body.light-mode .hero-headline em {

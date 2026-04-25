@@ -17,15 +17,15 @@ let textMesh;          // Keep reference for wireframe toggle
 let bloomPass, darkMaterial, lightMaterial;
 let iridLights = [];   // coloured spot lights that orbit to fake anisotropy
 
-const mouse    = { x: 0, y: 0 };
+const mouse = { x: 0, y: 0 };
 const targetMouse = { x: 0, y: 0 };
 
 // Manual ping-pong rotation on textGroup (independent of OrbitControls)
-const TEXT_ROT_MAX   =  0.6;   // radians, ~34°
-const TEXT_ROT_MIN   = -0.6;
-const TEXT_ROT_SPEED =  0.0005; // radians per frame (~0.14°/frame)
-let   textRotY       =  0;     // current Y angle of textGroup
-let   textRotDir     =  1;     // 1 = clockwise, -1 = counter-clockwise
+const TEXT_ROT_MAX = 0.6;   // radians, ~34°
+const TEXT_ROT_MIN = -0.6;
+const TEXT_ROT_SPEED = 0.0005; // radians per frame (~0.14°/frame)
+let textRotY = 0;     // current Y angle of textGroup
+let textRotDir = 1;     // 1 = clockwise, -1 = counter-clockwise
 
 // ── Boot ───────────────────────────────────────────────────────────────────
 init();
@@ -84,17 +84,17 @@ function init() {
 
     // Controls — mouse drag only, NO autoRotate (ping-pong is handled manually)
     controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping   = true;
-    controls.dampingFactor   = 0.06;
-    controls.enableZoom      = false;
-    controls.enablePan       = false;
-    controls.autoRotate      = false;
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.06;
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.autoRotate = false;
     // Keep a gentle polar constraint so dragging vertically stays reasonable
-    controls.minPolarAngle   = Math.PI / 2 - 0.55;
-    controls.maxPolarAngle   = Math.PI / 2 + 0.55;
+    controls.minPolarAngle = Math.PI / 2 - 0.55;
+    controls.maxPolarAngle = Math.PI / 2 + 0.55;
     // Limit horizontal (azimuth) movement
     controls.minAzimuthAngle = -0.5;
-    controls.maxAzimuthAngle =  0.5;
+    controls.maxAzimuthAngle = 0.5;
 
     // Events
     document.addEventListener('mousemove', onMouseMove);
@@ -151,7 +151,7 @@ function buildLightRig() {
         const light = new THREE.PointLight(color, 180, 35, 2);  // much lower intensity
         light.userData.phase = (i / iridColors.length) * Math.PI * 2;
         light.userData.radius = 14 + (i % 2) * 4;
-        light.userData.speed  = 0.18 + i * 0.025;
+        light.userData.speed = 0.18 + i * 0.025;
         iridLights.push(light);
         scene.add(light);
     });
@@ -169,9 +169,9 @@ function loadText() {
             // MeshPhysicalMaterial with maximum iridescence + clearcoat to
             // simulate the CD-disc anisotropy look.
             const mat = new THREE.MeshPhysicalMaterial({
-                color:           0x0d0d0d,   // near-black base
-                metalness:       0.75,        // metallic but not perfect mirror
-                roughness:       0.28,        // slightly brushed — cuts harsh glare
+                color: 0x0d0d0d,   // near-black base
+                metalness: 0.75,        // metallic but not perfect mirror
+                roughness: 0.28,        // slightly brushed — cuts harsh glare
                 envMapIntensity: 1.1,         // moderate env reflections
 
                 // Removed very faint glass-like depth to fix massive lag
@@ -180,36 +180,36 @@ function loadText() {
                 // thickness:       2.5,
 
                 // Thin-film iridescence — present but restrained
-                iridescence:          0.65,
-                iridescenceIOR:       1.4,
+                iridescence: 0.65,
+                iridescenceIOR: 1.4,
                 iridescenceThicknessRange: [120, 600],
 
                 // Softer clearcoat
-                clearcoat:            0.6,
-                clearcoatRoughness:   0.18,
+                clearcoat: 0.6,
+                clearcoatRoughness: 0.18,
 
                 // Subtle sheen
-                sheen:          0.4,
+                sheen: 0.4,
                 sheenRoughness: 0.5,
-                sheenColor:     new THREE.Color(0x6677cc),
+                sheenColor: new THREE.Color(0x6677cc),
             });
 
             // VRTX geometry – massive, deep block letters
             const geo = new TextGeometry('VRTX', {
                 font,
-                size:          7.8,
-                depth:         3.8,
+                size: 7.8,
+                depth: 3.8,
                 curveSegments: 5,   // Reduced from 20 for performance
-                bevelEnabled:  true,
+                bevelEnabled: true,
                 bevelThickness: 0.45,
-                bevelSize:      0.28,
-                bevelOffset:    0,
-                bevelSegments:  4,   // Reduced from 12 for performance
+                bevelSize: 0.28,
+                bevelOffset: 0,
+                bevelSegments: 4,   // Reduced from 12 for performance
             });
             geo.center();
 
             const mesh = new THREE.Mesh(geo, mat);
-            mesh.castShadow    = true;
+            mesh.castShadow = true;
             mesh.receiveShadow = true;
             textGroup.add(mesh);
             textMesh = mesh;
@@ -220,7 +220,7 @@ function loadText() {
                 transparent: true,
                 opacity: 0.9
             });
-            
+
             // Trigger initial theme update for text
             const light = document.body.classList.contains('light-mode');
             if (light) {
@@ -238,8 +238,8 @@ function loadText() {
 // ── Particles ──────────────────────────────────────────────────────────────
 function createParticles() {
     const count = 350;
-    const pos   = new Float32Array(count * 3);
-    const col   = new Float32Array(count * 3);
+    const pos = new Float32Array(count * 3);
+    const col = new Float32Array(count * 3);
 
     // Rainbow palette for the dust
     const palette = [
@@ -251,26 +251,26 @@ function createParticles() {
     ];
 
     for (let i = 0; i < count; i++) {
-        pos[i * 3]     = (Math.random() - 0.5) * 70;
+        pos[i * 3] = (Math.random() - 0.5) * 70;
         pos[i * 3 + 1] = (Math.random() - 0.5) * 40;
         pos[i * 3 + 2] = (Math.random() - 0.5) * 50;
 
         const c = palette[Math.floor(Math.random() * palette.length)];
-        col[i * 3]     = c[0];
+        col[i * 3] = c[0];
         col[i * 3 + 1] = c[1];
         col[i * 3 + 2] = c[2];
     }
 
     const geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    geo.setAttribute('color',    new THREE.BufferAttribute(col, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
 
     const mat = new THREE.PointsMaterial({
-        size:           0.09,
-        vertexColors:   true,
-        transparent:    true,
-        opacity:        0.55,
-        blending:       THREE.AdditiveBlending,
+        size: 0.09,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.55,
+        blending: THREE.AdditiveBlending,
         sizeAttenuation: true,
     });
 
@@ -299,8 +299,8 @@ function setupPostProcessing() {
 
 // ── Events ─────────────────────────────────────────────────────────────────
 function onMouseMove(e) {
-    targetMouse.x =  (e.clientX / innerWidth)  * 2 - 1;
-    targetMouse.y = -(e.clientY / innerHeight)  * 2 + 1;
+    targetMouse.x = (e.clientX / innerWidth) * 2 - 1;
+    targetMouse.y = -(e.clientY / innerHeight) * 2 + 1;
 }
 
 function onResize() {
@@ -321,11 +321,11 @@ function animate() {
     // ── Manual ping-pong Y rotation on textGroup ───────────────────────────
     textRotY += textRotDir * TEXT_ROT_SPEED;
     if (textRotY >= TEXT_ROT_MAX) {
-        textRotY   = TEXT_ROT_MAX;
+        textRotY = TEXT_ROT_MAX;
         textRotDir = -1;               // hit right limit → reverse to counter-clockwise
     } else if (textRotY <= TEXT_ROT_MIN) {
-        textRotY   = TEXT_ROT_MIN;
-        textRotDir =  1;               // hit left limit  → reverse to clockwise
+        textRotY = TEXT_ROT_MIN;
+        textRotDir = 1;               // hit left limit  → reverse to clockwise
     }
 
     // Gentle float on the text group (position stays centred)
@@ -339,7 +339,7 @@ function animate() {
     // Orbit the iridescent accent lights around the text
     iridLights.forEach((light) => {
         const angle = t * light.userData.speed + light.userData.phase;
-        const r     = light.userData.radius;
+        const r = light.userData.radius;
         light.position.set(
             Math.cos(angle) * r,
             Math.sin(angle * 1.7) * r * 0.55,

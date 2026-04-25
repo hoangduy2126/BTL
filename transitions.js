@@ -90,7 +90,7 @@
             const el     = entry.target;
             const target = parseFloat(el.dataset.target);
             const suffix = el.dataset.suffix || '';
-            const dur    = 2500;
+            const dur    = 1600;
             const start  = performance.now();
 
             function update(now) {
@@ -141,11 +141,6 @@
 /* ── Theme Toggle ────────────────────────────────────────── */
 (function () {
     const initTheme = () => {
-        const saved = localStorage.getItem('vrtx-theme');
-        if (!saved) {
-            // Chưa có lựa chọn → mặc định dark
-            localStorage.setItem('vrtx-theme', 'dark');
-        }
         const isLight = localStorage.getItem('vrtx-theme') === 'light';
         document.body.classList.toggle('light-mode', isLight);
     };
