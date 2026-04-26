@@ -946,6 +946,10 @@ body.light-mode #loading-screen {
     background: #f4eee6;
 }
 
+body.light-mode .loading-bar-wrap {
+    background: rgba(0, 0, 0, 0.1);
+}
+
 body.light-mode .logo-vertex,
 body.light-mode .logo-studio,
 body.light-mode .hero-headline,
@@ -953,7 +957,8 @@ body.light-mode .nav-link,
 body.light-mode .service-name,
 body.light-mode .team-name,
 body.light-mode .value-title,
-body.light-mode .loading-logo,
+body.light-mode .loading-vertex,
+body.light-mode .loading-studio,
 body.light-mode .card-title,
 body.light-mode .lb-title,
 body.light-mode .client-name,
@@ -1018,6 +1023,7 @@ body.light-mode .testimonial-role,
 body.light-mode .social-link {
     color: #777777;
 }
+
 
 body.light-mode .info-divider {
     background: rgba(0, 0, 0, 0.15);
