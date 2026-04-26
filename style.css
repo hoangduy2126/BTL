@@ -963,7 +963,9 @@ body.light-mode .card-title,
 body.light-mode .lb-title,
 body.light-mode .client-name,
 body.light-mode .testimonial-author,
-body.light-mode .services-cta-headline {
+body.light-mode .services-cta-headline,
+body.light-mode .info-value,
+body.light-mode .social-link {
     color: #111111;
 }
 
@@ -1006,6 +1008,10 @@ body.light-mode .lb-desc {
     color: #555555;
 }
 
+body.light-mode .info-label {
+    color: #333333;
+}
+
 body.light-mode .team-role,
 body.light-mode .stat-label,
 body.light-mode .service-index,
@@ -1017,10 +1023,7 @@ body.light-mode .lb-cat,
 body.light-mode .lb-meta-label,
 body.light-mode .lb-meta-value,
 body.light-mode .form-label,
-body.light-mode .info-label,
-body.light-mode .info-value,
-body.light-mode .testimonial-role,
-body.light-mode .social-link {
+body.light-mode .testimonial-role {
     color: #777777;
 }
 

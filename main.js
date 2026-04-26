@@ -14,6 +14,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 let camera, scene, renderer, composer, controls;
 let textGroup;
 let textMesh;          // Keep reference for wireframe toggle
+let textEdges;         // Keep reference for the clean edge wireframe
 let bloomPass, darkMaterial, lightMaterial;
 let iridLights = [];   // coloured spot lights that orbit to fake anisotropy
 
@@ -42,8 +43,9 @@ function init() {
         if (bloomPass) {
             bloomPass.threshold = light ? 2.0 : 0.65;
         }
-        if (textMesh && darkMaterial && lightMaterial) {
-            textMesh.material = light ? lightMaterial : darkMaterial;
+        if (textMesh && textEdges) {
+            textMesh.visible = !light;
+            textEdges.visible = light;
         }
     });
     observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
@@ -199,12 +201,12 @@ function loadText() {
                 font,
                 size: 7.8,
                 depth: 3.8,
-                curveSegments: 5,   // Reduced from 20 for performance
+                curveSegments: 6,   // Reduced to make topology less dense
                 bevelEnabled: true,
                 bevelThickness: 0.45,
                 bevelSize: 0.28,
                 bevelOffset: 0,
-                bevelSegments: 4,   // Reduced from 12 for performance
+                bevelSegments: 4,   // Reduced to make topology less dense
             });
             geo.center();
 
@@ -214,19 +216,65 @@ function loadText() {
             textGroup.add(mesh);
             textMesh = mesh;
             darkMaterial = mat;
-            lightMaterial = new THREE.MeshBasicMaterial({
+
+            // Generate complex internal wireframe lines with a filter to clean up messy clusters
+            const baseWireGeo = new THREE.WireframeGeometry(geo);
+            const posAttr = baseWireGeo.attributes.position;
+            const newPositions = [];
+            const v1 = new THREE.Vector3();
+            const v2 = new THREE.Vector3();
+
+            for (let i = 0; i < posAttr.count; i += 2) {
+                v1.fromBufferAttribute(posAttr, i);
+                v2.fromBufferAttribute(posAttr, i + 1);
+                
+                // Detect if the line lies on the front/back flat faces
+                const isFace = Math.abs(v1.z - v2.z) < 0.05 && Math.abs(v1.z) > 1.0;
+                const dist = v1.distanceTo(v2);
+
+                let keep = true;
+                if (isFace) {
+                    // Eliminate the dense "messy" Earcut triangles (especially on the R)
+                    if (dist < 0.4) keep = false; 
+                    else if (dist < 1.0 && Math.random() > 0.4) keep = false; // Add stylized sparsity
+                } else {
+                    // Clean up micro-segments on the bevels/sides
+                    if (dist < 0.1) keep = false;
+                }
+
+                if (keep) {
+                    newPositions.push(v1.x, v1.y, v1.z);
+                    newPositions.push(v2.x, v2.y, v2.z);
+                }
+            }
+
+            const wireGeo = new THREE.BufferGeometry();
+            wireGeo.setAttribute('position', new THREE.Float32BufferAttribute(newPositions, 3));
+
+            const wireMat = new THREE.LineBasicMaterial({
                 color: 0x519fa8,
-                wireframe: true,
                 transparent: true,
-                opacity: 0.9
+                opacity: 0.45 // Internal cross-bars softer
             });
+            textEdges = new THREE.LineSegments(wireGeo, wireMat);
+
+            // Layer the structural outline (EdgesGeometry) on top to preserve perfect readability
+            const edgesGeo = new THREE.EdgesGeometry(geo, 15);
+            const edgesMat = new THREE.LineBasicMaterial({
+                color: 0x519fa8,
+                transparent: true,
+                opacity: 0.95 // Sharp, bright outer borders
+            });
+            const textOutline = new THREE.LineSegments(edgesGeo, edgesMat);
+            textEdges.add(textOutline);
+
+            textGroup.add(textEdges);
 
             // Trigger initial theme update for text
             const light = document.body.classList.contains('light-mode');
-            if (light) {
-                textMesh.material = lightMaterial;
-                if (bloomPass) bloomPass.threshold = 2.0;
-            }
+            textMesh.visible = !light;
+            textEdges.visible = light;
+            if (light && bloomPass) bloomPass.threshold = 2.0;
 
             // Hide loading screen with a delay to allow the intro animation to finish
             const ls = document.getElementById('loading-screen');

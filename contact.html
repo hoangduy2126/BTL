@@ -62,7 +62,7 @@
             font-size: 0.62rem;
             letter-spacing: 0.24em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.26);
+            color: rgba(255, 255, 255, 0.75);
         }
 
         .info-value {
@@ -154,12 +154,14 @@
 
         .input-wrapper {
             position: relative;
-            padding: 0; /* Removed padding to align border with input */
+            padding: 0;
+            /* Removed padding to align border with input */
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 2px;
             background: rgba(255, 255, 255, 0.015);
             transition: all 0.3s ease;
-            overflow: visible; /* Ensure borders are visible */
+            overflow: visible;
+            /* Ensure borders are visible */
         }
 
         body.light-mode .input-wrapper {
@@ -182,16 +184,16 @@
             font-size: 0.62rem;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.26);
+            color: rgba(255, 255, 255, 0.75);
             transition: color 0.2s;
         }
 
         .form-group:focus-within .form-label {
-            color: rgba(255, 255, 255, 0.62);
+            color: #fff;
         }
 
         body.light-mode .form-label {
-            color: rgba(0, 0, 0, 0.4);
+            color: rgba(0, 0, 0, 0.85);
         }
 
         body.light-mode .form-group:focus-within .form-label {
@@ -206,25 +208,45 @@
             background-size: 300% 100%;
             animation: nav-gradient-flow 6s linear infinite;
             opacity: 0;
-            transition: transform 0.15s ease, opacity 0.1s ease; /* Faster duration */
+            transition: transform 0.15s ease, opacity 0.1s ease;
+            /* Faster duration */
             z-index: 2;
         }
 
         .border-top {
-            top: -1px; left: -1px; width: calc(100% + 2px); height: 1.5px;
-            transform: scaleX(0); transform-origin: left;
+            top: -1px;
+            left: -1px;
+            width: calc(100% + 2px);
+            height: 1.5px;
+            transform: scaleX(0);
+            transform-origin: left;
         }
+
         .border-right {
-            top: -1px; right: -1px; width: 1.5px; height: calc(100% + 2px);
-            transform: scaleY(0); transform-origin: top;
+            top: -1px;
+            right: -1px;
+            width: 1.5px;
+            height: calc(100% + 2px);
+            transform: scaleY(0);
+            transform-origin: top;
         }
+
         .border-bottom {
-            bottom: -1px; right: -1px; width: calc(100% + 2px); height: 1.5px;
-            transform: scaleX(0); transform-origin: right;
+            bottom: -1px;
+            right: -1px;
+            width: calc(100% + 2px);
+            height: 1.5px;
+            transform: scaleX(0);
+            transform-origin: right;
         }
+
         .border-left {
-            bottom: -1px; left: -1px; width: 1.5px; height: calc(100% + 2px);
-            transform: scaleY(0); transform-origin: bottom;
+            bottom: -1px;
+            left: -1px;
+            width: 1.5px;
+            height: calc(100% + 2px);
+            transform: scaleY(0);
+            transform-origin: bottom;
         }
 
         .input-wrapper:hover .border-line,
@@ -237,16 +259,20 @@
             transform: scaleX(1);
             transition-delay: 0s;
         }
+
         .input-wrapper:hover .border-right,
         .form-group:focus-within .border-right {
             transform: scaleY(1);
-            transition-delay: 0.1s; /* Faster delays */
+            transition-delay: 0.1s;
+            /* Faster delays */
         }
+
         .input-wrapper:hover .border-bottom,
         .form-group:focus-within .border-bottom {
             transform: scaleX(1);
             transition-delay: 0.2s;
         }
+
         .input-wrapper:hover .border-left,
         .form-group:focus-within .border-left {
             transform: scaleY(1);
@@ -272,7 +298,8 @@
             font-size: 0.95rem;
             font-weight: 400;
             width: 100%;
-            padding: 0.85rem 1.1rem; /* Padding now here for better border alignment */
+            padding: 0.85rem 1.1rem;
+            /* Padding now here for better border alignment */
             resize: none;
             appearance: none;
             transition: padding 0.3s ease;
@@ -312,7 +339,7 @@
 
         .form-input::placeholder,
         .form-textarea::placeholder {
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.65);
         }
 
         body.light-mode .form-input,
@@ -323,7 +350,7 @@
 
         body.light-mode .form-input::placeholder,
         body.light-mode .form-textarea::placeholder {
-            color: rgba(0, 0, 0, 0.3);
+            color: rgba(0, 0, 0, 0.7);
         }
 
         .form-select option {
@@ -417,7 +444,8 @@
             padding: 0.88rem 2.4rem;
             border-radius: 999px;
             background: #fff;
-            border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border for light mode */
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            /* Subtle border for light mode */
             color: #000;
             font-family: 'Inter', sans-serif;
             font-size: 0.78rem;
@@ -583,8 +611,23 @@
                 <a href="./about.html" class="nav-link">About</a>
                 <a href="./contact.html" class="pill-btn">Contact Us</a>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-                    <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                    <svg class="moon-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor"
+                        stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor"
+                        stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                        style="display:none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
                 </button>
                 <button class="hamburger" id="hamburger" aria-label="Open menu">
                     <span></span><span></span><span></span>
@@ -647,7 +690,8 @@
                                 <span class="border-line border-right"></span>
                                 <span class="border-line border-bottom"></span>
                                 <span class="border-line border-left"></span>
-                                <input class="form-input" id="name" type="text" placeholder="Full name" autocomplete="off">
+                                <input class="form-input" id="name" type="text" placeholder="Full name"
+                                    autocomplete="off">
                             </div>
                             <span class="form-error">Please enter your name</span>
                         </div>
@@ -740,15 +784,16 @@
             </div>
         </main>
 
-            <!-- Back to Top -->
-            <div class="back-to-top-wrap reveal">
-                <button class="back-to-top" id="back-to-top" aria-label="TO TOP">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="19" x2="12" y2="5"></line>
-                        <polyline points="5 12 12 5 19 12"></polyline>
-                    </svg>
-                </button>
-            </div>
+        <!-- Back to Top -->
+        <div class="back-to-top-wrap reveal">
+            <button class="back-to-top" id="back-to-top" aria-label="TO TOP">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                    <polyline points="5 12 12 5 19 12"></polyline>
+                </svg>
+            </button>
+        </div>
 
         <footer>
             <p class="tagline">Creating memorable brand experiences for impact.</p>
@@ -766,7 +811,7 @@
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let W, H, particles = [];
-        const PALETTE = [[145,198,188],[225,122,71],[243,235,178],[81,159,168],[145,198,188]];
+        const PALETTE = [[145, 198, 188], [225, 122, 71], [243, 235, 178], [81, 159, 168], [145, 198, 188]];
 
         function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
         function initParticles(n = 300) {
