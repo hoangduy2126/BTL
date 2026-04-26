@@ -17,6 +17,7 @@
     --gold:    #f6ecc0;
     --violet:  #3b8c9d;
     --bg-color: #000;
+    --bg-transparent: rgba(0, 0, 0, 0);
 }
 
 /* ── Base ──────────────────────────────────────────────────── */
@@ -671,16 +672,12 @@ header.scrolled {
 
 .marquee-wrap::before {
     left: 0;
-    background-color: var(--bg-color);
-    -webkit-mask-image: linear-gradient(to right, black, transparent);
-    mask-image: linear-gradient(to right, black, transparent);
+    background: linear-gradient(to right, var(--bg-color), var(--bg-transparent));
 }
 
 .marquee-wrap::after {
     right: 0;
-    background-color: var(--bg-color);
-    -webkit-mask-image: linear-gradient(to left, black, transparent);
-    mask-image: linear-gradient(to left, black, transparent);
+    background: linear-gradient(to left, var(--bg-color), var(--bg-transparent));
 }
 
 .marquee-track {
@@ -884,6 +881,7 @@ select:focus {
 /* ── LIGHT MODE OVERRIDES ──────────────────────────────────── */
 body.light-mode {
     --bg-color: #f4eee6;
+    --bg-transparent: rgba(244, 238, 230, 0);
     color: #111111;
 }
 
@@ -924,6 +922,7 @@ body.light-mode .client-sep {
 body.light-mode .stat-number {
     background: linear-gradient(135deg, #111111 40%, rgba(17, 17, 17, 0.4));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
 }
