@@ -228,9 +228,13 @@ function loadText() {
                 if (bloomPass) bloomPass.threshold = 2.0;
             }
 
-            // Hide loading screen once font is ready
+            // Hide loading screen with a delay to allow the intro animation to finish
             const ls = document.getElementById('loading-screen');
-            if (ls) ls.classList.add('hidden');
+            if (ls) {
+                setTimeout(() => {
+                    ls.classList.add('hidden');
+                }, 1000); // Reduced to 2s for a faster experience
+            }
         }
     );
 }

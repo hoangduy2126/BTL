@@ -519,12 +519,68 @@ header.scrolled {
     visibility: hidden;
 }
 
-.loading-logo {
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.5em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.9);
+.loading-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-left: 0px; /* Nudge right to balance with the loading bar and text weight */
+}
+
+.loading-logo-icon {
+    width: 60px;
+    height: auto;
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateY(30px) scale(0.5);
+    filter: brightness(1.2);
+    animation: logo-reveal-y 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.1s forwards;
+}
+
+.loading-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    width: 0;
+    opacity: 0;
+    flex-shrink: 0;
+    white-space: nowrap;
+    animation: text-reveal-x 0.5s cubic-bezier(0.7, 0, 0.3, 1) 0.5s forwards;
+}
+
+.loading-vertex {
+    font-size: 1.95rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    color: #fff;
+    line-height: 0.9;
+}
+
+.loading-studio {
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.9em;
+    color: #fff;
+    opacity: 0.75;
+    margin-top: 2px;
+    margin-left: 5px;
+}
+
+/* Keyframes for loading animation */
+@keyframes logo-reveal-y {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes text-reveal-x {
+    to {
+        width: 100px; 
+        opacity: 1;
+        margin-left: 1rem;
+    }
 }
 
 .loading-bar-wrap {
@@ -717,7 +773,7 @@ footer {
     font-style: italic;
     font-size: clamp(0.92rem, 1.5vw, 1.2rem);
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.6);
+    color: #fff;
     letter-spacing: 0.02em;
     text-align: center;
     max-width: 540px;
@@ -732,7 +788,7 @@ footer {
     font-size: 0.68rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.28);
+    color: #fff;
 }
 
 
@@ -800,7 +856,7 @@ footer {
 /* ── Paragraph text brightens on section hover ───────────── */
 .about-col:hover p,
 .lb-body:hover .lb-desc {
-    color: rgba(255, 255, 255, 0.75);
+    color: #fff;
     transition: color 0.35s;
 }
 
@@ -901,6 +957,7 @@ body.light-mode .loading-logo,
 body.light-mode .card-title,
 body.light-mode .lb-title,
 body.light-mode .client-name,
+body.light-mode .testimonial-author,
 body.light-mode .services-cta-headline {
     color: #111111;
 }
@@ -957,6 +1014,7 @@ body.light-mode .lb-meta-value,
 body.light-mode .form-label,
 body.light-mode .info-label,
 body.light-mode .info-value,
+body.light-mode .testimonial-role,
 body.light-mode .social-link {
     color: #777777;
 }
@@ -1229,4 +1287,60 @@ body.light-mode .work-card:hover .card-year {
 body.light-mode .about-col:hover p,
 body.light-mode .lb-body:hover .lb-desc {
     color: #444444;
+}
+
+/* ── Back To Top ────────────────────────────────────────── */
+.back-to-top-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.back-to-top {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 100;
+    outline: none;
+}
+
+.back-to-top svg {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-to-top:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: #fff;
+    transform: translateY(-8px);
+}
+
+.back-to-top:hover svg {
+    transform: translateY(-2px);
+}
+
+/* Light mode overrides */
+body.light-mode .back-to-top-wrap {
+    border-top-color: rgba(0, 0, 0, 0.07);
+}
+
+body.light-mode .back-to-top {
+    border-color: rgba(0, 0, 0, 0.15);
+    color: #111;
+}
+
+body.light-mode .back-to-top:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: #111;
 }
