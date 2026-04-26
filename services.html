@@ -34,7 +34,7 @@
       /* ── Hero intro ───────────────────────────────────────── */
       .hero-sub {
         font-size: 0.88rem;
-        color: rgba(255, 255, 255, 0.42);
+        color: #fff;
         max-width: 520px;
         line-height: 1.78;
         margin-bottom: 5rem;
@@ -225,7 +225,7 @@
         font-size: 0.62rem;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.38);
+        color: #fff;
         padding: 0.25rem 0.7rem;
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 999px;
@@ -234,7 +234,7 @@
       .service-desc {
         font-size: 0.88rem;
         line-height: 1.85;
-        color: rgba(255, 255, 255, 0.48);
+        color: #fff;
         padding-top: 0.3rem;
       }
 
@@ -248,7 +248,7 @@
         font-weight: 500;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.38);
+        color: #fff;
         text-decoration: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.12);
         padding-bottom: 2px;
@@ -315,7 +315,7 @@
         font-weight: 400;
         line-height: 1.2;
         max-width: 600px;
-        color: rgba(255, 255, 255, 0.88);
+        color: #fff;
       }
 
 
@@ -347,7 +347,7 @@
     <!-- Page -->
     <div id="page">
       <header>
-        <a href="./index.html" class="header-logo">
+        <a href="./index.html" class="header-logo" aria-label="HOME">
           <img src="./assets/images/VRTX_LOGO.webp" alt="VRTX Logo" class="logo-mark">
           <div class="logo-text">
             <span class="logo-vertex">VRTX</span>
@@ -383,9 +383,9 @@
           reinforces the others.
         </p>
 
-        <div class="services-list reveal reveal-d4">
+        <div class="services-list">
           <!-- 01 Brand Identity -->
-          <div class="service-item">
+          <div class="service-item reveal">
             <div class="service-content">
               <div class="service-index">
                 <span class="service-num-accent">01</span>
@@ -431,7 +431,7 @@
           </div>
 
           <!-- 02 Product Design -->
-          <div class="service-item">
+          <div class="service-item reveal">
             <div class="service-content">
               <div class="service-index">
                 <span class="service-num-accent">02</span>
@@ -477,7 +477,7 @@
           </div>
 
           <!-- 03 Motion Graphics -->
-          <div class="service-item">
+          <div class="service-item reveal">
             <div class="service-content">
               <div class="service-index">
                 <span class="service-num-accent">03</span>
@@ -523,7 +523,7 @@
           </div>
 
           <!-- 04 Web Design -->
-          <div class="service-item">
+          <div class="service-item reveal">
             <div class="service-content">
               <div class="service-index">
                 <span class="service-num-accent">04</span>
@@ -563,7 +563,7 @@
           </div>
 
           <!-- 05 Audio Design -->
-          <div class="service-item">
+          <div class="service-item reveal">
             <div class="service-content">
               <div class="service-index">
                 <span class="service-num-accent">05</span>
@@ -623,6 +623,16 @@
           </a>
         </div>
       </main>
+
+      <!-- Back to Top -->
+      <div class="back-to-top-wrap reveal">
+        <button class="back-to-top" id="back-to-top" aria-label="TO TOP">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+          </svg>
+        </button>
+      </div>
 
       <footer>
         <p class="tagline">Creating memorable brand experiences for impact.</p>

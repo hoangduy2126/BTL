@@ -55,7 +55,7 @@
                 obs.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -10px 0px' });
 
     items.forEach(el => obs.observe(el));
 })();
@@ -159,5 +159,36 @@
                 document.documentElement.classList.remove('theme-transitioning');
             }, 400);
         });
+    });
+})();
+
+/* ── Back To Top Scroll ──────────────────────────────────── */
+(function () {
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('back-to-top');
+        if (!btn) return;
+        
+        btn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+})();
+
+/* ── Force Scroll Top on Load ────────────────────────────── */
+(function () {
+    // Prevent browser from restoring scroll position
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    // Scroll to top on load/show
+    window.addEventListener('pageshow', () => {
+        window.scrollTo(0, 0);
+    });
+    // Extra insurance for DOM content
+    document.addEventListener('DOMContentLoaded', () => {
+        window.scrollTo(0, 0);
     });
 })();

@@ -41,7 +41,7 @@
     .about-col p {
       font-size: 0.92rem;
       line-height: 1.88;
-      color: rgba(255, 255, 255, 0.58);
+      color: #fff;
       margin-bottom: 1.2rem;
     }
 
@@ -200,7 +200,7 @@
     .team-bio {
       font-size: 0.82rem;
       line-height: 1.78;
-      color: rgba(255, 255, 255, 0.52);
+      color: #fff;
     }
 
     /* Team socials */
@@ -311,7 +311,7 @@
     .value-desc {
       font-size: 0.82rem;
       line-height: 1.78;
-      color: rgba(255, 255, 255, 0.48);
+      color: #fff;
     }
 
     /* Testimonials */
@@ -354,7 +354,7 @@
     .testimonial-quote {
       font-size: 0.88rem;
       line-height: 1.82;
-      color: rgba(255, 255, 255, 0.55);
+      color: #fff;
       margin-bottom: 1.5rem;
       position: relative;
       z-index: 1;
@@ -365,7 +365,7 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.45);
+      color: #fff;
       margin-top: auto;
     }
 
@@ -404,7 +404,7 @@
   <!-- Page -->
   <div id="page">
     <header>
-      <a href="./index.html" class="header-logo">
+      <a href="./index.html" class="header-logo" aria-label="HOME">
         <img src="./assets/images/VRTX_LOGO.webp" alt="VRTX Logo" class="logo-mark">
         <div class="logo-text">
           <span class="logo-vertex">VRTX</span>
@@ -742,7 +742,17 @@
       </div>
     </main>
 
-    <footer>
+      <!-- Back to Top -->
+      <div class="back-to-top-wrap reveal">
+        <button class="back-to-top" id="back-to-top" aria-label="TO TOP">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <footer>
       <p class="tagline">Creating memorable brand experiences for impact.</p>
       <div class="footer-meta">
         <span>[ VRTX Studio — About ]</span>

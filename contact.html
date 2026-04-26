@@ -67,7 +67,7 @@
 
         .info-value {
             font-size: 0.92rem;
-            color: rgba(255, 255, 255, 0.78);
+            color: #fff;
             text-decoration: none;
             line-height: 1.65;
             transition: color 0.2s;
@@ -125,7 +125,7 @@
             font-weight: 500;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.35);
+            color: #fff;
             text-decoration: none;
             padding-bottom: 2px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -147,14 +147,35 @@
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            gap: 0.6rem;
             position: relative;
+            margin-bottom: 1.5rem;
         }
 
-        .form-group:first-child {
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        .input-wrapper {
+            position: relative;
+            padding: 0; /* Removed padding to align border with input */
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.015);
+            transition: all 0.3s ease;
+            overflow: visible; /* Ensure borders are visible */
+        }
+
+        body.light-mode .input-wrapper {
+            border-color: rgba(0, 0, 0, 0.08);
+            background: rgba(0, 0, 0, 0.01);
+        }
+
+        .input-wrapper:hover,
+        .form-group:focus-within .input-wrapper {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        body.light-mode .input-wrapper:hover,
+        body.light-mode .form-group:focus-within .input-wrapper {
+            background: #fff;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
         }
 
         .form-label {
@@ -169,20 +190,75 @@
             color: rgba(255, 255, 255, 0.62);
         }
 
-        /* Animated bottom line on focus */
-        .form-group::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: linear-gradient(90deg, var(--cyan), var(--magenta));
-            transition: width 0.38s cubic-bezier(.4,0,.2,1);
+        body.light-mode .form-label {
+            color: rgba(0, 0, 0, 0.4);
         }
 
-        .form-group:focus-within::after {
-            width: 100%;
+        body.light-mode .form-group:focus-within .form-label {
+            color: #000;
+            font-weight: 600;
+        }
+
+        /* Sequential 'drawing' border animation */
+        .input-wrapper .border-line {
+            position: absolute;
+            background: linear-gradient(90deg, var(--cyan), var(--green), var(--gold), var(--magenta), var(--cyan));
+            background-size: 300% 100%;
+            animation: nav-gradient-flow 6s linear infinite;
+            opacity: 0;
+            transition: transform 0.15s ease, opacity 0.1s ease; /* Faster duration */
+            z-index: 2;
+        }
+
+        .border-top {
+            top: -1px; left: -1px; width: calc(100% + 2px); height: 1.5px;
+            transform: scaleX(0); transform-origin: left;
+        }
+        .border-right {
+            top: -1px; right: -1px; width: 1.5px; height: calc(100% + 2px);
+            transform: scaleY(0); transform-origin: top;
+        }
+        .border-bottom {
+            bottom: -1px; right: -1px; width: calc(100% + 2px); height: 1.5px;
+            transform: scaleX(0); transform-origin: right;
+        }
+        .border-left {
+            bottom: -1px; left: -1px; width: 1.5px; height: calc(100% + 2px);
+            transform: scaleY(0); transform-origin: bottom;
+        }
+
+        .input-wrapper:hover .border-line,
+        .form-group:focus-within .border-line {
+            opacity: 1;
+        }
+
+        .input-wrapper:hover .border-top,
+        .form-group:focus-within .border-top {
+            transform: scaleX(1);
+            transition-delay: 0s;
+        }
+        .input-wrapper:hover .border-right,
+        .form-group:focus-within .border-right {
+            transform: scaleY(1);
+            transition-delay: 0.1s; /* Faster delays */
+        }
+        .input-wrapper:hover .border-bottom,
+        .form-group:focus-within .border-bottom {
+            transform: scaleX(1);
+            transition-delay: 0.2s;
+        }
+        .input-wrapper:hover .border-left,
+        .form-group:focus-within .border-left {
+            transform: scaleY(1);
+            transition-delay: 0.3s;
+        }
+
+        /* Error state locks the border */
+        .form-group.has-error .border-line {
+            opacity: 1;
+            transform: scale(1) !important;
+            background: #ff6b6b !important;
+            animation: none;
         }
 
         .form-input,
@@ -196,9 +272,42 @@
             font-size: 0.95rem;
             font-weight: 400;
             width: 100%;
-            padding: 0;
+            padding: 0.85rem 1.1rem; /* Padding now here for better border alignment */
             resize: none;
             appearance: none;
+            transition: padding 0.3s ease;
+            display: block;
+        }
+
+        .form-select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 1.1rem center !important;
+            background-size: 14px !important;
+            padding-right: 2.5rem !important;
+            transition: background-image 0.2s ease, padding 0.3s ease;
+        }
+
+        .form-select:focus {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 15 12 9 18 15'%3E%3C/polyline%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 1.1rem center !important;
+            background-size: 14px !important;
+        }
+
+        body.light-mode .form-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 1.1rem center !important;
+            background-size: 14px !important;
+        }
+
+        body.light-mode .form-select:focus {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 15 12 9 18 15'%3E%3C/polyline%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 1.1rem center !important;
+            background-size: 14px !important;
         }
 
         .form-input::placeholder,
@@ -206,9 +315,25 @@
             color: rgba(255, 255, 255, 0.2);
         }
 
+        body.light-mode .form-input,
+        body.light-mode .form-textarea,
+        body.light-mode .form-select {
+            color: #111;
+        }
+
+        body.light-mode .form-input::placeholder,
+        body.light-mode .form-textarea::placeholder {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
         .form-select option {
             background: #0a0a0a;
             color: #fff;
+        }
+
+        body.light-mode .form-select option {
+            background: #fff;
+            color: #111;
         }
 
         .form-textarea {
@@ -233,9 +358,9 @@
             opacity: 1;
         }
 
-        .form-group.has-error::after {
-            width: 100%;
-            background: #ff6b6b;
+        .form-group.has-error .input-wrapper {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.05);
         }
 
         .form-group.has-error .form-label {
@@ -256,7 +381,7 @@
             font-size: 0.7rem;
             font-weight: 500;
             letter-spacing: 0.1em;
-            color: rgba(255, 255, 255, 0.42);
+            color: #fff;
             background: transparent;
             transition: all 0.2s;
         }
@@ -280,7 +405,7 @@
 
         .submit-note {
             font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.28);
+            color: #fff;
             max-width: 260px;
             line-height: 1.65;
         }
@@ -292,21 +417,57 @@
             padding: 0.88rem 2.4rem;
             border-radius: 999px;
             background: #fff;
-            border: none;
+            border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border for light mode */
             color: #000;
             font-family: 'Inter', sans-serif;
             font-size: 0.78rem;
             font-weight: 600;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            transition: background 0.25s, transform 0.2s, box-shadow 0.25s, opacity 0.2s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: color 0.4s, transform 0.2s, box-shadow 0.25s, opacity 0.2s, border-color 0.4s;
             white-space: nowrap;
         }
 
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .submit-btn:hover::before {
+            transform: scaleX(1);
+        }
+
         .submit-btn:hover {
-            background: rgba(255, 255, 255, 0.88);
+            color: #fff;
+            border-color: #000;
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        body.light-mode .submit-note {
+            color: #000;
+        }
+
+        body.light-mode .submit-btn {
+            background: #fff;
+            color: #000;
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .submit-btn:hover {
+            color: #fff;
         }
 
         .submit-btn:active {
@@ -375,7 +536,7 @@
 
         .success-sub {
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.42);
+            color: #fff;
             line-height: 1.65;
             max-width: 320px;
         }
@@ -408,7 +569,7 @@
     <!-- Page -->
     <div id="page">
         <header>
-            <a href="./index.html" class="header-logo">
+            <a href="./index.html" class="header-logo" aria-label="HOME">
                 <img src="./assets/images/VRTX_LOGO.webp" alt="VRTX Logo" class="logo-mark">
                 <div class="logo-text">
                     <span class="logo-vertex">VRTX</span>
@@ -481,35 +642,59 @@
                     <form class="contact-form" id="contact-form" novalidate>
                         <div class="form-group" id="fg-name">
                             <label class="form-label" for="name">Your name</label>
-                            <input class="form-input" id="name" type="text" placeholder="Full name" autocomplete="off">
+                            <div class="input-wrapper">
+                                <span class="border-line border-top"></span>
+                                <span class="border-line border-right"></span>
+                                <span class="border-line border-bottom"></span>
+                                <span class="border-line border-left"></span>
+                                <input class="form-input" id="name" type="text" placeholder="Full name" autocomplete="off">
+                            </div>
                             <span class="form-error">Please enter your name</span>
                         </div>
 
                         <div class="form-group" id="fg-email">
                             <label class="form-label" for="email">Email address</label>
-                            <input class="form-input" id="email" type="email" placeholder="you@company.com"
-                                autocomplete="off">
+                            <div class="input-wrapper">
+                                <span class="border-line border-top"></span>
+                                <span class="border-line border-right"></span>
+                                <span class="border-line border-bottom"></span>
+                                <span class="border-line border-left"></span>
+                                <input class="form-input" id="email" type="email" placeholder="you@company.com"
+                                    autocomplete="off">
+                            </div>
                             <span class="form-error" id="email-error">Please enter a valid email</span>
                         </div>
 
                         <div class="form-group" id="fg-company">
                             <label class="form-label" for="company">Company / Project</label>
-                            <input class="form-input" id="company" type="text" placeholder="Where do you work?"
-                                autocomplete="off">
+                            <div class="input-wrapper">
+                                <span class="border-line border-top"></span>
+                                <span class="border-line border-right"></span>
+                                <span class="border-line border-bottom"></span>
+                                <span class="border-line border-left"></span>
+                                <input class="form-input" id="company" type="text" placeholder="Where do you work?"
+                                    autocomplete="off">
+                            </div>
                             <span class="form-error">Please enter your company or project name</span>
                         </div>
 
                         <div class="form-group" id="fg-service">
                             <label class="form-label">Services needed</label>
-                            <select class="form-select" id="service">
-                                <option value="" disabled selected>Select a service</option>
-                                <option value="identity">Brand Identity</option>
-                                <option value="product">Product Design</option>
-                                <option value="motion">Motion Graphics</option>
-                                <option value="web">Web Design</option>
-                                <option value="audio">Audio Design</option>
-                                <option value="other">Other / Not Sure</option>
-                            </select>
+                            <div class="input-wrapper">
+                                <span class="border-line border-top"></span>
+                                <span class="border-line border-right"></span>
+                                <span class="border-line border-bottom"></span>
+                                <span class="border-line border-left"></span>
+                                <select class="form-select" id="service">
+                                    <option value="" disabled selected>Select a service</option>
+                                    <option value="identity">Brand Identity</option>
+                                    <option value="product">Product Design</option>
+                                    <option value="motion">Motion Graphics</option>
+                                    <option value="web">Web Design</option>
+                                    <option value="audio">Audio Design</option>
+                                    <option value="other">Other / Not Sure</option>
+                                </select>
+                            </div>
                             <span class="form-error">Please select a service</span>
                         </div>
 
@@ -526,8 +711,14 @@
 
                         <div class="form-group" id="fg-message">
                             <label class="form-label" for="message">Tell us about the project</label>
-                            <textarea class="form-textarea" id="message"
-                                placeholder="Share as much or as little as you like — timeline, goals, inspiration, anything..."></textarea>
+                            <div class="input-wrapper">
+                                <span class="border-line border-top"></span>
+                                <span class="border-line border-right"></span>
+                                <span class="border-line border-bottom"></span>
+                                <span class="border-line border-left"></span>
+                                <textarea class="form-textarea" id="message"
+                                    placeholder="Share as much or as little as you like — timeline, goals, inspiration, anything..."></textarea>
+                            </div>
                             <span class="form-error">Please tell us a little about your project</span>
                         </div>
 
@@ -548,6 +739,16 @@
                 </div>
             </div>
         </main>
+
+            <!-- Back to Top -->
+            <div class="back-to-top-wrap reveal">
+                <button class="back-to-top" id="back-to-top" aria-label="TO TOP">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="19" x2="12" y2="5"></line>
+                        <polyline points="5 12 12 5 19 12"></polyline>
+                    </svg>
+                </button>
+            </div>
 
         <footer>
             <p class="tagline">Creating memorable brand experiences for impact.</p>

@@ -142,7 +142,7 @@
             font-size: 0.68rem;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.28);
+            color: #fff;
             padding: 0;
         }
     </style>
@@ -161,7 +161,13 @@
 
     <!-- Loading Screen -->
     <div id="loading-screen">
-        <div class="loading-logo">VRTX</div>
+        <div class="loading-logo-container">
+            <img src="./assets/images/VRTX_LOGO.webp" class="loading-logo-icon" alt="Logo">
+            <div class="loading-text-container">
+                <span class="loading-vertex">VRTX</span>
+                <span class="loading-studio">STUDIO</span>
+            </div>
+        </div>
         <div class="loading-bar-wrap">
             <div class="loading-bar"></div>
         </div>
@@ -180,13 +186,13 @@
     <!-- UI Overlay -->
     <div id="ui-overlay">
         <header>
-            <div class="header-logo">
+            <a href="./index.html" class="header-logo" aria-label="HOME">
                 <img src="./assets/images/VRTX_LOGO.webp" alt="VRTX Logo" class="logo-mark">
                 <div class="logo-text">
                     <span class="logo-vertex">VRTX</span>
                     <span class="logo-studio">STUDIO</span>
                 </div>
-            </div>
+            </a>
             <nav class="header-nav">
                 <a href="./works.html" class="nav-link">Work</a>
                 <a href="./services.html" class="nav-link">Services</a>
