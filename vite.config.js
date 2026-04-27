@@ -26,7 +26,6 @@ export default defineConfig({
         works: resolve(__dirname, 'works.html'),
         projectBigtake: resolve(__dirname, 'project-bigtake.html'),
         projectDailyform: resolve(__dirname, 'project-dailyform.html'),
-        projectFlyfly: resolve(__dirname, 'project-flyfly.html'),
         projectFubon: resolve(__dirname, 'project-fubon.html'),
         projectInvicta: resolve(__dirname, 'project-invicta.html')
       }
