@@ -253,26 +253,26 @@ function loadText() {
       const NSEEDS = 18;
 
 
-      // Full rainbow jewel palette — vivid, saturated, church-window quality
+      // Muted neutral palette — each hue is desaturated ~40% toward mid-gray
       const stainedPalette = [
-        [0.92,0.06,0.10], // ruby red
-        [0.96,0.42,0.04], // fire orange
-        [0.96,0.78,0.04], // golden yellow
-        [0.50,0.88,0.04], // lime
-        [0.06,0.78,0.22], // vivid green
-        [0.04,0.66,0.52], // jade teal
-        [0.04,0.78,0.88], // bright cyan
-        [0.06,0.38,0.92], // cobalt blue
-        [0.06,0.18,0.82], // deep navy
-        [0.40,0.06,0.92], // deep violet
-        [0.62,0.06,0.94], // amethyst
-        [0.88,0.06,0.88], // vivid magenta
-        [0.92,0.06,0.46], // rose crimson
-        [0.96,0.56,0.10], // amber
-        [0.20,0.86,0.60], // spring green
-        [0.92,0.30,0.06], // scarlet
-        [0.14,0.62,0.94], // sky blue
-        [0.78,0.04,0.62], // purple-rose
+        [0.70, 0.42, 0.40], // dusty terracotta
+        [0.74, 0.60, 0.46], // warm tan
+        [0.74, 0.70, 0.50], // muted gold
+        [0.54, 0.66, 0.50], // sage
+        [0.44, 0.64, 0.52], // muted green
+        [0.42, 0.62, 0.60], // muted teal
+        [0.44, 0.68, 0.74], // soft cyan
+        [0.48, 0.56, 0.72], // slate blue
+        [0.46, 0.50, 0.70], // muted indigo
+        [0.58, 0.48, 0.70], // dusty violet
+        [0.64, 0.50, 0.70], // soft amethyst
+        [0.70, 0.48, 0.66], // dusty mauve
+        [0.70, 0.48, 0.54], // muted rose
+        [0.72, 0.60, 0.46], // warm sand
+        [0.52, 0.66, 0.58], // muted jade
+        [0.68, 0.52, 0.46], // soft sienna
+        [0.52, 0.60, 0.70], // smoke blue
+        [0.64, 0.52, 0.62], // muted plum
       ];
 
       function drng(s){ const x=Math.sin(s*9301+49297)*233280; return x-Math.floor(x); }
@@ -280,16 +280,16 @@ function loadText() {
       const vtx = `out vec2 vUv;
 out vec3 vPos;
 out vec2 vScreen;
+out vec3 vNormal;
 uniform vec2 uMouse;
 void main(){
-  vUv=uv; vPos=position;
+  vUv = uv; vPos = position;
+  vNormal = normalMatrix * normal;  // view-space normal
 
-  // Preliminary clip position to get NDC for cursor-distance calc
   vec4 viewPos = modelViewMatrix * vec4(position, 1.0);
   vec4 clipPre  = projectionMatrix * viewPos;
   vec2 ndc      = clipPre.xy / clipPre.w;
 
-  // 3-D bulge: push vertex toward camera proportional to cursor proximity
   float cdist = distance(ndc, uMouse);
   float bulge = pow(max(0.0, 1.0 - cdist * 2.0), 2.5) * 3.0;
   viewPos.z  += bulge;
@@ -299,162 +299,86 @@ void main(){
   gl_Position = clip;
 }`;
 
-      // Shader has DARK LEAD LINES baked in via Voronoi edge distance —
-      // authentic stained-glass look from the reference images.
-      const LEAD = 0.022;  // lead-came line width in UV space
+      // Fragment shader: replicates the CSS nav-gradient-flow animation exactly.
+      // Colours: --cyan #8ebba8 → --green #3b8c9d → --gold #f6ecc0 → --magenta #d96b38
+      // Speed: 10 s per full cycle (same as site CSS)
+      // Layout: 1.5× the letter width visible at once (CSS equivalent of 300% background-size)
       const frg = `precision highp float;
-in vec2 vUv;
 in vec3 vPos;
 in vec2 vScreen;
+in vec3 vNormal;
 out vec4 fragColor;
-uniform float uS[${NSEEDS*2}];
-uniform float uC[${NSEEDS*3}];
-uniform float uOp;
 uniform float uTime;
-uniform vec2  uMouse; // cursor in NDC (-1..1)
+uniform vec2  uMouse;
 
-// Hue rotation matrix — smoothly cycles any RGB colour through the wheel
-vec3 hueShift(vec3 c, float a){
-  float ca=cos(a), sa=sin(a);
-  return clamp(mat3(
-    ca + (1.0-ca)*0.299,      (1.0-ca)*0.299 - sa*0.587, (1.0-ca)*0.299 + sa*0.587,
-    (1.0-ca)*0.587 + sa*0.114, ca + (1.0-ca)*0.587,       (1.0-ca)*0.587 - sa*0.114,
-    (1.0-ca)*0.114 - sa*0.299, (1.0-ca)*0.114 + sa*0.299, ca + (1.0-ca)*0.114
-  ) * c, 0.0, 1.0);
+// Site palette: exact hex values from :root CSS variables
+vec3 gradAt(float t){
+  t = fract(t);
+  vec3 c0 = vec3(0.557, 0.733, 0.659); // --cyan    #8ebba8
+  vec3 c1 = vec3(0.231, 0.549, 0.616); // --green   #3b8c9d
+  vec3 c2 = vec3(0.965, 0.925, 0.753); // --gold    #f6ecc0
+  vec3 c3 = vec3(0.851, 0.420, 0.220); // --magenta #d96b38
+  float s = t * 4.0;
+  int   i = int(floor(s));
+  float f = smoothstep(0.0, 1.0, fract(s));
+  if (i == 0) return mix(c0, c1, f);
+  if (i == 1) return mix(c1, c2, f);
+  if (i == 2) return mix(c2, c3, f);
+  return           mix(c3, c0, f);
 }
 
 void main(){
-  // Cursor blob: distort UVs near mouse position (Voronoi panes warp)
+  // Face detection: front face normal faces the viewer (view-space z > 0)
+  float faceBlend = smoothstep(0.2, 0.6, vNormal.z);
+  if (faceBlend < 0.01) {
+    fragColor = vec4(0.14, 0.13, 0.12, 1.0); // side walls: dark neutral
+    return;
+  }
+
+  // nav-gradient-flow wave: scrolls left→right, 10 s per cycle
+  // xNorm 0…1 across VRTX, ×1.5 = 300% width (shows 1.5 gradient repeats)
+  // ── Metallic face: gradient is the tinted base, cursor is the light source ──
+  float xNorm   = (vPos.x + 18.0) / 36.0;
+  vec3  baseCol = gradAt(xNorm * 1.5 - uTime / 10.0);
+
+  // Bowling-ball shiny: keep full base colour with a little ambient so unlit faces aren't black
+  vec3  ballBase = baseCol * 0.80 + vec3(0.08);
+
+  // Blinn-Phong specular — cursor acts as a point light
+  vec3  N = normalize(vNormal);
+  vec3  L = normalize(vec3(uMouse - vScreen, 0.3)); // Z=0.3: light close to surface = tracks cursor directly
+  vec3  V = vec3(0.0, 0.0, 1.0);                    // view direction (toward camera)
+  vec3  H = normalize(L + V);
+  float NdotL = max(dot(N, L), 0.0);
+  float spec  = pow(max(dot(N, H), 0.0), 160.0) * NdotL; // 160 = tight glossy
+
+  // Specular: near-white, slightly tinted by gradient
+  vec3  specCol = mix(vec3(1.0, 0.98, 0.95), baseCol, 0.20);
+
+  // Direct screen-space hot-spot — bright exactly where cursor sits on the surface
   float cursorDist = distance(vScreen, uMouse);
-  float blobR      = max(0.0, 1.0 - cursorDist * 2.2); // falloff radius
-  float blob       = pow(blobR, 2.5);
-  // Push UVs outward from cursor — makes panes look like they "bulge"
-  vec2 blobDir = normalize(vScreen - uMouse + vec2(0.0001));
-  vec2 uv = vUv + sin(vUv.yx * 10.0 + uTime * 0.35) * 0.004
-              + blobDir * blob * 0.06;
+  float hotSpot    = pow(max(0.0, 1.0 - cursorDist * 5.0), 2.5) * 0.55;
 
-  float d0=1e6,d1=1e6; int idx=0;
-  for(int i=0;i<${NSEEDS};i++){
-    vec2 s=vec2(uS[i*2],uS[i*2+1]);
-    float d=distance(uv,s);
-    if(d<d0){d1=d0;d0=d;idx=i;}else if(d<d1){d1=d;}
-  }
-  float edge=d1-d0;
+  vec3 faceCol = ballBase + spec * specCol * 1.4 + hotSpot * specCol;
+  vec3 sideCol = baseCol * 0.25 + spec * specCol * 0.6 + hotSpot * specCol * 0.4;
 
-  if(edge < ${LEAD.toFixed(3)}){
-    // ── Lead came: dark near-black line between panes ──────────────
-    float t = edge / ${LEAD.toFixed(3)};
-    fragColor = vec4(0.07,0.04,0.02, mix(1.0, 0.85, t));
-  } else {
-    // ── Glass pane colour with live hue animation ─────────────────
-    vec3 col = vec3(uC[idx*3], uC[idx*3+1], uC[idx*3+2]);
-
-    // Each cell shifts hue at its own speed — no two panes cycle in sync
-    float angle = uTime * 0.9 + float(idx) * 0.52;
-    col = hueShift(col, angle);
-
-    // Pane brightness: dimmer at lead edges, bright in pane centre
-    float pane = smoothstep(${LEAD.toFixed(3)}, ${(LEAD*5).toFixed(3)}, edge);
-    col *= 0.70 + 0.30 * pane;
-
-    // Cathedral backlit glow
-    float glow = pow(pane, 2.0) * 0.18;
-
-    // Specular gloss
-    float shine = pow(max(0.0, 1.0 - distance(vUv, vec2(0.22,0.80))), 5.0) * 0.55;
-    shine      += pow(max(0.0, 1.0 - distance(vUv, vec2(0.80,0.18))), 7.0) * 0.38;
-
-    // ── Orbiting light deflections — mirror the irid accent lights ─────────
-    // Each blob sweeps across the UV space driven by uTime, just like the
-    // coloured PointLights that orbit the text in dark mode.
-    vec3 irid = vec3(0.0);
-    vec2 lp;
-    float ld;
-    // Crimson sweep
-    lp = vec2(0.5 + cos(uTime*0.42)*0.48, 0.5 + sin(uTime*0.55)*0.42);
-    ld = pow(max(0.0, 1.0 - distance(vUv,lp)*2.6), 4.0);
-    irid += vec3(1.00,0.13,0.40) * ld * 0.50;
-    // Cyan sweep
-    lp = vec2(0.5 + cos(uTime*0.31+2.1)*0.48, 0.5 + sin(uTime*0.38+1.3)*0.42);
-    ld = pow(max(0.0, 1.0 - distance(vUv,lp)*2.6), 4.0);
-    irid += vec3(0.00,0.80,1.00) * ld * 0.45;
-    // Violet sweep
-    lp = vec2(0.5 + cos(uTime*0.55+4.2)*0.48, 0.5 + sin(uTime*0.48+3.1)*0.42);
-    ld = pow(max(0.0, 1.0 - distance(vUv,lp)*2.6), 4.0);
-    irid += vec3(0.67,0.00,1.00) * ld * 0.45;
-    // Gold sweep
-    lp = vec2(0.5 + cos(uTime*0.24+5.8)*0.48, 0.5 + sin(uTime*0.30+2.6)*0.42);
-    ld = pow(max(0.0, 1.0 - distance(vUv,lp)*2.8), 5.0);
-    irid += vec3(1.00,0.55,0.00) * ld * 0.40;
-
-    // Internal iridescence shimmer
-    float shimmer = sin(vPos.x * 10.0 + uTime * 0.5) * 0.015;
-
-    // Cursor hot-spot glow — bright white-hot blob at mouse position
-    vec3 cursorGlow = vec3(1.0, 0.98, 0.95) * pow(blob, 1.2) * 0.65;
-
-    fragColor = vec4(col + glow + shine + irid + shimmer + cursorGlow, uOp);
-  }
+  fragColor = vec4(mix(sideCol, faceCol, faceBlend), 1.0);
 }`;
 
 
       textEdges = new THREE.Group();
       const centerOffset = new THREE.Vector3(-mcx, -mcy, -mcz);
 
-      // Outer silhouette lead lines — clean at 22° threshold (no bevel facets)
-      const edgesGeo = new THREE.EdgesGeometry(geo, 22);
-      const edgesMat = new THREE.ShaderMaterial({
-        glslVersion: THREE.GLSL3,
-        uniforms: {
-          uMouse: { value: new THREE.Vector2(0, 0) },
-          uOp:    { value: 0.35 },
-        },
-        vertexShader: `
-uniform vec2 uMouse;
-void main(){
-  vec4 viewPos = modelViewMatrix * vec4(position, 1.0);
-  vec4 clipPre = projectionMatrix * viewPos;
-  vec2 ndc     = clipPre.xy / clipPre.w;
-  float cdist  = distance(ndc, uMouse);
-  float bulge  = pow(max(0.0, 1.0 - cdist * 2.0), 2.5) * 3.0;
-  viewPos.z   += bulge;
-  gl_Position  = projectionMatrix * viewPos;
-}`,
-        fragmentShader: `
-out vec4 fragColor;
-uniform float uOp;
-void main(){ fragColor = vec4(0.06, 0.04, 0.02, uOp); }`,
-        transparent: true,
-        depthWrite: false,
-      });
-      textEdges.add(new THREE.LineSegments(edgesGeo, edgesMat));
-
       charGeos.forEach((cg, li) => {
-        const seeds  = new Float32Array(NSEEDS * 2);
-        const colors = new Float32Array(NSEEDS * 3);
-        // Each letter gets its own random seed layout but the SAME full palette
-        const shift = li * 19 + 3;
-        for (let k = 0; k < NSEEDS; k++) {
-          seeds[k*2]   = drng(k*2   + shift);
-          seeds[k*2+1] = drng(k*2+1 + shift);
-          // Cycle through the full rainbow palette — all colours in every letter
-          const c = stainedPalette[k % stainedPalette.length];
-          colors[k*3]=c[0]; colors[k*3+1]=c[1]; colors[k*3+2]=c[2];
-        }
         const mat = new THREE.ShaderMaterial({
           glslVersion: THREE.GLSL3,
           uniforms: {
-            uS:    { value: seeds  },
-            uC:    { value: colors },
-            uOp:   { value: 1.0                        },
-            uTime: { value: 0                           },
-            uMouse:{ value: new THREE.Vector2(0, 0)     },
+            uTime:  { value: 0 },
+            uMouse: { value: new THREE.Vector2(0, 0) },
           },
           vertexShader:   vtx,
           fragmentShader: frg,
-          transparent: true,
           side: THREE.DoubleSide,
-          depthWrite: false,
         });
         const m = new THREE.Mesh(cg, mat);
         m.position.copy(centerOffset);
