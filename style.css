@@ -262,6 +262,7 @@ header.scrolled {
 
 .nav-link.active {
     color: #fff;
+    font-weight: 600;
     text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
 }
 
@@ -764,8 +765,146 @@ footer {
     flex-direction: column;
     align-items: center;
     padding: 0 3rem 3.5rem;
-    gap: 2.5rem;
+    gap: 2rem;
     margin-top: auto;
+}
+
+/* Footer quick-nav */
+.footer-nav {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.footer-nav-link {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.25s;
+}
+
+.footer-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--cyan), var(--green));
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-nav-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-nav-link:hover::after {
+    width: 100%;
+}
+
+body.light-mode .footer-nav-link {
+    color: rgba(0, 0, 0, 0.35);
+}
+body.light-mode .footer-nav-link:hover {
+    color: rgba(0, 0, 0, 0.75);
+}
+
+/* ── Orbit Hint Pill Badge ─────────────────────────────────── */
+.orbit-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+}
+
+.orbit-hint.fade-out {
+    opacity: 0;
+    transform: translateY(6px);
+}
+
+.orbit-hint-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 6px var(--cyan);
+    animation: orbit-pulse 1.8s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes orbit-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.5); }
+}
+
+body.light-mode .orbit-hint {
+    border-color: rgba(0, 0, 0, 0.12);
+    background: rgba(0, 0, 0, 0.04);
+    color: rgba(0, 0, 0, 0.45);
+}
+
+/* ── Loading percentage label ──────────────────────────────── */
+.loading-percent {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.5);
+    font-variant-numeric: tabular-nums;
+    min-width: 3ch;
+    text-align: right;
+}
+
+body.light-mode .loading-percent {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+/* ── Work card floating thumbnail ─────────────────────────── */
+#work-thumb-preview {
+    position: fixed;
+    width: 220px;
+    height: 140px;
+    border-radius: 10px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 5000;
+    opacity: 0;
+    transform: scale(0.88) translateY(8px);
+    transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#work-thumb-preview.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.thumb-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.thumb-slide.active {
+    opacity: 1;
 }
 
 .tagline {

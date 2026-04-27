@@ -23,7 +23,12 @@ export default defineConfig({
         about: resolve(__dirname, 'about.html'),
         contact: resolve(__dirname, 'contact.html'),
         services: resolve(__dirname, 'services.html'),
-        works: resolve(__dirname, 'works.html')
+        works: resolve(__dirname, 'works.html'),
+        projectBigtake: resolve(__dirname, 'project-bigtake.html'),
+        projectDailyform: resolve(__dirname, 'project-dailyform.html'),
+        projectFlyfly: resolve(__dirname, 'project-flyfly.html'),
+        projectFubon: resolve(__dirname, 'project-fubon.html'),
+        projectInvicta: resolve(__dirname, 'project-invicta.html')
       }
     },
     // Chunk size warning limit (suppresses large chunk warnings for three.js etc if needed)

@@ -8,7 +8,7 @@
  * • Marquee duplication
  */
 
-/* ── Page Transition ─────────────────────────────────────── */
+/* ── Page Transition ──────────────────────────────────────────── */
 (function () {
     const overlay = document.getElementById('page-transition');
     if (!overlay) return;
@@ -19,8 +19,6 @@
     });
 
     // Intercept same-origin link clicks → fade then navigate
-    // (Xoá sự kiện click này để không còn fade đen khi chuyển trang)
-    /*
     document.addEventListener('click', (e) => {
         const a = e.target.closest('a[href]');
         if (!a) return;
@@ -33,14 +31,13 @@
             href.startsWith('mailto') ||
             href.startsWith('tel') ||
             a.target === '_blank' ||
-            href.startsWith('http') && !href.startsWith(location.origin)
+            (href.startsWith('http') && !href.startsWith(location.origin))
         ) return;
 
         e.preventDefault();
         overlay.classList.add('active');
-        setTimeout(() => { window.location.href = href; }, 440);
+        setTimeout(() => { window.location.href = href; }, 420);
     });
-    */
 })();
 
 /* ── Scroll Reveal (IntersectionObserver) ───────────────── */
@@ -190,5 +187,127 @@
     // Extra insurance for DOM content
     document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, 0);
+    });
+})();
+
+/* ── Service Number Count-Up Animation ──────────────────────── */
+(function () {
+    const accents = document.querySelectorAll('.service-num-accent');
+    if (!accents.length) return;
+
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const target = parseInt(el.textContent, 10);
+            if (isNaN(target)) return;
+            const dur = 900;
+            const start = performance.now();
+            function update(now) {
+                const p = Math.min((now - start) / dur, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                const val = Math.round(eased * target);
+                el.textContent = String(val).padStart(2, '0');
+                if (p < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+            obs.unobserve(el);
+        });
+    }, { threshold: 0.6 });
+
+    accents.forEach(el => obs.observe(el));
+})();
+
+/* ── Orbit Hint Auto-Fade ────────────────────────────────────── */
+(function () {
+    const hint = document.getElementById('orbit-hint');
+    if (!hint) return;
+    // Fade out after 3.5s of no drag interaction
+    let fadeTimer = setTimeout(() => hint.classList.add('fade-out'), 3500);
+    const canvas = document.querySelector('canvas');
+    if (canvas) {
+        const reset = () => {
+            hint.classList.remove('fade-out');
+            clearTimeout(fadeTimer);
+            fadeTimer = setTimeout(() => hint.classList.add('fade-out'), 3000);
+        };
+        canvas.addEventListener('pointerdown', reset);
+    }
+})();
+
+/* ── Loading Screen Percentage Counter ──────────────────────── */
+(function () {
+    const pct = document.getElementById('loading-percent');
+    if (!pct) return;
+    const dur = 1600; // matches loading-bar animation roughly
+    const start = performance.now();
+    function tick(now) {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 2);
+        pct.textContent = Math.round(eased * 100) + '%';
+        if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+})();
+
+/* ── Floating Work Card Thumbnail Preview ────────────────────── */
+(function () {
+    // Only on works page - look for work cards
+    const cards = document.querySelectorAll('.work-card');
+    const previewCards = Array.from(cards).filter(c => c.querySelector('.preview-thumbs'));
+    if (!previewCards.length) return;
+
+    // Create floating preview element
+    const preview = document.createElement('div');
+    preview.id = 'work-thumb-preview';
+    document.body.appendChild(preview);
+
+    let mx = 0, my = 0;
+    let slideshowInterval = null;
+
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX;
+        my = e.clientY;
+        if (preview.classList.contains('visible')) {
+            // Offset so it sits top-right of the cursor
+            preview.style.left = (mx + 20) + 'px';
+            preview.style.top  = (my - 80) + 'px';
+        }
+    });
+
+    previewCards.forEach(card => {
+        const thumbImgs = card.querySelectorAll('.preview-thumbs img');
+        const urls = Array.from(thumbImgs).map(img => img.src);
+        if (!urls.length) return;
+        
+        card.addEventListener('mouseenter', () => {
+            preview.innerHTML = ''; // Clear previous slides
+            
+            const slides = urls.map((url, i) => {
+                const div = document.createElement('div');
+                div.className = 'thumb-slide' + (i === 0 ? ' active' : '');
+                div.style.backgroundImage = `url('${url}')`;
+                preview.appendChild(div);
+                return div;
+            });
+            
+            let current = 0;
+            if (slides.length > 1) {
+                slideshowInterval = setInterval(() => {
+                    slides[current].classList.remove('active');
+                    current = (current + 1) % slides.length;
+                    slides[current].classList.add('active');
+                }, 1200); // 1.2s per slide
+            }
+
+            preview.style.left = (mx + 20) + 'px';
+            preview.style.top  = (my - 80) + 'px';
+            preview.classList.add('visible');
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            preview.classList.remove('visible');
+            clearInterval(slideshowInterval);
+        });
     });
 })();

@@ -168,8 +168,11 @@
                 <span class="loading-studio">STUDIO</span>
             </div>
         </div>
-        <div class="loading-bar-wrap">
-            <div class="loading-bar"></div>
+        <div style="display:flex;align-items:center;gap:1rem;width:160px;">
+            <div class="loading-bar-wrap" style="flex:1;width:auto;">
+                <div class="loading-bar"></div>
+            </div>
+            <span class="loading-percent" id="loading-percent">0%</span>
         </div>
         <div class="loading-label">Initializing 3D Environment</div>
     </div>
@@ -216,7 +219,7 @@
                 </span>
             </a>
             <div class="index-footer">
-                <span>[ Drag to Orbit ]</span>
+                <span id="orbit-hint" class="orbit-hint"><span class="orbit-hint-dot"></span>Drag to Orbit</span>
                 <span>&copy; 2026 VRTX Inc.</span>
             </div>
         </footer>
