@@ -771,9 +771,12 @@
     function expandImages(item) {
       const imgs = item.querySelector(".service-images");
       if (!imgs) return;
+      // Temporarily measure real height
+      imgs.style.visibility = "hidden";
       imgs.style.height = "auto";
       const target = imgs.scrollHeight;
       imgs.style.height = "0";
+      imgs.style.visibility = "";
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           imgs.style.height = target + "px";
@@ -806,6 +809,7 @@
         }
       });
     });
+
 
 
   </script>
