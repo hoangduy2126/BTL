@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VRTX Studio | FlyFly — Travel Agency Web Design</title>
+  <meta name="description"
+    content="FlyFly Travel Agency — A UX/UI web design project by Dima Kurylenko. Crafting digital experiences that inspire travelers and boost bookings." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="icon" type="image/webp" href="./assets/images/VRTX_LOGO.webp" />
+  <style>
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 4rem 3rem 6rem;
+    }
+    @media (max-width: 768px) { main { padding: 3rem 1.5rem 4rem; } }
+
+    /* Back link */
+    .project-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 2.5rem;
+      transition: color 0.25s;
+      text-decoration: none;
+    }
+    .project-back:hover { color: rgba(255,255,255,0.7); }
+    .project-back:hover svg { transform: translateX(-4px); }
+    .project-back svg { transition: transform 0.25s; }
+
+    /* Hero */
+    .project-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: end;
+      padding-bottom: 5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 5rem;
+    }
+    @media (max-width: 768px) {
+      .project-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 3rem; margin-bottom: 3rem; }
+    }
+
+    .project-eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 1.2rem;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 400;
+      line-height: 1.12;
+      margin-bottom: 1.8rem;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .project-subtitle {
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.42);
+      max-width: 480px;
+    }
+
+    .project-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .meta-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 0.45rem;
+    }
+
+    .meta-value {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.5;
+    }
+
+    /* Hero image / video */
+    .hero-image-full {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+    /* 16:9 ratio wrapper for YouTube iframe */
+    .video-ratio {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+    }
+    .video-ratio iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Desc block */
+    .desc-block {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      margin-bottom: 5rem;
+      padding: 4rem;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.02);
+    }
+    @media (max-width: 768px) { .desc-block { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; } }
+
+    .desc-block-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+      padding-top: 0.3rem;
+    }
+
+    .desc-block-text {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.62);
+    }
+
+    /* Section label */
+    .section-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      margin-bottom: 2rem;
+    }
+
+    /* Gallery */
+    .gallery-section { margin-bottom: 5rem; }
+    .gallery-1col { margin-bottom: 1.2rem; }
+    .gallery-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    .gallery-3col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    .gallery-asymmetric { display: grid; grid-template-columns: 2fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    .gallery-asymmetric-rev { display: grid; grid-template-columns: 1fr 2fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+
+    .gallery-img {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+    .gallery-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .gallery-img:hover img { transform: scale(1.03); }
+
+    .h-280 { height: 280px; }
+    .h-360 { height: 360px; }
+    .h-420 { height: 420px; }
+    .h-460 { height: 460px; }
+    .h-520 { height: 520px; }
+    .h-600 { height: 600px; }
+
+    /* Contain mode for UI screenshots (no crop) */
+    .gallery-img.contain img {
+      object-fit: contain;
+      background: #f0f4fc;
+    }
+    .gallery-img.contain-dark img {
+      object-fit: contain;
+      background: #f8faff;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-2col, .gallery-3col, .gallery-asymmetric, .gallery-asymmetric-rev { grid-template-columns: 1fr; }
+      .h-280 { height: 220px; }
+      .h-360, .h-420, .h-460, .h-520 { height: 260px; }
+    }
+
+    /* Spec tags */
+    .spec-row {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+    }
+    .spec-tag {
+      padding: 0.3rem 0.9rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+    }
+
+    /* Next project */
+    .next-project {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 4rem;
+    }
+    .next-project a {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      text-decoration: none;
+    }
+    .next-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+      margin-bottom: 0.7rem;
+    }
+    .next-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      color: rgba(255,255,255,0.8);
+      transition: color 0.3s;
+    }
+    .next-project a:hover .next-title { color: #fff; }
+    .next-arrow {
+      width: 52px; height: 52px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+      transition: border-color 0.3s, color 0.3s, background 0.3s;
+    }
+    .next-project a:hover .next-arrow {
+      border-color: rgba(255,255,255,0.4); color: #fff; background: rgba(255,255,255,0.05);
+    }
+  </style>
+</head>
+
+<body>
+  <script>if(localStorage.getItem('vrtx-theme') === 'light') document.body.classList.add('light-mode');</script>
+
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+  <div id="page-transition"></div>
+  <canvas id="bg-canvas"></canvas>
+
+  <nav id="mobile-nav" class="mobile-nav">
+    <a href="./index.html" class="nav-link">Home</a>
+    <a href="./works.html" class="nav-link active">Work</a>
+    <a href="./services.html" class="nav-link">Services</a>
+    <a href="./about.html" class="nav-link">About</a>
+    <a href="./contact.html" class="pill-btn">Contact Us</a>
+  </nav>
+
+  <div id="page">
+    <header>
+      <a href="./index.html" class="header-logo" aria-label="HOME">
+        <img src="./assets/images/VRTX_LOGO.webp" alt="VRTX Logo" class="logo-mark">
+        <div class="logo-text">
+          <span class="logo-vertex">VRTX</span>
+          <span class="logo-studio">STUDIO</span>
+        </div>
+      </a>
+      <nav class="header-nav">
+        <a href="./index.html" class="nav-link">Home</a>
+        <a href="./works.html" class="nav-link active">Work</a>
+        <a href="./services.html" class="nav-link">Services</a>
+        <a href="./about.html" class="nav-link">About</a>
+        <a href="./contact.html" class="pill-btn">Contact Us</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <a href="./works.html" class="project-back reveal reveal-d1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Selected Works
+      </a>
+
+      <!-- Hero -->
+      <div class="project-hero reveal reveal-d2">
+        <div>
+          <div class="project-eyebrow">Sound Design · Short Film · 2024</div>
+          <h1 class="project-title">Big Take —<br>Sound Design</h1>
+          <p class="project-subtitle">A tense 16mm short film in which two criminals, separately on the run, accidentally choose the same hiding spot — forced to stay silent while eavesdropping on the very people hunting them. Sound design crafted to amplify paranoia, proximity, and dread.</p>
+        </div>
+        <div class="project-meta-grid">
+          <div class="meta-item">
+            <div class="meta-label">Film</div><div class="meta-value">Big Take (2024)</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Format</div><div class="meta-value">16mm Short Film</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Scope</div><div class="meta-value">Sound Design, Foley, Audio Mixing</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Year</div>
+            <div class="meta-value">2024</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Film embed (full width, 16:9) -->
+      <div class="hero-image-full reveal">
+        <div class="video-ratio">
+          <iframe src="https://www.youtube.com/embed/GDv8Iei3h4Y" title="Big Take — Short Film (2024)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- Spec tags -->
+      <div class="spec-row reveal">
+        <span class="spec-tag">Sound Design</span>
+        <span class="spec-tag">Short Film</span>
+        <span class="spec-tag">Audio Mixing</span>
+        <span class="spec-tag">Foley</span>
+        <span class="spec-tag">16mm</span>
+        <span class="spec-tag">2024</span>
+      </div>
+
+      <!-- Description -->
+      <div class="desc-block reveal">
+        <div class="desc-block-label">About the project</div>
+        <div class="desc-block-text">Big Take is a 16mm short film following two criminals — each fleeing separately — who unknowingly choose the same hiding spot. Forced into absolute stillness, they must listen as the very people hunting them close in from outside. The sound design work focused on recreating the suffocation of a confined space: suppressed breathing, footsteps resonating through walls, ambient sound tightening scene by scene. Detailed foley and spatially oriented audio mixing were used to turn every small sound into a threat.</div>
+      </div>
+
+      <!-- Next project -->
+      <div class="next-project reveal">
+
+        <a href="./project-invicta.html">
+          <div>
+            <div class="next-label">Next Project</div>
+            <div class="next-title">Invicta Brand Identity</div>
+          </div>
+          <div class="next-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <p class="tagline">Creating memorable brand experiences for impact.</p>
+      <div class="footer-meta">
+        <span>[ VRTX Studio — Big Take ]</span>
+        <span>&copy; 2026 VRTX Inc.</span>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="./cursor.js"></script>
+  <script type="module" src="./transitions.js"></script>
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [];
+    const PALETTE = [[145,198,188],[225,122,71],[243,235,178],[81,159,168],[145,198,188]];
+    function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+    function initParticles(n = 200) {
+      particles = [];
+      for (let i = 0; i < n; i++) {
+        const c = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+        particles.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.2+0.2, dx: (Math.random()-.5)*.17, dy: (Math.random()-.5)*.17, color: `rgba(${c[0]},${c[1]},${c[2]},`, alpha: Math.random()*.4+.07 });
+      }
+    }
+    function drawFrame() {
+      ctx.clearRect(0,0,W,H);
+      for (const p of particles) {
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = p.color+p.alpha+')'; ctx.fill();
+        p.x+=p.dx; p.y+=p.dy;
+        if(p.x<0) p.x=W; if(p.x>W) p.x=0;
+        if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+      }
+      requestAnimationFrame(drawFrame);
+    }
+    resize(); initParticles(); drawFrame();
+    window.addEventListener('resize', () => { resize(); initParticles(); });
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 40); });
+  </script>
+</body>
+</html>

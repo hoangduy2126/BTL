@@ -51,19 +51,37 @@
       flex-direction: column;
       padding: 3rem;
       margin-bottom: 2.5rem;
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 2px;
       cursor: pointer;
       position: relative;
       transition:
-        background 0.4s,
-        transform 0.4s,
-        box-shadow 0.4s,
-        border-color 0.4s;
+        background 0.35s,
+        transform 0.35s,
+        box-shadow 0.35s,
+        border-color 0.35s;
       overflow: hidden;
+    }
+
+    /* Đường sáng cyan ở trên — giống team-card */
+    .service-item::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(0, 255, 255, 0.5),
+          transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+      animation: nav-gradient-flow 10s ease-in-out infinite;
+      z-index: 2;
     }
 
     .service-expand-icon {
@@ -116,10 +134,14 @@
     }
 
     .service-item:hover {
-      background: rgba(255, 255, 255, 0.06);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      border-color: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.14);
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .service-item:hover::before {
+      opacity: 1;
     }
 
     .service-content {
@@ -424,11 +446,11 @@
             </div>
             <div class="service-images">
               <img
-                src="./assets/images/brand_identity_1.webp"
+                src="./assets/images/Services/brand_identity_1.webp"
                 alt="Brand Identity 1"
               />
               <img
-                src="./assets/images/brand_identity_2.webp"
+                src="./assets/images/Services/brand_identity_2.webp"
                 alt="Brand Identity 2"
               />
             </div>
@@ -470,11 +492,11 @@
             </div>
             <div class="service-images">
               <img
-                src="./assets/images/product_design_1.webp"
+                src="./assets/images/Services/product_design_1.webp"
                 alt="Product Design 1"
               />
               <img
-                src="./assets/images/product_design_2.webp"
+                src="./assets/images/Services/product_design_2.webp"
                 alt="Product Design 2"
               />
             </div>
@@ -516,11 +538,11 @@
             </div>
             <div class="service-images">
               <img
-                src="./assets/images/motion_graphics_1.webp"
+                src="./assets/images/Services/motion_graphics_1.webp"
                 alt="Motion Graphics 1"
               />
               <img
-                src="./assets/images/motion_graphics_2.webp"
+                src="./assets/images/Services/motion_graphics_2.webp"
                 alt="Motion Graphics 2"
               />
             </div>
@@ -561,8 +583,8 @@
               </div>
             </div>
             <div class="service-images">
-              <img src="./assets/images/web_design_1.webp" alt="Web Design 1" />
-              <img src="./assets/images/web_design_2.webp" alt="Web Design 2" />
+              <img src="./assets/images/Services/web_design_1.webp" alt="Web Design 1" />
+              <img src="./assets/images/Services/web_design_2.webp" alt="Web Design 2" />
             </div>
             <div class="service-expand-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -602,11 +624,11 @@
             </div>
             <div class="service-images">
               <img
-                src="./assets/images/audio_design_1.webp"
+                src="./assets/images/Services/audio_design_1.webp"
                 alt="Audio Design 1"
               />
               <img
-                src="./assets/images/audio_design_2.webp"
+                src="./assets/images/Services/audio_design_2.webp"
                 alt="Audio Design 2"
               />
             </div>
