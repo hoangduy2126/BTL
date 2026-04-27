@@ -9,6 +9,7 @@ import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { RGBShiftShader } from "three/addons/shaders/RGBShiftShader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 
 // ── State ──────────────────────────────────────────────────────────────────
 let camera, scene, renderer, composer, controls;
@@ -201,19 +202,42 @@ function loadText() {
         sheenColor: new THREE.Color(0x6677cc),
       });
 
-      // VRTX geometry – massive, deep block letters
-      const geo = new TextGeometry("VRTX", {
+      // ── Per-letter geometry with manual spacing ───────────────────────
+      // TextGeometry has no letter-spacing param, so we create each
+      // character separately, advance a cursor by charWidth + gap,
+      // then merge into one BufferGeometry used by both modes.
+      const LETTER_GAP = 0.9; // extra world-units of space between letters
+      const textOptions = {
         font,
         size: 7.8,
         depth: 3.8,
-        curveSegments: 6, // Reduced to make topology less dense
+        curveSegments: 6,
         bevelEnabled: true,
         bevelThickness: 0.45,
         bevelSize: 0.28,
         bevelOffset: 0,
-        bevelSegments: 4, // Reduced to make topology less dense
-      });
-      geo.center();
+        bevelSegments: 4,
+      };
+
+      const charGeos = [];
+      let cursor = 0;
+      for (const char of 'VRTX') {
+        const cg = new TextGeometry(char, textOptions);
+        cg.computeBoundingBox();
+        const bb = cg.boundingBox;
+        // Flush left edge to cursor position, then advance cursor
+        cg.translate(cursor - bb.min.x, 0, 0);
+        cursor += (bb.max.x - bb.min.x) + LETTER_GAP;
+        charGeos.push(cg);
+      }
+
+      const geo = mergeGeometries(charGeos);
+      geo.computeBoundingBox();
+      // Centre the merged block
+      const mcx = (geo.boundingBox.max.x + geo.boundingBox.min.x) / 2;
+      const mcy = (geo.boundingBox.max.y + geo.boundingBox.min.y) / 2;
+      const mcz = (geo.boundingBox.max.z + geo.boundingBox.min.z) / 2;
+      geo.translate(-mcx, -mcy, -mcz);
 
       const mesh = new THREE.Mesh(geo, mat);
       mesh.castShadow = true;
@@ -222,59 +246,30 @@ function loadText() {
       textMesh = mesh;
       darkMaterial = mat;
 
-      // Generate complex internal wireframe lines with a filter to clean up messy clusters
-      const baseWireGeo = new THREE.WireframeGeometry(geo);
-      const posAttr = baseWireGeo.attributes.position;
-      const newPositions = [];
-      const v1 = new THREE.Vector3();
-      const v2 = new THREE.Vector3();
-
-      for (let i = 0; i < posAttr.count; i += 2) {
-        v1.fromBufferAttribute(posAttr, i);
-        v2.fromBufferAttribute(posAttr, i + 1);
-
-        // Detect if the line lies on the front/back flat faces
-        const isFace = Math.abs(v1.z - v2.z) < 0.05 && Math.abs(v1.z) > 1.0;
-        const dist = v1.distanceTo(v2);
-
-        let keep = true;
-        if (isFace) {
-          // Eliminate the dense "messy" Earcut triangles (especially on the R)
-          if (dist < 0.4) keep = false;
-          else if (dist < 1.0 && Math.random() > 0.4) keep = false; // Add stylized sparsity
-        } else {
-          // Clean up micro-segments on the bevels/sides
-          if (dist < 0.1) keep = false;
-        }
-
-        if (keep) {
-          newPositions.push(v1.x, v1.y, v1.z);
-          newPositions.push(v2.x, v2.y, v2.z);
-        }
-      }
-
-      const wireGeo = new THREE.BufferGeometry();
-      wireGeo.setAttribute(
-        "position",
-        new THREE.Float32BufferAttribute(newPositions, 3),
-      );
-
-      const wireMat = new THREE.LineBasicMaterial({
-        color: 0x519fa8,
-        transparent: true,
-        opacity: 0.45, // Internal cross-bars softer
-      });
-      textEdges = new THREE.LineSegments(wireGeo, wireMat);
-
-      // Layer the structural outline (EdgesGeometry) on top to preserve perfect readability
-      const edgesGeo = new THREE.EdgesGeometry(geo, 15);
+      // ── Clean architectural wireframe for light mode ──────────────────
+      // EdgesGeometry at 10° threshold: captures all real structural edges
+      // (including shallow-angled strokes like the V's diagonals) while
+      // still excluding the ~0° coplanar Earcut flat-face triangulation.
+      const edgesGeo = new THREE.EdgesGeometry(geo, 10);
       const edgesMat = new THREE.LineBasicMaterial({
+        color: 0x3a8a93,
+        transparent: true,
+        opacity: 0.88,
+      });
+      textEdges = new THREE.LineSegments(edgesGeo, edgesMat);
+
+      // Ghost fill: gives the letters body so they don't look hollow.
+      // MeshBasicMaterial with depthWrite:false ensures it never z-fights
+      // with the edge lines sitting on the same geometry.
+      const fillMat = new THREE.MeshBasicMaterial({
         color: 0x519fa8,
         transparent: true,
-        opacity: 0.95, // Sharp, bright outer borders
+        opacity: 0.055,
+        side: THREE.DoubleSide,
+        depthWrite: false,
       });
-      const textOutline = new THREE.LineSegments(edgesGeo, edgesMat);
-      textEdges.add(textOutline);
+      const fillMesh = new THREE.Mesh(geo, fillMat);
+      textEdges.add(fillMesh);
 
       textGroup.add(textEdges);
 
