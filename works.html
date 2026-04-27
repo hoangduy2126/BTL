@@ -379,11 +379,19 @@
             text-transform: uppercase;
             color: #fff;
             white-space: nowrap;
-            transition: color 0.25s;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .client-name:hover {
-            color: rgba(255, 255, 255, 0.8);
+        /* Hover effect: dim others when track is hovered */
+        .marquee-track:hover .client-name {
+            opacity: 0.25;
+        }
+
+        /* Highlight the specific hovered name */
+        .marquee-track .client-name:hover {
+            opacity: 1;
+            color: var(--cyan);
+            transform: scale(1.1);
         }
 
         /* Marquee separator */
@@ -391,6 +399,25 @@
             color: rgba(255, 255, 255, 0.2);
             font-size: 0.5rem;
             flex-shrink: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .marquee-track:hover .client-sep {
+            opacity: 0.1;
+        }
+
+        /* Light Mode Overrides for Clients Section */
+        body.light-mode .clients-section {
+            border-top-color: rgba(0, 0, 0, 0.07);
+        }
+        body.light-mode .clients-label {
+            color: rgba(0, 0, 0, 0.25);
+        }
+        body.light-mode .client-name {
+            color: #111;
+        }
+        body.light-mode .client-sep {
+            color: rgba(0, 0, 0, 0.15);
         }
 
         /* ── Lightbox ─────────────────────────────────────────── */
