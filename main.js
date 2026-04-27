@@ -222,42 +222,59 @@ function loadText() {
       textMesh = mesh;
       darkMaterial = mat;
 
-      // ── Clean architectural wireframe for light mode ──────────────
-      // Primary structural edges – crisp outlines only (no messy
-      // internal Earcut triangulation). Threshold 15° keeps only the
-      // hard corners/silhouette of each letter.
+      // Generate complex internal wireframe lines with a filter to clean up messy clusters
+      const baseWireGeo = new THREE.WireframeGeometry(geo);
+      const posAttr = baseWireGeo.attributes.position;
+      const newPositions = [];
+      const v1 = new THREE.Vector3();
+      const v2 = new THREE.Vector3();
+
+      for (let i = 0; i < posAttr.count; i += 2) {
+        v1.fromBufferAttribute(posAttr, i);
+        v2.fromBufferAttribute(posAttr, i + 1);
+
+        // Detect if the line lies on the front/back flat faces
+        const isFace = Math.abs(v1.z - v2.z) < 0.05 && Math.abs(v1.z) > 1.0;
+        const dist = v1.distanceTo(v2);
+
+        let keep = true;
+        if (isFace) {
+          // Eliminate the dense "messy" Earcut triangles (especially on the R)
+          if (dist < 0.4) keep = false;
+          else if (dist < 1.0 && Math.random() > 0.4) keep = false; // Add stylized sparsity
+        } else {
+          // Clean up micro-segments on the bevels/sides
+          if (dist < 0.1) keep = false;
+        }
+
+        if (keep) {
+          newPositions.push(v1.x, v1.y, v1.z);
+          newPositions.push(v2.x, v2.y, v2.z);
+        }
+      }
+
+      const wireGeo = new THREE.BufferGeometry();
+      wireGeo.setAttribute(
+        "position",
+        new THREE.Float32BufferAttribute(newPositions, 3),
+      );
+
+      const wireMat = new THREE.LineBasicMaterial({
+        color: 0x519fa8,
+        transparent: true,
+        opacity: 0.45, // Internal cross-bars softer
+      });
+      textEdges = new THREE.LineSegments(wireGeo, wireMat);
+
+      // Layer the structural outline (EdgesGeometry) on top to preserve perfect readability
       const edgesGeo = new THREE.EdgesGeometry(geo, 15);
       const edgesMat = new THREE.LineBasicMaterial({
-        color: 0x3a8a93,
-        transparent: true,
-        opacity: 0.92,
-        linewidth: 1,
-      });
-      textEdges = new THREE.LineSegments(edgesGeo, edgesMat);
-
-      // Subtle transparent solid fill behind the wireframe for
-      // depth and body so the letters don't feel hollow/empty.
-      const fillMat = new THREE.MeshBasicMaterial({
         color: 0x519fa8,
         transparent: true,
-        opacity: 0.045,
-        side: THREE.DoubleSide,
-        depthWrite: false,
+        opacity: 0.95, // Sharp, bright outer borders
       });
-      const fillMesh = new THREE.Mesh(geo, fillMat);
-      textEdges.add(fillMesh);
-
-      // Secondary finer edge pass (threshold 1°) at low opacity
-      // adds subtle architectural detail on bevels without the
-      // chaotic triangulation noise of WireframeGeometry.
-      const fineEdgesGeo = new THREE.EdgesGeometry(geo, 1);
-      const fineEdgesMat = new THREE.LineBasicMaterial({
-        color: 0x519fa8,
-        transparent: true,
-        opacity: 0.15,
-      });
-      const fineEdges = new THREE.LineSegments(fineEdgesGeo, fineEdgesMat);
-      textEdges.add(fineEdges);
+      const textOutline = new THREE.LineSegments(edgesGeo, edgesMat);
+      textEdges.add(textOutline);
 
       textGroup.add(textEdges);
 
