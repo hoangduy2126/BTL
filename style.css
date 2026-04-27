@@ -824,6 +824,7 @@ footer {
 .offer-item,
 .approach-item,
 .value-item,
+.testimonial-card,
 .process-step {
     transition: border-color 0.35s, box-shadow 0.35s, background 0.35s, transform 0.3s;
 }
@@ -835,10 +836,21 @@ footer {
 .offer-item:hover,
 .approach-item:hover,
 .value-item:hover,
+.testimonial-card:hover,
 .process-step:hover {
     border-color: rgba(255, 255, 255, 0.22) !important;
     box-shadow: 0 0 32px rgba(255, 255, 255, 0.04), 0 8px 32px rgba(0, 0, 0, 0.4);
     transform: translateY(-4px);
+}
+
+.testimonial-card:hover {
+    border-color: var(--cyan) !important;
+    box-shadow: 0 0 32px rgba(142, 187, 168, 0.15), 0 8px 32px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.testimonial-card:hover::before {
+    color: rgba(255, 255, 255, 0.15);
 }
 
 /* ── Stat number lights up ───────────────────────────────── */
