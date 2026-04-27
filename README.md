@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="assets/images/VRTX_BANNER.webp" alt="VRTX Studio Logo" width="50%"/>
+</p>
+
+
 # VRTX Studio — Portfolio Website
 
 > *Brand Identity · Motion Design · Product Design · Web Design · Sound Engineering*
