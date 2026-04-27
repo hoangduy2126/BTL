@@ -60,7 +60,7 @@ The project was built as a midterm assignment for the Computer Graphics course a
 | Project — Invicta | `project-invicta.html` | Product design & brand identity case study |
 | Project — The Daily Form | `project-dailyform.html` | Brand identity case study |
 | Project — Fubon Guardians | `project-fubon.html` | Motion design & visual identity with video |
-| Project — FlyFly | `project-flyfly.html` | Web design & UX/UI case study |
+| Project — AURA | `project-aura.html` | UI/UX design & Digital Art case study |
 | Project — Big Take | `project-bigtake.html` | Sound design & short film case study |
 
 ---
@@ -111,7 +111,7 @@ vrtxstdio/
 ├── project-invicta.html
 ├── project-dailyform.html
 ├── project-fubon.html
-├── project-flyfly.html
+├── project-aura.html
 ├── project-bigtake.html
 ├── vite.config.js
 ├── package.json
