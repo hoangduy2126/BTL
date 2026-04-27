@@ -252,9 +252,10 @@
 
 /* ── Floating Work Card Thumbnail Preview ────────────────────── */
 (function () {
-    // Only on works page - look for work cards with thumbnails
-    const cards = document.querySelectorAll('.work-card[data-thumb], .work-card[data-thumbs]');
-    if (!cards.length) return;
+    // Only on works page - look for work cards
+    const cards = document.querySelectorAll('.work-card');
+    const previewCards = Array.from(cards).filter(c => c.querySelector('.preview-thumbs'));
+    if (!previewCards.length) return;
 
     // Create floating preview element
     const preview = document.createElement('div');
@@ -274,11 +275,10 @@
         }
     });
 
-    cards.forEach(card => {
-        const thumbsAttr = card.dataset.thumbs || card.dataset.thumb;
-        if (!thumbsAttr) return;
-        
-        const urls = thumbsAttr.split(',').map(u => u.trim());
+    previewCards.forEach(card => {
+        const thumbImgs = card.querySelectorAll('.preview-thumbs img');
+        const urls = Array.from(thumbImgs).map(img => img.src);
+        if (!urls.length) return;
         
         card.addEventListener('mouseenter', () => {
             preview.innerHTML = ''; // Clear previous slides
