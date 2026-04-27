@@ -30,7 +30,7 @@ Live site: [https://vrtxstdio.pages.dev](https://vrtxstdio.pages.dev)
 
 VRTX Studio's portfolio site is designed to reflect the studio's identity: bold, considered, and precise. The homepage features an interactive 3D logo scene built in Three.js that visitors can orbit with their cursor. The rest of the site uses a clean editorial layout to present selected works, services, team, and a contact form.
 
-The project was built as a midterm assignment for the Web Development course at VNU-UET (2026).
+The project was built as a midterm assignment for the Computer Graphics course at VNU-UET (2026).
 
 ---
 
