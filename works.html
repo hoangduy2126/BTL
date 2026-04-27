@@ -49,7 +49,7 @@
 
         .work-card {
             border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 2px;
+            border-radius: 20px;
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
@@ -784,24 +784,27 @@
                     </div>
                 </a>
 
-                <!-- Row 3: FlyFly and Big Take -->
-                <a class="work-card reveal span-5" href="./project-flyfly.html" style="text-decoration:none;display:block;">
+                <!-- Row 3: AURA and Big Take -->
+                <a class="work-card reveal span-5" href="./project-aura.html" style="text-decoration:none;display:block;">
                     <div class="preview-thumbs" style="display:none;">
-                        <img src="./assets/images/Travel Agency FlyFLy by Dima Kurylenko/4 - 1.webp">
-                        <img src="./assets/images/Travel Agency FlyFLy by Dima Kurylenko/4 - 2.webp">
-                        <img src="./assets/images/Travel Agency FlyFLy by Dima Kurylenko/4 - 3.webp">
+                        <img src="./assets/images/AURA%20%E2%80%94%20Digital%20Art%20Exhibition/%E1%BA%A3nh%2024.webp">
+                        <img src="./assets/images/AURA%20%E2%80%94%20Digital%20Art%20Exhibition/%E1%BA%A3nh%2026.webp">
+                        <img src="./assets/images/AURA%20%E2%80%94%20Digital%20Art%20Exhibition/%E1%BA%A3nh%2027.webp">
                     </div>
                     <div class="card-thumb">
-                        <div class="card-thumb-inner"
-                            style="background: url('./assets/images/Travel%20Agency%20FlyFLy%20by%20Dima%20Kurylenko/4%20-%201.webp') center/cover;">
+                        <div class="card-thumb-inner" style="position:relative; background: #000; overflow:hidden;">
+                            <!-- Blurred background filler -->
+                            <div style="position:absolute; inset:-15px; background: url('./assets/images/AURA%20%E2%80%94%20Digital%20Art%20Exhibition/%E1%BA%A3nh%2029.webp') center/cover; filter: blur(15px) brightness(0.7); opacity: 0.6;"></div>
+                            <!-- Rounded project artwork filling the frame - further shrunken -->
+                            <div style="position:absolute; top:22%; bottom:22%; left:12%; right:12%; background: url('./assets/images/AURA%20%E2%80%94%20Digital%20Art%20Exhibition/%E1%BA%A3nh%2029.webp') no-repeat center / cover; z-index: 1; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);"></div>
                         </div>
                         <div class="card-overlay">
                             <div class="overlay-cta">View Project</div>
                         </div>
                     </div>
                     <div class="card-info">
-                        <div class="card-cat">Web Design UX/UI</div>
-                        <div class="card-title">FlyFly Travel Agency</div>
+                        <div class="card-cat">UI/UX Design · Digital Art</div>
+                        <div class="card-title">AURA — Digital Art Exhibition</div>
                         <div class="card-year">2026</div>
                     </div>
                 </a>
