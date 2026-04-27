@@ -227,7 +227,7 @@ function loadText() {
             for (let i = 0; i < posAttr.count; i += 2) {
                 v1.fromBufferAttribute(posAttr, i);
                 v2.fromBufferAttribute(posAttr, i + 1);
-                
+
                 // Detect if the line lies on the front/back flat faces
                 const isFace = Math.abs(v1.z - v2.z) < 0.05 && Math.abs(v1.z) > 1.0;
                 const dist = v1.distanceTo(v2);
@@ -235,7 +235,7 @@ function loadText() {
                 let keep = true;
                 if (isFace) {
                     // Eliminate the dense "messy" Earcut triangles (especially on the R)
-                    if (dist < 0.4) keep = false; 
+                    if (dist < 0.4) keep = false;
                     else if (dist < 1.0 && Math.random() > 0.4) keep = false; // Add stylized sparsity
                 } else {
                     // Clean up micro-segments on the bevels/sides
