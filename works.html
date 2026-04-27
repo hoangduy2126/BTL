@@ -58,7 +58,39 @@
             transition: border-color 0.35s, background 0.35s, transform 0.35s, box-shadow 0.35s, opacity 0.3s;
         }
 
-        /* Đường sáng cyan mờ dần xuất hiện ở trên cùng khi hover — giống team-card */
+        /* ── One-shot glare sweep on hover ─────────────────────── */
+        @keyframes glare-sweep {
+            0%   { transform: translateX(-130%) skewX(-18deg); }
+            100% { transform: translateX(230%)  skewX(-18deg); }
+        }
+
+        .work-card::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 0;
+            width: 55%;
+            height: 140%;
+            pointer-events: none;
+            z-index: 10;
+            background: linear-gradient(
+                105deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.13) 50%,
+                rgba(255, 255, 255, 0.22) 55%,
+                rgba(255, 255, 255, 0.13) 60%,
+                transparent 70%
+            );
+            transform: translateX(-130%) skewX(-18deg);
+            /* Hidden until hovered */
+            visibility: hidden;
+        }
+
+        .work-card:hover::after {
+            visibility: visible;
+            animation: glare-sweep 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
         .work-card::before {
             content: "";
             position: absolute;
@@ -85,6 +117,18 @@
 
         .work-card:hover::before {
             opacity: 1;
+        }
+
+        /* Light mode: brighter glare */
+        body.light-mode .work-card::after {
+            background: linear-gradient(
+                105deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.25) 50%,
+                rgba(255, 255, 255, 0.42) 55%,
+                rgba(255, 255, 255, 0.25) 60%,
+                transparent 70%
+            );
         }
 
         .work-card:hover .card-overlay {
@@ -1091,6 +1135,15 @@
         }
         resize(); initParticles(); drawFrame();
         window.addEventListener('resize', () => { resize(); initParticles(); });
+
+        // ── Re-trigger glare sweep: reset animation on each mouseenter ──
+        document.querySelectorAll('.work-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Force animation restart by toggling the pseudo-element via class
+                card.style.removeProperty('--g'); // no-op, just triggers reflow
+                void card.offsetWidth;            // reflow
+            });
+        });
 
 
     </script>
