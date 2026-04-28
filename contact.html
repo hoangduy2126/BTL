@@ -517,6 +517,10 @@
             transform: translateX(4px);
         }
 
+        #back-to-form:hover .btn-arrow {
+            transform: translateX(-4px);
+        }
+
         /* Success state */
         .success-message {
             display: none;
@@ -568,10 +572,15 @@
             line-height: 1.65;
             max-width: 320px;
         }
+
+        body.light-mode .success-title,
+        body.light-mode .success-sub {
+            color: #000;
+        }
     </style>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function() {
+        (function () {
             // Khởi tạo EmailJS với Public Key của bạn
             // Thay "YOUR_PUBLIC_KEY" bằng key thật từ dashboard EmailJS
             emailjs.init("TpH4A1ecNqW9c63rA");
@@ -580,7 +589,7 @@
 </head>
 
 <body>
-    <script>if(localStorage.getItem('vrtx-theme') === 'light') document.body.classList.add('light-mode');</script>
+    <script>if (localStorage.getItem('vrtx-theme') === 'light') document.body.classList.add('light-mode');</script>
 
     <!-- Custom Cursor -->
     <div id="cursor-dot"></div>
@@ -788,6 +797,9 @@
                         <div class="success-icon">✓</div>
                         <div class="success-title">Message sent.</div>
                         <p class="success-sub">Thank you for reaching out. We'll be in touch within 48 hours.</p>
+                        <button type="button" class="submit-btn" id="back-to-form" style="margin-top: 2rem;">
+                            <span class="btn-arrow">←</span> Go back
+                        </button>
                     </div>
                 </div>
             </div>
@@ -915,25 +927,47 @@
             submitBtn.disabled = true;
 
             const templateParams = {
+                name: document.getElementById('name').value,
                 from_name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
                 from_email: document.getElementById('email').value,
+                reply_to: document.getElementById('email').value,
                 company: document.getElementById('company').value,
                 service: document.getElementById('service').value,
                 budget: selectedBudget,
-                message: document.getElementById('message').value
+                message: document.getElementById('message').value,
+                title: `Dịch vụ: ${document.getElementById('service').value}`, // Khớp với {{title}} trên dashboard
+                time: new Date().toLocaleString('vi-VN'), // Khớp với {{time}} trên dashboard
+                user_avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(document.getElementById('name').value)}&background=random&color=fff&size=128`
             };
 
             emailjs.send('service_ock6tnt', 'template_taa4ws8', templateParams)
-                .then(function(response) {
+                .then(function (response) {
                     console.log('SUCCESS!', response.status, response.text);
                     form.style.display = 'none';
                     success.classList.add('visible');
-                }, function(error) {
+                }, function (error) {
                     console.log('FAILED...', error);
                     submitBtn.innerHTML = 'Send message <span class="btn-arrow">→</span>';
                     submitBtn.disabled = false;
                     alert('Gửi tin nhắn thất bại. Vui lòng kiểm tra lại cấu hình EmailJS hoặc thử lại sau.');
                 });
+        });
+
+        // ── Xử lý quay lại form ────────────────────────────────────
+        document.getElementById('back-to-form').addEventListener('click', () => {
+            const success = document.getElementById('success-message');
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+
+            success.classList.remove('visible');
+            form.style.display = 'block';
+            form.reset(); // Xóa trắng form
+            submitBtn.innerHTML = 'Send message <span class="btn-arrow">→</span>';
+            submitBtn.disabled = false;
+            
+            // Xóa các vết đỏ báo lỗi cũ nếu có
+            document.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
         });
     </script>
 </body>
