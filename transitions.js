@@ -1,3 +1,5 @@
+import Lenis from 'lenis';
+
 /**
  * VRTX Studio — Shared Interactions
  * • Page fade transitions
@@ -7,6 +9,20 @@
  * • Mobile hamburger nav
  * • Marquee duplication
  */
+
+/* ── Smooth Scrolling (Lenis) ───────────────────────────── */
+const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+});
+
+function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+window.lenis = lenis; // Expose globally for components
 
 /* ── Page Transition ──────────────────────────────────────────── */
 (function () {
@@ -123,6 +139,14 @@
         mobileNav.classList.toggle('open', isOpen);
         // Prevent body scroll while open
         document.body.style.overflow = isOpen ? 'hidden' : '';
+        
+        if (window.lenis) {
+            if (isOpen) {
+                window.lenis.stop();
+            } else {
+                window.lenis.start();
+            }
+        }
     });
 
     // Close on link click
@@ -131,6 +155,7 @@
             burger.classList.remove('open');
             mobileNav.classList.remove('open');
             document.body.style.overflow = '';
+            if (window.lenis) window.lenis.start();
         });
     });
 })();
@@ -165,11 +190,16 @@
         const btn = document.getElementById('back-to-top');
         if (!btn) return;
         
-        btn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.lenis) {
+                window.lenis.scrollTo(0, { duration: 1.5 });
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 })();
@@ -180,14 +210,18 @@
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
+    
+    function resetScroll() {
+        window.scrollTo(0, 0);
+        if (window.lenis) {
+            window.lenis.scrollTo(0, { immediate: true });
+        }
+    }
+
     // Scroll to top on load/show
-    window.addEventListener('pageshow', () => {
-        window.scrollTo(0, 0);
-    });
+    window.addEventListener('pageshow', resetScroll);
     // Extra insurance for DOM content
-    document.addEventListener('DOMContentLoaded', () => {
-        window.scrollTo(0, 0);
-    });
+    document.addEventListener('DOMContentLoaded', resetScroll);
 })();
 
 /* ── Service Number Count-Up Animation ──────────────────────── */
