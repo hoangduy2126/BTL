@@ -569,6 +569,14 @@
             max-width: 320px;
         }
     </style>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Khởi tạo EmailJS với Public Key của bạn
+            // Thay "YOUR_PUBLIC_KEY" bằng key thật từ dashboard EmailJS
+            emailjs.init("TpH4A1ecNqW9c63rA");
+        })();
+    </script>
 </head>
 
 <body>
@@ -860,7 +868,7 @@
         function validateField(groupId, inputId, condition, customError) {
             const group = document.getElementById(groupId);
             const input = document.getElementById(inputId);
-            if (!group || !input) return condition;
+            if (!group || !input) return true;
             const valid = condition(input.value.trim());
             group.classList.toggle('has-error', !valid);
             if (customError) {
@@ -902,13 +910,30 @@
                 return;
             }
 
-            // All valid → simulate send
+            // All valid → Send via EmailJS
             submitBtn.textContent = 'Sending…';
             submitBtn.disabled = true;
-            setTimeout(() => {
-                form.style.display = 'none';
-                success.classList.add('visible');
-            }, 1300);
+
+            const templateParams = {
+                from_name: document.getElementById('name').value,
+                from_email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                service: document.getElementById('service').value,
+                budget: selectedBudget,
+                message: document.getElementById('message').value
+            };
+
+            emailjs.send('service_ock6tnt', 'template_taa4ws8', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    form.style.display = 'none';
+                    success.classList.add('visible');
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    submitBtn.innerHTML = 'Send message <span class="btn-arrow">→</span>';
+                    submitBtn.disabled = false;
+                    alert('Gửi tin nhắn thất bại. Vui lòng kiểm tra lại cấu hình EmailJS hoặc thử lại sau.');
+                });
         });
     </script>
 </body>
