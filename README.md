@@ -60,7 +60,7 @@ The project was built as a midterm assignment for the Computer Graphics course a
 | Project — Invicta | `project-invicta.html` | Product design & brand identity case study |
 | Project — The Daily Form | `project-dailyform.html` | Brand identity case study |
 | Project — Fubon Guardians | `project-fubon.html` | Motion design & visual identity with video |
-| Project — AURA | `project-aura.html` | UI/UX design & Digital Art case study |
+| Project — BeFit | `project-aura.html` | UI/UX design & Fitness app case study |
 | Project — Big Take | `project-bigtake.html` | Sound design & short film case study |
 
 ---

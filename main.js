@@ -255,27 +255,27 @@ function loadText() {
 
       // Full rainbow jewel palette — vivid, saturated, church-window quality
       const stainedPalette = [
-        [0.92,0.06,0.10], // ruby red
-        [0.96,0.42,0.04], // fire orange
-        [0.96,0.78,0.04], // golden yellow
-        [0.50,0.88,0.04], // lime
-        [0.06,0.78,0.22], // vivid green
-        [0.04,0.66,0.52], // jade teal
-        [0.04,0.78,0.88], // bright cyan
-        [0.06,0.38,0.92], // cobalt blue
-        [0.06,0.18,0.82], // deep navy
-        [0.40,0.06,0.92], // deep violet
-        [0.62,0.06,0.94], // amethyst
-        [0.88,0.06,0.88], // vivid magenta
-        [0.92,0.06,0.46], // rose crimson
-        [0.96,0.56,0.10], // amber
-        [0.20,0.86,0.60], // spring green
-        [0.92,0.30,0.06], // scarlet
-        [0.14,0.62,0.94], // sky blue
-        [0.78,0.04,0.62], // purple-rose
+        [0.92, 0.06, 0.10], // ruby red
+        [0.96, 0.42, 0.04], // fire orange
+        [0.96, 0.78, 0.04], // golden yellow
+        [0.50, 0.88, 0.04], // lime
+        [0.06, 0.78, 0.22], // vivid green
+        [0.04, 0.66, 0.52], // jade teal
+        [0.04, 0.78, 0.88], // bright cyan
+        [0.06, 0.38, 0.92], // cobalt blue
+        [0.06, 0.18, 0.82], // deep navy
+        [0.40, 0.06, 0.92], // deep violet
+        [0.62, 0.06, 0.94], // amethyst
+        [0.88, 0.06, 0.88], // vivid magenta
+        [0.92, 0.06, 0.46], // rose crimson
+        [0.96, 0.56, 0.10], // amber
+        [0.20, 0.86, 0.60], // spring green
+        [0.92, 0.30, 0.06], // scarlet
+        [0.14, 0.62, 0.94], // sky blue
+        [0.78, 0.04, 0.62], // purple-rose
       ];
 
-      function drng(s){ const x=Math.sin(s*9301+49297)*233280; return x-Math.floor(x); }
+      function drng(s) { const x = Math.sin(s * 9301 + 49297) * 233280; return x - Math.floor(x); }
 
       const vtx = `out vec2 vUv;
 out vec3 vPos;
@@ -307,8 +307,8 @@ in vec2 vUv;
 in vec3 vPos;
 in vec2 vScreen;
 out vec4 fragColor;
-uniform float uS[${NSEEDS*2}];
-uniform float uC[${NSEEDS*3}];
+uniform float uS[${NSEEDS * 2}];
+uniform float uC[${NSEEDS * 3}];
 uniform float uOp;
 uniform float uTime;
 uniform vec2  uMouse; // cursor in NDC (-1..1)
@@ -354,7 +354,7 @@ void main(){
     col = hueShift(col, angle);
 
     // Pane brightness: dimmer at lead edges, bright in pane centre
-    float pane = smoothstep(${LEAD.toFixed(3)}, ${(LEAD*5).toFixed(3)}, edge);
+    float pane = smoothstep(${LEAD.toFixed(3)}, ${(LEAD * 5).toFixed(3)}, edge);
     col *= 0.70 + 0.30 * pane;
 
     // Cathedral backlit glow
@@ -407,7 +407,7 @@ void main(){
         glslVersion: THREE.GLSL3,
         uniforms: {
           uMouse: { value: new THREE.Vector2(0, 0) },
-          uOp:    { value: 0.35 },
+          uOp: { value: 0.35 },
         },
         vertexShader: `
 uniform vec2 uMouse;
@@ -430,27 +430,27 @@ void main(){ fragColor = vec4(0.06, 0.04, 0.02, uOp); }`,
       textEdges.add(new THREE.LineSegments(edgesGeo, edgesMat));
 
       charGeos.forEach((cg, li) => {
-        const seeds  = new Float32Array(NSEEDS * 2);
+        const seeds = new Float32Array(NSEEDS * 2);
         const colors = new Float32Array(NSEEDS * 3);
         // Each letter gets its own random seed layout but the SAME full palette
         const shift = li * 19 + 3;
         for (let k = 0; k < NSEEDS; k++) {
-          seeds[k*2]   = drng(k*2   + shift);
-          seeds[k*2+1] = drng(k*2+1 + shift);
+          seeds[k * 2] = drng(k * 2 + shift);
+          seeds[k * 2 + 1] = drng(k * 2 + 1 + shift);
           // Cycle through the full rainbow palette — all colours in every letter
           const c = stainedPalette[k % stainedPalette.length];
-          colors[k*3]=c[0]; colors[k*3+1]=c[1]; colors[k*3+2]=c[2];
+          colors[k * 3] = c[0]; colors[k * 3 + 1] = c[1]; colors[k * 3 + 2] = c[2];
         }
         const mat = new THREE.ShaderMaterial({
           glslVersion: THREE.GLSL3,
           uniforms: {
-            uS:    { value: seeds  },
-            uC:    { value: colors },
-            uOp:   { value: 1.0                        },
-            uTime: { value: 0                           },
-            uMouse:{ value: new THREE.Vector2(0, 0)     },
+            uS: { value: seeds },
+            uC: { value: colors },
+            uOp: { value: 1.0 },
+            uTime: { value: 0 },
+            uMouse: { value: new THREE.Vector2(0, 0) },
           },
-          vertexShader:   vtx,
+          vertexShader: vtx,
           fragmentShader: frg,
           transparent: true,
           side: THREE.DoubleSide,
@@ -597,7 +597,7 @@ function animate() {
     textEdges.children.forEach(child => {
       if (child.material && child.material.uniforms) {
         const u = child.material.uniforms;
-        if (u.uTime)  u.uTime.value  = t;
+        if (u.uTime) u.uTime.value = t;
         if (u.uMouse) u.uMouse.value.set(mouse.x, mouse.y);
       }
     });

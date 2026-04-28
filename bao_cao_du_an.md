@@ -30,8 +30,7 @@ flowchart TD
 | Module | File | Đầu vào | Đầu ra | Chức năng |
 |:---|:---|:---|:---|:---|
 | Kết xuất 3D | `main.js` | Tọa độ chuột, thời gian (`performance.now`) | Canvas WebGL 60 FPS | Dựng logo 3D, ánh sáng, hậu kỳ (bloom, chromatic aberration) |
-| Tương tác & UX | `transitions.js` | Sự kiện cuộn, click, tải trang | Thay đổi class CSS trên DOM | Chuyển trang, scroll reveal, theme toggle, marquee, bộ đếm số, cuộn mượt (Lenis) |
-| Cuộn mượt | Lenis (thư viện) | Sự kiện cuộn hệ thống | Vị trí cuộn ảo (virtual scroll) | Làm mượt chuyển động cuộn trang, tạo cảm giác cao cấp |
+| Tương tác & UX | `transitions.js` | Sự kiện cuộn, click, tải trang | Thay đổi class CSS trên DOM | Chuyển trang, scroll reveal, theme toggle, marquee, bộ đếm số |
 | Con trỏ tùy chỉnh | `cursor.js` | Tọa độ chuột, loại phần tử hover | Vị trí & trạng thái 2 phần tử DOM | Dot theo sát chuột, ring trễ bằng nội suy tuyến tính (lerp) |
 | Giao diện | `style.css` + `*.html` | CSS Custom Properties, class toggle | Layout hiển thị | Responsive layout, Dark/Light mode, hiệu ứng hover |
 | Hạt nền 2D | Inline script (about, services, works) | Kích thước viewport | Canvas 2D | Vẽ 300 hạt particle trôi nổi làm nền trang |
@@ -84,9 +83,9 @@ vrtxstdio/
 ├── main.js                  # Module kết xuất 3D (Three.js)
 ├── transitions.js           # Module tương tác & UX
 ├── cursor.js                # Module con trỏ tùy chỉnh
-├── style.css                # Hệ thống thiết kế CSS chung (1600+ dòng)
+├── style.css                # Hệ thống thiết kế CSS chung (1586 dòng)
 ├── vite.config.js           # Cấu hình Vite multi-page
-└── package.json             # Dependencies: three ^0.184.0, lenis ^1.3.23, vite ^8.0.9
+└── package.json             # Dependencies: three ^0.184.0, vite ^8.0.9
 ```
 
 **Ánh xạ file → module (Phần III):**
@@ -131,11 +130,8 @@ vrtxstdio/
 8. **Back To Top:** Cuộn mượt về đầu trang bằng `window.scrollTo({ behavior: 'smooth' })`.
 9. **Force Scroll Top:** Đặt `history.scrollRestoration = 'manual'`, ép `scrollTo(0,0)` trên cả `pageshow` và `DOMContentLoaded`.
 10. **Floating Thumbnail:** Tạo phần tử `#work-thumb-preview` hiển thị slideshow ảnh khi hover work card, cập nhật vị trí theo chuột.
-11. **Smooth Scrolling (Lenis):** Khởi tạo `Lenis` với `duration: 1.2`, cấu hình hàm easing `easeOutExpo` để tạo cảm giác cuộn mượt mà và tự nhiên. Đồng bộ hóa với vòng lặp `requestAnimationFrame`.
 
 **Phát sinh kỹ thuật & giải quyết:**
-- *Vấn đề:* Import `lenis` thất bại do chưa cài đặt package.
-- *Giải quyết:* Thực thi `npm install lenis` và cấu hình `transitions.js` để import module này đúng cách.
 - *Vấn đề:* Trình duyệt khôi phục scroll position cũ khi bấm nút Back, gây lệch hiệu ứng reveal.
 - *Giải quyết:* Kết hợp `history.scrollRestoration = 'manual'` với listener trên cả hai sự kiện `pageshow` và `DOMContentLoaded`.
 
