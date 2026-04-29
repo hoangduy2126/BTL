@@ -14,8 +14,9 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 // ── State ──────────────────────────────────────────────────────────────────
 let camera, scene, renderer, composer, controls;
 let textGroup;
-let textMesh; // Keep reference for wireframe toggle
-let textEdges; // Keep reference for the clean edge wireframe
+let textMesh;    // Keep reference for wireframe toggle
+let textEdges;   // Keep reference for the clean wireframe (light mode)
+let wireUniforms = null; // shared uniforms for wireframe animation
 let bloomPass, darkMaterial, lightMaterial;
 let iridLights = []; // coloured spot lights that orbit to fake anisotropy
 
@@ -44,8 +45,8 @@ function init() {
       bloomPass.threshold = light ? 2.0 : 0.65;
     }
     if (textMesh && textEdges) {
-      textMesh.visible = !light;
-      textEdges.visible = light;
+      textMesh.visible   = !light;
+      textEdges.visible  = light;
     }
   });
   observer.observe(document.body, {
@@ -204,36 +205,69 @@ function loadText() {
 
       // ── Per-letter geometry with manual spacing ───────────────────────
       // TextGeometry has no letter-spacing param, so we create each
-      // character separately, advance a cursor by charWidth + gap,
-      // then merge into one BufferGeometry used by both modes.
+      // character separately, advance a cursor by charWidth + gap.
+      // We build TWO merged geometries from identical layout/spacing:
+      //   • geo      — full bevel, used for the dark-mode obsidian mesh
+      //   • wireGeo  — NO bevel, used for edge extraction (light mode)
+      //     Without bevel there are zero ring duplicates, so every
+      //     structural edge (front outline, back outline, side wall,
+      //     curve steps) maps to exactly ONE line.
       const LETTER_GAP = 0.9; // extra world-units of space between letters
+
+      // Shared size/depth so both geometries occupy the same space
+      const BASE_SIZE  = 7.8;
+      const BASE_DEPTH = 3.8;
+
       const textOptions = {
         font,
-        size: 7.8,
-        depth: 3.8,
-        curveSegments: 14,  // higher = smoother curves, no staircase
+        size: BASE_SIZE,
+        depth: BASE_DEPTH,
+        curveSegments: 10,
         bevelEnabled: true,
         bevelThickness: 0.45,
         bevelSize: 0.28,
         bevelOffset: 0,
-        bevelSegments: 8,   // smooth bevel rings
+        bevelSegments: 5,
       };
 
-      const charGeos = [];
+      // Wireframe options — enable bevel for the rounded 4-line thick edge
+      const wireOptions = {
+        font,
+        size: BASE_SIZE,
+        depth: BASE_DEPTH,
+        curveSegments: 10,
+        bevelEnabled: true,
+        bevelThickness: 0.45,
+        bevelSize: 0.28,
+        bevelOffset: 0,
+        bevelSegments: 3, // 3 segments + main edge = 4 lines thick
+      };
+
+      const charGeos     = [];
+      const wireCharGeos = [];
       let cursor = 0;
+
       for (const char of 'VRTX') {
+        // Beveled mesh geometry
         const cg = new TextGeometry(char, textOptions);
         cg.computeBoundingBox();
         const bb = cg.boundingBox;
-        // Flush left edge to cursor position, then advance cursor
         cg.translate(cursor - bb.min.x, 0, 0);
+
+        // Beveled wire geometry — reuse same cursor position
+        const wg = new TextGeometry(char, wireOptions);
+        wg.computeBoundingBox();
+        const wbb = wg.boundingBox;
+        wg.translate(cursor - wbb.min.x, 0, 0);
+
         cursor += (bb.max.x - bb.min.x) + LETTER_GAP;
         charGeos.push(cg);
+        wireCharGeos.push(wg);
       }
 
+      // ── Dark-mode mesh geometry (beveled) ─────────────────────────────
       const geo = mergeGeometries(charGeos);
       geo.computeBoundingBox();
-      // Centre the merged block
       const mcx = (geo.boundingBox.max.x + geo.boundingBox.min.x) / 2;
       const mcy = (geo.boundingBox.max.y + geo.boundingBox.min.y) / 2;
       const mcz = (geo.boundingBox.max.z + geo.boundingBox.min.z) / 2;
@@ -246,226 +280,97 @@ function loadText() {
       textMesh = mesh;
       darkMaterial = mat;
 
-      // ── Stained Glass — LIGHT MODE only ─────────────────────────────────
-      // ONE full-spectrum palette shared by all letters so every pane across
-      // all of VRTX is a different colour from the rainbow — exactly like a
-      // real church stained-glass window where colours mix freely everywhere.
-      const NSEEDS = 18;
+      // ── Light-mode wire geometry (no bevel) ───────────────────────────
+      const wireGeo = mergeGeometries(wireCharGeos);
+      wireGeo.computeBoundingBox();
+      const wcx = (wireGeo.boundingBox.max.x + wireGeo.boundingBox.min.x) / 2;
+      const wcy = (wireGeo.boundingBox.max.y + wireGeo.boundingBox.min.y) / 2;
+      const wcz = (wireGeo.boundingBox.max.z + wireGeo.boundingBox.min.z) / 2;
+      wireGeo.translate(-wcx, -wcy, -wcz);
 
+      wireUniforms = {
+        uTime:  { value: 0.0 },
+        uMouse: { value: new THREE.Vector2(0, 0) },
+      };
 
-      // Full rainbow jewel palette — vivid, saturated, church-window quality
-      const stainedPalette = [
-        [0.92, 0.06, 0.10], // ruby red
-        [0.96, 0.42, 0.04], // fire orange
-        [0.96, 0.78, 0.04], // golden yellow
-        [0.50, 0.88, 0.04], // lime
-        [0.06, 0.78, 0.22], // vivid green
-        [0.04, 0.66, 0.52], // jade teal
-        [0.04, 0.78, 0.88], // bright cyan
-        [0.06, 0.38, 0.92], // cobalt blue
-        [0.06, 0.18, 0.82], // deep navy
-        [0.40, 0.06, 0.92], // deep violet
-        [0.62, 0.06, 0.94], // amethyst
-        [0.88, 0.06, 0.88], // vivid magenta
-        [0.92, 0.06, 0.46], // rose crimson
-        [0.96, 0.56, 0.10], // amber
-        [0.20, 0.86, 0.60], // spring green
-        [0.92, 0.30, 0.06], // scarlet
-        [0.14, 0.62, 0.94], // sky blue
-        [0.78, 0.04, 0.62], // purple-rose
-      ];
+      // 8° threshold on the geometry:
+      //   • Coplanar front/back face triangles  → ~0°  → dropped
+      //   • Curved surface subdivision strips   → ~5-7° → dropped
+      //   • Bevel ring edges                     → >10° → kept
+      //   • Silhouette / outline edges           → ~90° → kept
+      //   • Depth (extrusion side) edges         → ~90° → kept
+      //   • Sharp corner creases (V, T, X)       → >30° → kept
+      const edgesGeo = new THREE.EdgesGeometry(wireGeo, 8);
 
-      function drng(s) { const x = Math.sin(s * 9301 + 49297) * 233280; return x - Math.floor(x); }
-
-      const vtx = `out vec2 vUv;
-out vec3 vPos;
-out vec2 vScreen;
-uniform vec2 uMouse;
-void main(){
-  vUv=uv; vPos=position;
-
-  // Preliminary clip position to get NDC for cursor-distance calc
-  vec4 viewPos = modelViewMatrix * vec4(position, 1.0);
-  vec4 clipPre  = projectionMatrix * viewPos;
-  vec2 ndc      = clipPre.xy / clipPre.w;
-
-  // 3-D bulge: push vertex toward camera proportional to cursor proximity
-  float cdist = distance(ndc, uMouse);
-  float bulge = pow(max(0.0, 1.0 - cdist * 2.0), 2.5) * 3.0;
-  viewPos.z  += bulge;
-
-  vec4 clip = projectionMatrix * viewPos;
-  vScreen   = clip.xy / clip.w;
-  gl_Position = clip;
-}`;
-
-      // Shader has DARK LEAD LINES baked in via Voronoi edge distance —
-      // authentic stained-glass look from the reference images.
-      const LEAD = 0.022;  // lead-came line width in UV space
-      const frg = `precision highp float;
-in vec2 vUv;
-in vec3 vPos;
-in vec2 vScreen;
-out vec4 fragColor;
-uniform float uS[${NSEEDS * 2}];
-uniform float uC[${NSEEDS * 3}];
-uniform float uOp;
-uniform float uTime;
-uniform vec2  uMouse; // cursor in NDC (-1..1)
-
-// Hue rotation matrix — smoothly cycles any RGB colour through the wheel
-vec3 hueShift(vec3 c, float a){
-  float ca=cos(a), sa=sin(a);
-  return clamp(mat3(
-    ca + (1.0-ca)*0.299,      (1.0-ca)*0.299 - sa*0.587, (1.0-ca)*0.299 + sa*0.587,
-    (1.0-ca)*0.587 + sa*0.114, ca + (1.0-ca)*0.587,       (1.0-ca)*0.587 - sa*0.114,
-    (1.0-ca)*0.114 - sa*0.299, (1.0-ca)*0.114 + sa*0.299, ca + (1.0-ca)*0.114
-  ) * c, 0.0, 1.0);
-}
-
-void main(){
-  // Cursor blob: distort UVs near mouse position (Voronoi panes warp)
-  float cursorDist = distance(vScreen, uMouse);
-  float blobR      = max(0.0, 1.0 - cursorDist * 2.2); // falloff radius
-  float blob       = pow(blobR, 2.5);
-  // Push UVs outward from cursor — makes panes look like they "bulge"
-  vec2 blobDir = normalize(vScreen - uMouse + vec2(0.0001));
-  vec2 uv = vUv + sin(vUv.yx * 10.0 + uTime * 0.35) * 0.004
-              + blobDir * blob * 0.06;
-
-  float d0=1e6,d1=1e6; int idx=0;
-  for(int i=0;i<${NSEEDS};i++){
-    vec2 s=vec2(uS[i*2],uS[i*2+1]);
-    float d=distance(uv,s);
-    if(d<d0){d1=d0;d0=d;idx=i;}else if(d<d1){d1=d;}
-  }
-  float edge=d1-d0;
-
-  if(edge < ${LEAD.toFixed(3)}){
-    // ── Lead came: dark near-black line between panes ──────────────
-    float t = edge / ${LEAD.toFixed(3)};
-    fragColor = vec4(0.07,0.04,0.02, mix(1.0, 0.85, t));
-  } else {
-    // ── Glass pane colour with live hue animation ─────────────────
-    vec3 col = vec3(uC[idx*3], uC[idx*3+1], uC[idx*3+2]);
-
-    // Each cell shifts hue at its own speed — no two panes cycle in sync
-    float angle = uTime * 0.9 + float(idx) * 0.52;
-    col = hueShift(col, angle);
-
-    // Pane brightness: dimmer at lead edges, bright in pane centre
-    float pane = smoothstep(${LEAD.toFixed(3)}, ${(LEAD * 5).toFixed(3)}, edge);
-    col *= 0.70 + 0.30 * pane;
-
-    // Cathedral backlit glow
-    float glow = pow(pane, 2.0) * 0.18;
-
-    // Specular gloss
-    float shine = pow(max(0.0, 1.0 - distance(vUv, vec2(0.22,0.80))), 5.0) * 0.55;
-    shine      += pow(max(0.0, 1.0 - distance(vUv, vec2(0.80,0.18))), 7.0) * 0.38;
-
-    // ── Orbiting light deflections — mirror the irid accent lights ─────────
-    // Each blob sweeps across the UV space driven by uTime, just like the
-    // coloured PointLights that orbit the text in dark mode.
-    vec3 irid = vec3(0.0);
-    vec2 lp;
-    float ld;
-    // Crimson sweep
-    lp = vec2(0.5 + cos(uTime*0.42)*0.48, 0.5 + sin(uTime*0.55)*0.42);
-    ld = pow(max(0.0, 1.0 - distance(vUv,lp)*2.6), 4.0);
-    irid += vec3(1.00,0.13,0.40) * ld * 0.50;
-    // Cyan sweep
-    lp = vec2(0.5 + cos(uTime*0.31+2.1)*0.48, 0.5 + sin(uTime*0.38+1.3)*0.42);
-    ld = pow(max(0.0, 1.0 - distance(vUv,lp)*2.6), 4.0);
-    irid += vec3(0.00,0.80,1.00) * ld * 0.45;
-    // Violet sweep
-    lp = vec2(0.5 + cos(uTime*0.55+4.2)*0.48, 0.5 + sin(uTime*0.48+3.1)*0.42);
-    ld = pow(max(0.0, 1.0 - distance(vUv,lp)*2.6), 4.0);
-    irid += vec3(0.67,0.00,1.00) * ld * 0.45;
-    // Gold sweep
-    lp = vec2(0.5 + cos(uTime*0.24+5.8)*0.48, 0.5 + sin(uTime*0.30+2.6)*0.42);
-    ld = pow(max(0.0, 1.0 - distance(vUv,lp)*2.8), 5.0);
-    irid += vec3(1.00,0.55,0.00) * ld * 0.40;
-
-    // Internal iridescence shimmer
-    float shimmer = sin(vPos.x * 10.0 + uTime * 0.5) * 0.015;
-
-    // Cursor hot-spot glow — bright white-hot blob at mouse position
-    vec3 cursorGlow = vec3(1.0, 0.98, 0.95) * pow(blob, 1.2) * 0.65;
-
-    fragColor = vec4(col + glow + shine + irid + shimmer + cursorGlow, uOp);
-  }
-}`;
-
-
-      textEdges = new THREE.Group();
-      const centerOffset = new THREE.Vector3(-mcx, -mcy, -mcz);
-
-      // Outer silhouette lead lines — clean at 22° threshold (no bevel facets)
-      const edgesGeo = new THREE.EdgesGeometry(geo, 22);
-      const edgesMat = new THREE.ShaderMaterial({
+      // ── Wireframe shader ──────────────────────────────────────────────────
+      // Vertex  → gentle mouse-proximity bulge (keeps the interactive feel)
+      // Fragment → spatial sine-wave highlight + mouse hover glow + depth fade
+      const wireMat = new THREE.ShaderMaterial({
         glslVersion: THREE.GLSL3,
-        uniforms: {
-          uMouse: { value: new THREE.Vector2(0, 0) },
-          uOp: { value: 0.35 },
-        },
-        vertexShader: `
+        uniforms: wireUniforms,
+        vertexShader: /* glsl */`
+out  vec3  vWorld;
+out  float vDepth;
 uniform vec2 uMouse;
-void main(){
-  vec4 viewPos = modelViewMatrix * vec4(position, 1.0);
-  vec4 clipPre = projectionMatrix * viewPos;
-  vec2 ndc     = clipPre.xy / clipPre.w;
-  float cdist  = distance(ndc, uMouse);
-  float bulge  = pow(max(0.0, 1.0 - cdist * 2.0), 2.5) * 3.0;
-  viewPos.z   += bulge;
-  gl_Position  = projectionMatrix * viewPos;
+
+void main() {
+  vec4 worldPos = modelMatrix * vec4(position, 1.0);
+  vWorld = worldPos.xyz;
+
+  vec4 viewPos = viewMatrix * worldPos;
+  vDepth       = -viewPos.z;
+
+  vec4 clip    = projectionMatrix * viewPos;
+
+  // Soft bulge toward camera near the cursor
+  vec2  ndc   = clip.xy / clip.w;
+  float cdist = distance(ndc, uMouse);
+  float bulge = pow(max(0.0, 1.0 - cdist * 1.8), 3.0) * 2.2;
+  viewPos.z  += bulge;
+  gl_Position = projectionMatrix * viewPos;
 }`,
-        fragmentShader: `
-out vec4 fragColor;
-uniform float uOp;
-void main(){ fragColor = vec4(0.06, 0.04, 0.02, uOp); }`,
+        fragmentShader: /* glsl */`
+in  vec3  vWorld;
+in  float vDepth;
+out vec4  fragColor;
+uniform float uTime;
+uniform vec2  uMouse;
+
+void main() {
+  // Base: near-black ink with a slight cool tint
+  vec3 base = vec3(0.07, 0.09, 0.13);
+
+  // Travelling-wave highlight — spatial so the pulse looks 3-D
+  float phase = (vWorld.x * 0.18 + vWorld.y * 0.10) - uTime * 1.1;
+  float wave  = pow(max(0.0, sin(phase * 3.14159)), 6.0);
+  vec3  pulse = mix(vec3(0.35, 0.55, 1.00), vec3(0.15, 0.90, 0.85), wave);
+
+  // Mouse-proximity glow — hot-spot brightens edges near the cursor
+  float mx    = uMouse.x * 17.0;
+  float my    = uMouse.y *  9.0;
+  float mdist = distance(vWorld.xy, vec2(mx, my));
+  float hover = pow(max(0.0, 1.0 - mdist * 0.12), 3.0) * 0.55;
+
+  // Depth fade — rear faces slightly desaturate for depth cue
+  float fade  = clamp(1.0 - (vDepth - 28.0) * 0.04, 0.55, 1.0);
+
+  vec3  col   = (base + pulse * (0.35 + wave * 0.45) + vec3(hover)) * fade;
+  float alpha = 0.80 + wave * 0.18 + hover * 0.20;
+
+  fragColor = vec4(col, alpha);
+}`,
         transparent: true,
-        depthWrite: false,
-      });
-      textEdges.add(new THREE.LineSegments(edgesGeo, edgesMat));
-
-      charGeos.forEach((cg, li) => {
-        const seeds = new Float32Array(NSEEDS * 2);
-        const colors = new Float32Array(NSEEDS * 3);
-        // Each letter gets its own random seed layout but the SAME full palette
-        const shift = li * 19 + 3;
-        for (let k = 0; k < NSEEDS; k++) {
-          seeds[k * 2] = drng(k * 2 + shift);
-          seeds[k * 2 + 1] = drng(k * 2 + 1 + shift);
-          // Cycle through the full rainbow palette — all colours in every letter
-          const c = stainedPalette[k % stainedPalette.length];
-          colors[k * 3] = c[0]; colors[k * 3 + 1] = c[1]; colors[k * 3 + 2] = c[2];
-        }
-        const mat = new THREE.ShaderMaterial({
-          glslVersion: THREE.GLSL3,
-          uniforms: {
-            uS: { value: seeds },
-            uC: { value: colors },
-            uOp: { value: 1.0 },
-            uTime: { value: 0 },
-            uMouse: { value: new THREE.Vector2(0, 0) },
-          },
-          vertexShader: vtx,
-          fragmentShader: frg,
-          transparent: true,
-          side: THREE.DoubleSide,
-          depthWrite: false,
-        });
-        const m = new THREE.Mesh(cg, mat);
-        m.position.copy(centerOffset);
-        textEdges.add(m);
+        depthWrite:  false,
+        depthTest:   true,
+        blending:    THREE.NormalBlending,
       });
 
+      textEdges = new THREE.LineSegments(edgesGeo, wireMat);
       textGroup.add(textEdges);
 
       // Trigger initial theme update for text
       const light = document.body.classList.contains("light-mode");
-      textMesh.visible = !light;
+      textMesh.visible  = !light;
       textEdges.visible = light;
       if (light && bloomPass) bloomPass.threshold = 2.0;
 
@@ -592,15 +497,10 @@ function animate() {
     );
   });
 
-  // Update uTime + uMouse for all light-mode stained glass materials
-  if (textEdges && textEdges.children) {
-    textEdges.children.forEach(child => {
-      if (child.material && child.material.uniforms) {
-        const u = child.material.uniforms;
-        if (u.uTime) u.uTime.value = t;
-        if (u.uMouse) u.uMouse.value.set(mouse.x, mouse.y);
-      }
-    });
+  // Update wireframe uniforms once per frame (light mode)
+  if (wireUniforms) {
+    wireUniforms.uTime.value = t;
+    wireUniforms.uMouse.value.set(mouse.x, mouse.y);
   }
 
   controls.update();
