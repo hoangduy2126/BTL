@@ -196,13 +196,13 @@ To modify the 3D scene, edit `main.js`.
 
 ## Team
 
-| Name | Role |
-|---|---|
-| Tran Gia Bao | Marketing Manager |
-| Hoang Duc Duy | Creative Director |
-| Nguyen Pham Son Ha | Senior Designer |
-| Ho Trung Hieu | Senior Sound Engineer |
-| Tran Khanh Long | Digital Artist |
+| Name | Student ID | Contribution |
+|---|---|---|
+| Tran Gia Bao | 24022949 | Team Lead — project planning, implementation direction & report |
+| Nguyen Pham Son Ha | 24022981 | Image integration, bug fixes, project pages editing, text review |
+| Hoang Duc Duy | 24022977 | Concept & demo, UX/UI improvements, general bug fixes |
+| Ho Trung Hieu | 24022989 | Home logo (light mode), Services page images, text review & bug fixes |
+| Tran Khanh Long | 24023025 | Bug fixes, UX/UI improvements, brief submission system |
 
 **VNU-UET** · Vietnam National University, Hanoi
 Course: Computer Graphics — 2526II_CTE2059_1 · 2026
